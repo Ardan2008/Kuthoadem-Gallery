@@ -77,7 +77,7 @@
 </head>
 <body class="bg-[#fafafa] antialiased text-slate-900 overflow-x-hidden">
 
-    <div id="art-loader" class="fixed inset-0 z-[99999] bg-[#050505] overflow-hidden touch-none pointer-events-auto">
+    <div id="art-loader" style="display: none;" class="fixed inset-0 z-[99999] bg-[#050505] overflow-hidden touch-none pointer-events-auto">
         
         <div id="loader-content-wrap" class="relative w-full h-full flex items-center justify-center">
             
@@ -453,66 +453,70 @@
             }, 2000); 
         });
 
+        const hasSeenOpening = sessionStorage.getItem('hasSeenOpening');
+
+        if (hasSeenOpening) {
+            // Gunakan strategi tercepat: hilangkan loader segera tanpa menunggu DOMContentLoaded penuh jika memungkinkan
+            const hideLoader = () => {
+                const loader = document.getElementById('art-loader');
+                if (loader) loader.style.display = 'none';
+                document.body.classList.remove('loading');
+                
+                // Cek apakah AOS sudah ada, jika belum tunggu sebentar
+                if (typeof AOS !== 'undefined') {
+                    AOS.init({ duration: 800, once: true });
+                }
+                document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', hideLoader);
+            } else {
+                hideLoader();
+            }
+        }
+
         window.addEventListener('load', () => {
+            if (hasSeenOpening) return;
+
+            const loader = document.getElementById('art-loader');
+            loader.style.display = 'block';
+            document.body.classList.add('loading');
             window.scrollTo(0, 0);
 
+            // Mempercepat timeline secara keseluruhan
             const tl = gsap.timeline({
+                defaults: { ease: "power3.out" }, // Ease yang lebih "responsif"
                 onComplete: () => {
-                    const loader = document.getElementById('art-loader');
                     loader.style.display = 'none';
                     document.body.classList.remove('loading');
-                    // Aktifkan elemen reveal di website
+                    sessionStorage.setItem('hasSeenOpening', 'true');
                     document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+                    AOS.refresh();
                 }
             });
 
-            // 1. Munculkan elemen dekorasi (Garis)
-            tl.from(".art-line", {
-                opacity: 0,
-                duration: 2,
-                stagger: 0.1,
-                ease: "power2.out"
-            });
+            // --- ANIMASI YANG DIPERCEPAT ---
+            // Stagger dikurangi ke 0.05 agar garis muncul lebih cepat beruntun
+            tl.from(".art-line", { opacity: 0, duration: 1.2, stagger: 0.05 });
 
-            // 2. Munculkan Brand Kuthoadem
-            tl.to("#main-brand", {
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                ease: "expo.out"
-            }, "-=1.2");
+            // Main brand muncul lebih cepat (1.5s -> 1s)
+            tl.to("#main-brand", { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, "-=0.8");
 
-            tl.to("#sub-brand", {
-                opacity: 1,
-                duration: 1,
-                ease: "power2.out"
-            }, "-=0.8");
+            // Sub brand durasi dipotong
+            tl.to("#sub-brand", { opacity: 1, duration: 0.7 }, "-=0.5");
 
-            // 3. Jeda apresiasi
-            tl.to({}, { duration: 1.2 });
+            // Waktu tunggu diam (pause) dikurangi (1.2s -> 0.6s)
+            tl.to({}, { duration: 0.6 });
 
-            // 4. FINAL SWIPE (Sapu Bersih)
             tl.addLabel("exit");
-            
-            // Panel menyapu ke atas
-            tl.to("#swipe-container", {
-                y: "-120%", // Melampaui batas layar agar bersih
-                duration: 1.4,
-                ease: "expo.inOut"
-            }, "exit");
 
-            // SELURUH KONTEN IKUT TERDORONG KE ATAS (Sinkron)
-            tl.to("#loader-content-wrap", {
-                y: "-100%",
-                duration: 1.4,
-                ease: "expo.inOut"
-            }, "exit");
+            // Animasi keluar dibuat lebih agresif (1.4s -> 1s)
+            tl.to("#swipe-container", { y: "-100%", duration: 1, ease: "expo.inOut" }, "exit");
+            tl.to("#loader-content-wrap", { y: "-100%", duration: 1, ease: "expo.inOut" }, "exit");
+            tl.to("#art-loader", { opacity: 0, duration: 0.3 }, "-=0.3");
 
-            // Fade out loader secara halus di akhir
-            tl.to("#art-loader", {
-                opacity: 0,
-                duration: 0.4
-            }, "-=0.4");
+            AOS.init({ duration: 800, once: true });
         });
 
         // Mobile Menu Toggle

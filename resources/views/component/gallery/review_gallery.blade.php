@@ -182,7 +182,7 @@
                         </div>
                         
                         <p class="text-sm font-medium tracking-wide text-zinc-400 group-hover:text-[#D4AF37] transition-colors duration-500">
-                            By Michal
+                            By GingerandCoPrintShop
                         </p>
                     </a>
                     

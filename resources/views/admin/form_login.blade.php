@@ -3,166 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&display=swap" rel="stylesheet">
-    <title>Kuthoadem Gallery | Login Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>Kuthoadem Gallery | Private Access</title>
     <style>
         :root {
             --gold: #FFD700;
-            --dark: #0f0f0f;
-            --grey: #a1a1aa;
+            --dark-bg: #0a0a0a;
         }
-        
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--dark);
-            color: var(--grey);
-            overflow: hidden;
+            background-color: var(--dark-bg);
+            color: #d1d5db;
         }
-
-        .bg-art {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(209, 213, 223, 0.05) 0%, transparent 40%);
-        }
-
-        .line-art {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            height: 1px;
-            width: 100%;
-            opacity: 0.1;
-            transform: rotate(-45deg);
-        }
-
-        .glass-card {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gold);
-        }
-
-        .input-art {
-            background: transparent;
-            border-bottom: 1px solid rgba(209, 213, 223, 0.2);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .input-art:focus {
-            border-bottom: 1px solid var(--gold);
-            padding-left: 12px;
-            outline: none;
-        }
-
-        .btn-gold {
-            background: var(--gold);
-            color: var(--dark);
-            font-weight: 700;
-            letter-spacing: 2px;
+        .input-field {
+            background-color: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
         }
-
+        .input-field:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--gold);
+        }
+        .btn-gold {
+            background-color: var(--gold);
+            color: black;
+            transition: all 0.3s ease;
+        }
         .btn-gold:hover {
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            transform: translateY(-2px);
+            background-color: #e6c200;
+            transform: translateY(-1px);
         }
-
         .btn-outline {
             border: 1px solid rgba(209, 213, 223, 0.2);
-            letter-spacing: 2px;
-            transition: all 0.3s;
+            color: #d1d5db;
+            transition: all 0.3s ease;
         }
-
         .btn-outline:hover {
-            background: rgba(209, 213, 223, 0.05);
-            border-color: var(--grey);
-        }
-
-        .swal2-dark-custom {
-            background: #151515 !important;
-            border: 1px solid var(--gold) !important;
-            border-radius: 0 !important;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: #d1d5db;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
-    
-    <div class="bg-art">
-        <div class="line-art" style="top: 20%"></div>
-        <div class="line-art" style="top: 50%"></div>
-        <div class="line-art" style="top: 80%"></div>
-    </div>
+<body class="min-h-screen flex overflow-x-hidden">
 
-    <div class="glass-card w-full max-w-[550px] p-10 md:p-14">
-        <header class="mb-8">
-            <h2 class="text-xs uppercase tracking-[0.8em] opacity-40 mb-2">Private Access</h2>
-            <h1 class="text-4xl font-light tracking-tighter">
-                Kutho<span class="font-bold italic text-white">adem.</span>
+    <div class="hidden lg:block lg:w-1/2 relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=2000" 
+             alt="Gallery Art" 
+             class="absolute inset-0 w-full h-full object-cover"
+             data-aos="zoom-out" data-aos-duration="2000">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent"></div>
+        
+        <div class="absolute bottom-16 left-16 z-10" data-aos="fade-up" data-aos-delay="500">
+            <h1 class="text-5xl font-light text-gray-300 tracking-tighter">
+                Kutho<span class="font-bold italic">adem.</span>
             </h1>
-            <div class="w-8 h-[2px] bg-yellow-500 mt-4"></div>
-        </header>
-
-        <form id="authForm" class="space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="relative">
-                    <input type="text" id="username" required class="input-art w-full py-3 text-sm placeholder-transparent peer" placeholder="Username">
-                    <label for="username" class="absolute left-0 -top-5 text-[10px] uppercase tracking-[0.3em] opacity-70 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-[10px] peer-focus:text-yellow-500">
-                        Username
-                    </label>
-                </div>
-
-                <div class="relative">
-                    <input type="password" id="password" required class="input-art w-full py-3 text-sm placeholder-transparent peer" placeholder="Password">
-                    <label for="password" class="absolute left-0 -top-5 text-[10px] uppercase tracking-[0.3em] opacity-70 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-[10px] peer-focus:text-yellow-500">
-                        Password
-                    </label>
-                </div>
-            </div>
-
-            <div class="flex flex-row gap-4 pt-4">
-                <button type="button" onclick="confirmCancel()" class="btn-outline flex-1 py-4 text-xs uppercase text-grey-300">
-                    Cancel
-                </button>
-                <button type="submit" class="btn-gold flex-1 py-4 text-xs uppercase">
-                    Login
-                </button>
-            </div>
-        </form>
-
-        <footer class="mt-12 text-center">
-            <div class="flex justify-center items-center gap-4 opacity-60"> <div class="w-12 h-[1px] bg-white"></div>
-                <span class="text-[10px] uppercase tracking-[1em] text-white">Kuthoadem Gallery</span>
-                <div class="w-12 h-[1px] bg-white"></div>
-            </div>
-            <p class="mt-4 opacity-40 text-[8px] uppercase tracking-[0.4em] text-white">
-                Private Collection • All Rights Reserved
-            </p>
-        </footer>
+            <div class="w-12 h-[2px] bg-yellow-500 mt-4 mb-4"></div>
+            <p class="text-gray-300 text-sm uppercase tracking-[0.3em]">Private Collection Portal</p>
+        </div>
     </div>
 
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-[#0a0a0a]">
+        <div class="w-full max-w-md">
+            
+            <div class="mb-12" data-aos="fade-down" data-aos-delay="200">
+                <h2 class="text-gray-300 text-3xl font-bold mb-2 tracking-tight">Gallery Administrator Access</h2>
+                <p class="text-gray-400 text-sm">Sign in to access your dashboard and manage collections.</p>
+            </div>
+
+            <form id="authForm" class="space-y-8">
+                <div class="space-y-2" data-aos="fade-up" data-aos-delay="400">
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-gray-300 font-bold">Username</label>
+                    <input type="text" id="username" required
+                        class="input-field w-full rounded-lg px-5 py-4 text-sm"
+                        placeholder="Enter your username">
+                </div>
+
+                <div class="space-y-2" data-aos="fade-up" data-aos-delay="500">
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-gray-300 font-bold">Password</label>
+                    <input type="password" id="password" required
+                        class="input-field w-full rounded-lg px-5 py-4 text-sm tracking-[0.1em]"
+                        placeholder="••••••••">
+                </div>
+
+                <div class="flex flex-row gap-4 pt-4" data-aos="fade-up" data-aos-delay="600">
+                    <button type="button" onclick="handleCancel()"
+                        class="btn-outline flex-1 font-bold py-5 rounded-lg uppercase text-xs tracking-[0.3em]">
+                        Cancel
+                    </button>
+                    <button type="submit" 
+                        class="btn-gold flex-1 font-bold py-5 rounded-lg uppercase text-xs tracking-[0.3em] shadow-lg shadow-yellow-500/10">
+                        Sign In
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-20 flex flex-col items-center opacity-40" data-aos="fade-in" data-aos-delay="800">
+                <div class="flex items-center gap-4 w-full">
+                    <div class="h-[1px] bg-gray-600 flex-1"></div>
+                    <span class="text-[9px] uppercase tracking-[0.5em] text-gray-300 whitespace-nowrap">Kuthoadem Gallery</span>
+                    <div class="h-[1px] bg-gray-600 flex-1"></div>
+                </div>
+                <p class="mt-4 text-[8px] uppercase tracking-[0.2em] text-gray-400">Secure Environment • 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        const authForm = document.getElementById('authForm');
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out-quart'
+        });
+
         const passwordInput = document.getElementById('password');
         let hideTimeout;
 
@@ -178,53 +137,55 @@
             this.type = 'password';
         });
 
-        authForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        function handleCancel() {
             Swal.fire({
-                title: 'AUTHORIZE?',
-                text: "Confirm access to the primary dashboard.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'YES, PROCEED',
-                cancelButtonText: 'NO',
-                customClass: { popup: 'swal2-dark-custom' },
-                background: '#151515',
-                color: '#fff',
-                confirmButtonColor: '#FFD700',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: 'SUCCESS',
-                        text: 'Opening gallery gates...',
-                        icon: 'success',
-                        timer: 1500,
-                        showConfirmButton: false,
-                        customClass: { popup: 'swal2-dark-custom' }
-                    }).then(() => {
-                        window.location.href = '/';
-                    });
-                }
-            });
-        });
-
-        function confirmCancel() {
-            Swal.fire({
-                title: 'CANCEL?',
-                text: "Terminate the authentication session.",
+                title: 'TERMINATE?',
+                text: "Cancel the sign-in process?",
                 icon: 'question',
+                iconColor: '#FFD700',
                 showCancelButton: true,
-                confirmButtonText: 'YES',
-                cancelButtonText: 'CANCEL',
-                customClass: { popup: 'swal2-dark-custom' },
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
                 background: '#151515',
                 color: '#fff',
                 confirmButtonColor: '#FFD700',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/';
+                    window.location.href = '/'; 
                 }
             });
         }
+
+        document.getElementById('authForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            Swal.fire({
+                title: 'SIGNING IN',
+                text: "Verifying admin access...",
+                icon: 'info',
+                iconColor: '#FFD700',
+                background: '#151515',
+                color: '#fff',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                timer: 1500,
+                didOpen: () => { Swal.showLoading(); }
+            }).then(() => {
+                Swal.fire({
+                    title: 'SUCCESS',
+                    text: 'Sign-in granted. Redirecting...',
+                    icon: 'success',
+                    iconColor: '#FFD700',
+                    background: '#151515',
+                    color: '#fff',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    allowOutsideClick: false
+                }).then(() => {
+                    window.location.href = '/dashboard'; 
+                });
+            });
+        });
     </script>
 </body>
 </html>
