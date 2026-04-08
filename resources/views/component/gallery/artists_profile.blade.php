@@ -144,26 +144,30 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     @foreach($galleryData['home'] as $item)
                     <div class="group" data-aos="zoom-in-up" data-aos-delay="{{ $item['delay'] }}">
-                        {{-- Gaya Collage Gambar (Sama dengan Collections) --}}
-                        <div class="flex gap-1 aspect-[16/10] overflow-hidden mb-5 rounded-sm ring-1 ring-white/5 group-hover:ring-[#C9A74E]/40 transition-all duration-700">
-                            <div class="w-2/3 h-full overflow-hidden bg-zinc-900">
-                                <img src="{{ $item['main_img'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000">
-                            </div>
-                            <div class="w-1/3 flex flex-col gap-1 h-full">
-                                <div class="h-1/2 bg-zinc-800 border-l border-black overflow-hidden">
-                                    <img src="{{ $item['side_img1'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        <a href="/review_gallery" class="block cursor-pointer">
+                            {{-- Gaya Collage Gambar --}}
+                            <div class="flex gap-1 aspect-[16/10] overflow-hidden mb-5 rounded-sm ring-1 ring-white/5 group-hover:ring-[#C9A74E]/40 transition-all duration-700">
+                                <div class="w-2/3 h-full overflow-hidden bg-zinc-900">
+                                    <img src="{{ $item['main_img'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000">
                                 </div>
-                                <div class="h-1/2 bg-zinc-800 border-l border-t border-black overflow-hidden">
-                                    <img src="{{ $item['side_img2'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                <div class="w-1/3 flex flex-col gap-1 h-full">
+                                    <div class="h-1/2 bg-zinc-800 border-l border-black overflow-hidden">
+                                        <img src="{{ $item['side_img1'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                    </div>
+                                    <div class="h-1/2 bg-zinc-800 border-l border-t border-black overflow-hidden">
+                                        <img src="{{ $item['side_img2'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
                         {{-- Container Teks --}}
                         <div class="space-y-1">
-                            <h3 class="text-[#C9A74E] font-serif text-xl italic tracking-wide group-hover:text-gray-300 transition-colors duration-500">
-                                {{ $item['title'] }}
-                            </h3>
+                            <a href="/gallery/{{ Str::slug($item['title']) }}" class="inline-block group-hover:translate-x-1 transition-transform duration-500">
+                                <h3 class="text-[#C9A74E] font-serif text-xl italic tracking-wide group-hover:text-gray-300 transition-colors duration-500">
+                                    {{ $item['title'] }}
+                                </h3>
+                            </a>
                             <p class="text-[9px] text-gray-500 uppercase tracking-[0.2em]">
                                 {{ $item['subtitle'] }}
                             </p>
@@ -185,21 +189,28 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     @foreach($galleryData['collections'] as $col)
                     <div class="group" data-aos="zoom-in-up" data-aos-delay="{{ $col['delay'] }}">
-                        <div class="flex gap-1 aspect-[16/10] overflow-hidden mb-5 rounded-sm ring-1 ring-white/5 group-hover:ring-[#C9A74E]/40 transition-all duration-700">
-                            <div class="w-2/3 h-full overflow-hidden bg-zinc-900">
-                                <img src="{{ $col['main_img'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000">
-                            </div>
-                            <div class="w-1/3 flex flex-col gap-1 h-full">
-                                <div class="h-1/2 bg-zinc-800 border-l border-black overflow-hidden">
-                                    <img src="{{ $col['side_img1'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                        <a href="/review_gallery" class="block cursor-pointer">
+                            <div class="flex gap-1 aspect-[16/10] overflow-hidden mb-5 rounded-sm ring-1 ring-white/5 group-hover:ring-[#C9A74E]/40 transition-all duration-700">
+                                <div class="w-2/3 h-full overflow-hidden bg-zinc-900">
+                                    <img src="{{ $col['main_img'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000">
                                 </div>
-                                <div class="h-1/2 bg-zinc-800 border-l border-t border-black overflow-hidden">
-                                    <img src="{{ $col['side_img2'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                                <div class="w-1/3 flex flex-col gap-1 h-full">
+                                    <div class="h-1/2 bg-zinc-800 border-l border-black overflow-hidden">
+                                        <img src="{{ $col['side_img1'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                                    </div>
+                                    <div class="h-1/2 bg-zinc-800 border-l border-t border-black overflow-hidden">
+                                        <img src="{{ $col['side_img2'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
+                        
                         <div class="space-y-1">
-                            <h3 class="text-[#C9A74E] font-serif text-xl italic tracking-wide group-hover:text-gray-300 transition-colors duration-500">{{ $col['title'] }}</h3>
+                            <a href="/collections/{{ Str::slug($col['title']) }}">
+                                <h3 class="text-[#C9A74E] font-serif text-xl italic tracking-wide group-hover:text-gray-300 transition-colors duration-500">
+                                    {{ $col['title'] }}
+                                </h3>
+                            </a>
                             <p class="text-[9px] text-gray-500 uppercase tracking-[0.2em]">{{ $col['subtitle'] }}</p>
                         </div>
                     </div>
