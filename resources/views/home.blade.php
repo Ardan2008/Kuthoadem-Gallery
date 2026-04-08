@@ -456,13 +456,11 @@
         const hasSeenOpening = sessionStorage.getItem('hasSeenOpening');
 
         if (hasSeenOpening) {
-            // Gunakan strategi tercepat: hilangkan loader segera tanpa menunggu DOMContentLoaded penuh jika memungkinkan
             const hideLoader = () => {
                 const loader = document.getElementById('art-loader');
                 if (loader) loader.style.display = 'none';
                 document.body.classList.remove('loading');
                 
-                // Cek apakah AOS sudah ada, jika belum tunggu sebentar
                 if (typeof AOS !== 'undefined') {
                     AOS.init({ duration: 800, once: true });
                 }
@@ -484,9 +482,8 @@
             document.body.classList.add('loading');
             window.scrollTo(0, 0);
 
-            // Mempercepat timeline secara keseluruhan
             const tl = gsap.timeline({
-                defaults: { ease: "power3.out" }, // Ease yang lebih "responsif"
+                defaults: { ease: "power2.inOut" }, // Transisi lebih halus (smooth)
                 onComplete: () => {
                     loader.style.display = 'none';
                     document.body.classList.remove('loading');
@@ -496,25 +493,51 @@
                 }
             });
 
-            // --- ANIMASI YANG DIPERCEPAT ---
-            // Stagger dikurangi ke 0.05 agar garis muncul lebih cepat beruntun
-            tl.from(".art-line", { opacity: 0, duration: 1.2, stagger: 0.05 });
+            // Munculkan garis-garis pelan dulu (Elegant Entrance)
+            tl.from(".art-line", { 
+                opacity: 0, 
+                duration: 1.5, 
+                stagger: 0.1, // Stagger lebih lambat agar terasa mengalir
+                ease: "power2.out" 
+            });
 
-            // Main brand muncul lebih cepat (1.5s -> 1s)
-            tl.to("#main-brand", { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, "-=0.8");
+            // Main brand muncul dengan gerakan naik yang dramatis tapi tenang
+            tl.to("#main-brand", { 
+                opacity: 1, 
+                y: 0, 
+                duration: 1.4, 
+                ease: "expo.out" 
+            }, "-=1"); // Tumpang tindih sedikit dengan art-line
 
-            // Sub brand durasi dipotong
-            tl.to("#sub-brand", { opacity: 1, duration: 0.7 }, "-=0.5");
+            // Sub brand muncul perlahan setelah main brand
+            tl.to("#sub-brand", { 
+                opacity: 1, 
+                duration: 1, 
+                ease: "power1.out" 
+            }, "-=0.6");
 
-            // Waktu tunggu diam (pause) dikurangi (1.2s -> 0.6s)
-            tl.to({}, { duration: 0.6 });
+            // Jeda baca 
+            tl.to({}, { duration: 1.2 });
 
             tl.addLabel("exit");
 
-            // Animasi keluar dibuat lebih agresif (1.4s -> 1s)
-            tl.to("#swipe-container", { y: "-100%", duration: 1, ease: "expo.inOut" }, "exit");
-            tl.to("#loader-content-wrap", { y: "-100%", duration: 1, ease: "expo.inOut" }, "exit");
-            tl.to("#art-loader", { opacity: 0, duration: 0.3 }, "-=0.3");
+            // 5. Animasi keluar yang mewah (Slow to Fast)
+            tl.to("#swipe-container", { 
+                y: "-100%", 
+                duration: 1.3, 
+                ease: "expo.inOut" 
+            }, "exit");
+
+            tl.to("#loader-content-wrap", { 
+                y: "-120%", 
+                duration: 1.5, 
+                ease: "expo.inOut" 
+            }, "exit");
+
+            tl.to("#art-loader", { 
+                opacity: 0, 
+                duration: 0.5 
+            }, "-=0.4");
 
             AOS.init({ duration: 800, once: true });
         });
