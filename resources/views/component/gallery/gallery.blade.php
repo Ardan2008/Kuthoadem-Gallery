@@ -89,10 +89,10 @@
 
             <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
                 @foreach($gallery as $item)
-                <a href="/review_gallery" class="group block" data-aos="fade-up">
-                    
+                <div class="group block relative" data-aos="fade-up">
+                    <a href="/review_gallery" class="absolute inset-0 z-10" aria-label="View Gallery"></a>
+
                     <div class="relative flex gap-2 h-[450px] overflow-hidden mb-8 transition-all duration-700 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,1)]">
-                        
                         <div class="w-2/3 h-full overflow-hidden bg-zinc-950 grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out">
                             <img src="{{ $item['main_img'] }}" alt="{{ $item['title'] }}" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000">
                         </div>
@@ -121,11 +121,15 @@
                             </h3>
                         </div>
                         <div class="flex justify-between items-center text-[10px] uppercase tracking-[0.4em] text-zinc-500 pl-0 group-hover:pl-4 transition-all duration-700">
-                            <span class="group-hover:text-[#d1d5db] transition-colors">By {{ $item['author'] }}</span>
-                            <span class="text-[#c9a74e]/40 group-hover:text-[#c9a74e] transition-colors">{{ $item['count'] }} pieces</span>
+                            
+                            <a href="/artists_profile" class="relative z-20 group/author inline-block hover:text-white transition-colors">
+                                <span>By {{ $item['author'] }}</span>
+                            </a>
+
+                            <span class="text-[#c9a74e]/40 group-hover:text-[#c9a74e] transition-colors relative z-20">{{ $item['count'] }} pieces</span>
                         </div>
                     </div>
-                </a>
+                </div>
                 @endforeach
             </section>
 

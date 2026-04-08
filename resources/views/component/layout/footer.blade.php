@@ -91,11 +91,9 @@
                 <h4 class="text-gold uppercase tracking-[0.4em] text-[10px] font-bold mb-10 flex items-center gap-2">
                     <span class="w-6 h-[1px] bg-gold/30"></span> Explore
                 </h4>
-                <ul class="space-y-4 text-[13px] font-light text-slate-400">
-                    <li><a href="/collection" class="hover:text-gold transition-all flex items-center gap-3 group"><span class="w-0 h-[1px] bg-gold transition-all group-hover:w-4"></span> Collection</a></li>
+                <ul class="space-y-4 text-[14px] font-light text-slate-400">
                     <li><a href="/artists" class="hover:text-gold transition-all flex items-center gap-3 group"><span class="w-0 h-[1px] bg-gold transition-all group-hover:w-4"></span> Artists</a></li>
-                    <li><a href="/exhibitions" class="hover:text-gold transition-all flex items-center gap-3 group"><span class="w-0 h-[1px] bg-gold transition-all group-hover:w-4"></span> Exhibitions</a></li>
-                    <li><a href="/curations" class="hover:text-gold transition-all flex items-center gap-3 group"><span class="w-0 h-[1px] bg-gold transition-all group-hover:w-4"></span> Curations</a></li>
+                    <li><a href="/gallery" class="hover:text-gold transition-all flex items-center gap-3 group"><span class="w-0 h-[1px] bg-gold transition-all group-hover:w-4"></span> Gallery</a></li>
                 </ul>
             </div>
 

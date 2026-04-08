@@ -75,7 +75,7 @@
         }
     </style>
 </head>
-<body class="bg-[#fafafa] antialiased text-slate-900 overflow-x-hidden">
+<body class="bg-[#fafafa] antialiased text-gray-300 overflow-x-hidden">
 
     <div id="art-loader" style="display: none;" class="fixed inset-0 z-[99999] bg-[#050505] overflow-hidden touch-none pointer-events-auto">
         
@@ -170,7 +170,7 @@
                     <div class="absolute -top-12 -right-8 w-24 h-24 border-r border-t border-amber-400/20 -z-10 hidden md:block [transform:translateZ(-20px)]"></div>
                     
                     <div class="float-art relative overflow-hidden w-64 md:w-80 h-[400px] md:h-[500px] 
-                                border-[1px] border-amber-400/20 p-4 bg-slate-950/80 backdrop-blur-sm 
+                                border-[1px] border-amber-400/20 p-4 bg-black/35 backdrop-blur-sm 
                                 shadow-[0_20px_50px_rgba(0,0,0,0.8)] 
                                 transition-all duration-700 
                                 group-hover:border-amber-400/50 group-hover:shadow-amber-400/5
@@ -206,24 +206,20 @@
     <section class="max-w-[1600px] mx-auto px-6 -translate-y-16 relative z-30">
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
             <?php 
-            $categories = [
-                ['name' => 'Abstract', 'img' => '45'],
-                ['name' => 'Figurative', 'img' => '46'],
-                ['name' => 'Landscape', 'img' => '47'],
-                ['name' => 'Poster', 'img' => '48'],
-                ['name' => 'Mythology', 'img' => '49']
-            ];
-            foreach ($categories as $index => $cat): 
+            // Data disederhanakan hanya ID gambar saja
+            $galleryImages = ['45', '46', '47', '48', '49'];
+            
+            foreach ($galleryImages as $imgId): 
             ?>
-                <a href="#" class="relative h-56 md:h-80 overflow-hidden group bg-[#1a1a1a] border border-white/5 shadow-2xl">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-40 transition-all z-10"></div>
-                    <img src="https://picsum.photos/600/800?random=<?php echo $cat['img']; ?>" 
-                        class="absolute inset-0 object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[2s]" alt="">
-                    <div class="absolute bottom-0 left-0 w-full p-6 z-20">
-                        <span class="block text-[9px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-all uppercase tracking-widest">0<?php echo $index + 1; ?> / COLLECTION</span>
-                        <h3 class="text-gray-300 font-serif italic text-xl md:text-2xl group-hover:text-[#C9A74E] transition-colors"><?php echo $cat['name']; ?></h3>
-                    </div>
-                </a>
+                <div class="relative h-56 md:h-80 overflow-hidden group bg-[#1a1a1a] border border-white/5 shadow-2xl block">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-30 transition-all z-10 duration-700"></div>
+                    
+                    <img src="https://picsum.photos/600/800?random=<?php echo $imgId; ?>" 
+                        class="absolute inset-0 object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 ease-out" 
+                        alt="Gallery Artwork">
+
+                </div>
             <?php endforeach; ?>
         </div>
     </section>
@@ -319,7 +315,7 @@
     <?php
     $featured_arts = [
         ["title" => "Whispers of the Orient", "medium" => "By Debora Lee", "year" => "2024", "price" => "$4,200", "image" => "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&q=80&w=800"],
-        ["title" => "The Silent Observer", "medium" => "By Marcus Chen", "year" => "19th Century", "price" => "$12,500", "image" => "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=800"],
+        ["title" => "The Silent Observer", "medium" => "By Marcus Chen", "year" => "2025", "price" => "$12,500", "image" => "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=800"],
         ["title" => "Ethereal Bloom", "medium" => "By Alex Rivera", "year" => "2026", "price" => "$1,850", "image" => "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800"],
         ["title" => "Oceanic Abstract", "medium" => "By Jordan Smith", "year" => "2023", "price" => "$3,100", "image" => "https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=800&auto=format&fit=crop"],
         ["title" => "Midnight Sculpt", "medium" => "By Sarah Johnson", "year" => "2025", "price" => "$950", "image" => "https://images.unsplash.com/photo-1576769267415-9642010aa962?auto=format&fit=crop&q=80&w=800"],
@@ -366,7 +362,7 @@
                                 
                                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
                                     <div class="transform translate-y-10 group-hover:translate-y-0 transition-all duration-500">
-                                        <a href="profile_gallery" class="px-10 py-4 border border-[#C9A74E] text-[#C9A74E] text-[9px] uppercase tracking-[0.5em] hover:bg-[#C9A74E] hover:text-black transition-colors duration-300 cursor-pointer font-bold inline-block">
+                                        <a href="/review_gallery" class="px-10 py-4 border border-[#C9A74E] text-[#C9A74E] text-[9px] uppercase tracking-[0.5em] hover:bg-[#C9A74E] hover:text-black transition-colors duration-300 cursor-pointer font-bold inline-block">
                                             View Work
                                         </a>
                                     </div>
@@ -388,10 +384,12 @@
                             </div>
                             
                             <div class="flex justify-between items-center opacity-60 group-hover:opacity-100 transition-opacity">
-                                <p class="text-[9px] text-gray-300 uppercase tracking-[0.3em] font-medium">
-                                    <?php echo $art['medium']; ?>
-                                </p>
-                                <p class="text-[9px] text-gray-300 italic font-serif">
+                                <a href="/artists_profile" class="group inline-block">
+                                    <p class="text-[9px] text-gray-300 uppercase tracking-[0.3em] font-medium transition-colors group-hover:text-white">
+                                        <?php echo $art['medium']; ?>
+                                    </p>
+                                </a>
+                                <p class="text-[15px] text-gray-300 italic font-serif">
                                     <?php echo $art['year']; ?>
                                 </p>
                             </div>
