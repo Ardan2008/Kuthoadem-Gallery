@@ -170,7 +170,7 @@
                     <div class="absolute -top-12 -right-8 w-24 h-24 border-r border-t border-amber-400/20 -z-10 hidden md:block [transform:translateZ(-20px)]"></div>
                     
                     <div class="float-art relative overflow-hidden w-64 md:w-80 h-[400px] md:h-[500px] 
-                                border-[1px] border-amber-400/20 p-4 bg-black/35 backdrop-blur-sm 
+                                border-[1px] border-amber-400/20 p-4 bg-[#0a0a0a] backdrop-blur-sm 
                                 shadow-[0_20px_50px_rgba(0,0,0,0.8)] 
                                 transition-all duration-700 
                                 group-hover:border-amber-400/50 group-hover:shadow-amber-400/5
