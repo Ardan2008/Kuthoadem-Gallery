@@ -44,3 +44,49 @@ Route::get('/profile_art', function () {
 Route::get('/form_login', function () {
     return view('admin.form_login');
 })->name('form_login');
+
+// Master 
+Route::get('/master', function () {
+    return view('admin.dashboard.master');
+})->name('master');
+
+// Sidebar
+Route::get('/sidebar', function () {
+    return view('admin.dashboard.layouts.sidebar');
+})->name('sidebar');
+
+// main ------
+
+// insights
+Route::get('/insights', function () {
+    return view('admin.dashboard.main.insights');
+})->name('insights');
+
+// artworks
+Route::get('/artworks', function () {
+    return view('admin.dashboard.main.artworks');
+})->name('artworks');
+
+// transactions
+Route::get('/transactions', function () {
+    return view('admin.dashboard.main.transactions');
+})->name('transactions');
+
+
+// features -------
+
+// collectors
+Route::get('/collectors', function () {
+    return view('admin.dashboard.features.collectors');
+})->name('collectors');
+
+// submit_artworks
+Route::get('/submit_artworks', function () {
+    return view('admin.dashboard.features.submit_artworks');
+})->name('submit_artworks');
+
+// tools
+
+Route::get('/featured', function () {
+    return view('admin.dashboard.tools.featured');
+})->name('featured');

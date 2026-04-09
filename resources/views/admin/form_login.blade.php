@@ -250,7 +250,7 @@
                     timer: 2000,
                     allowOutsideClick: false
                 }).then(() => {
-                    window.location.href = '/dashboard'; 
+                    window.location.href = '/master'; 
                 });
             });
         });
