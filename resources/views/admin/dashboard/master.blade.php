@@ -5,160 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuthoadem Gallery | Admin Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        @keyframes shimmer { to { background-position: 200% center; } }
+        .animate-shimmer { animation: shimmer 3s linear infinite; }
+        
+        .hidden-modal { display: none !important; }
+        
+        .fade-in { animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .swal2-container {
+            z-index: 10001 !important;
+        }
+
+        /* Animasi Getar */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        .shake-error {
+            animation: shake 0.3s ease-in-out;
+            border-color: #ef4444 !important; /* Warna merah (Red-500) */
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        }
     </style>
 </head>
-<body class="bg-[#1a1a1a] text-gray-300 antialiased font-sans" x-data="{ sidebarOpen: false }">
+<body class="bg-[#1a1a1a] text-gray-300 antialiased font-sans">
 
     <div class="flex h-screen overflow-hidden">
-        <div x-show="sidebarOpen" @click="sidebarOpen = false" 
-            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden">
-        </div>
+        <div id="sidebarOverlay" onclick="toggleSidebar(false)" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden hidden"></div>
 
         @include('admin.dashboard.layouts.sidebar')
 
-        <div class="flex flex-col flex-1 min-w-0 overflow-hidden bg-neutral-900">
-            
-            <header class="flex items-center justify-between p-6 border-b bg-neutral-950/50 backdrop-blur-md border-neutral-800 sticky top-0 z-30 lg:bg-transparent">
-                <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = true" class="p-2 -ml-2 text-gray-400 lg:hidden hover:text-yellow-500 transition-colors">
-                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
+        <div class="flex flex-col flex-1 min-w-0 overflow-hidden bg-[#1a1a1a]">
+            <header class="flex items-center justify-between p-5 border-b bg-[#1a1a1a] border-neutral-800/60 sticky top-0 z-30">
+                <div class="flex items-center gap-5">
+                    <button onclick="toggleSidebar(true, event)" class="p-2.5 lg:hidden text-gray-400 hover:text-yellow-500 rounded-xl">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
                     </button>
-                    <h1 class="text-xl font-bold text-gray-300 lg:text-3xl tracking-tight">Admin Dashboard</h1>
+                    <h1 class="text-xl font-black text-white lg:text-3xl italic uppercase">
+                        <span class="bg-gradient-to-r from-white via-gray-400 to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer">Admin Dashboard</span>
+                    </h1>
                 </div>
 
-                <div class="relative" x-data="{ 
-                    profileOpen: false, 
-                    showModal: false, 
-                    isLoading: false,
-                    confirmLogout() {
-                        this.isLoading = true;
-                        // Simulate loading for 2 seconds before submitting
-                        setTimeout(() => {
-                            document.getElementById('logout-form').submit();
-                        }, 2000);
-                    }
-                }" @click.away="profileOpen = false">
-                    
-                    <button @click="profileOpen = !profileOpen" class="flex items-center focus:outline-none group">
+                <div class="relative">
+                    <button onclick="toggleProfileDropdown(event)" id="profileButton" 
+                        class="flex items-center p-1.5 rounded-full border border-neutral-800 bg-neutral-900/50 hover:border-yellow-500/50 transition-all group">
+                        
                         <img src="https://api.dicebear.com/8.x/notionists/svg?seed=user" 
-                            class="w-10 h-10 border-2 rounded-full border-neutral-700 group-hover:border-yellow-500/50 transition-all duration-300">
+                            class="w-10 h-10 lg:w-12 lg:h-12 rounded-full ring-2 ring-neutral-800 group-hover:ring-yellow-500/30 transition-all">
+                        
+                        <div class="hidden md:block px-4 text-left">
+                            <p class="text-sm font-bold text-gray-200 tracking-wide">Alex Morgan</p>
+                            <p class="text-[11px] text-gray-500 font-medium">Super Admin</p>
+                        </div>
                     </button>
 
-                    <div x-show="profileOpen" 
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 scale-95 translate-y-[-10px]"
-                        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                        x-transition:leave="transition ease-in duration-75"
-                        class="absolute right-0 mt-3 w-48 origin-top-right rounded-xl border border-neutral-800 bg-[#1a1a1a] shadow-2xl z-50 overflow-hidden">
-                        
-                        <div class="py-2">
-                            <a href="/settings" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:bg-neutral-800 hover:text-yellow-500 transition-all group">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24">
-                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                        <path stroke-dasharray="22" d="M12 9c1.66 0 3 1.34 3 3c0 1.66 -1.34 3 -3 3c-1.66 0 -3 -1.34 -3 -3c0 -1.66 1.34 -3 3 -3Z">
-                                            <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="22;0"/>
-                                        </path>
-                                        <path stroke-dasharray="44" stroke-dashoffset="44" d="M12 5.5c3.59 0 6.5 2.91 6.5 6.5c0 3.59 -2.91 6.5 -6.5 6.5c-3.59 0 -6.5 -2.91 -6.5 -6.5c0 -3.59 2.91 -6.5 6.5 -6.5Z">
-                                            <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.5s" to="0"/>
-                                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="0"/>
-                                        </path>
-                                        <path d="M15.24 6.37c0.41 0.23 0.8 0.51 1.14 0.83c0 0 2.62 -1.08 2.63 -1.06c0 0 1.56 2.7 1.56 2.7c0.01 0.03 -2.22 1.75 -2.22 1.75c0.1 0.45 0.15 0.93 0.15 1.41" opacity="0">
-                                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="1"/>
-                                            <animate fill="freeze" attributeName="d" begin="0.8s" dur="0.2s" values="M15.24 6.37c0.41 0.23 0.8 0.51 1.14 0.83c0.22 0.2 0.42 0.41 0.61 0.63c0.47 0.57 0.86 1.22 1.12 1.94c0.09 0.26 0.17 0.54 0.24 0.82c0.1 0.45 0.15 0.93 0.15 1.41;M15.24 6.37c0.41 0.23 0.8 0.51 1.14 0.83c0 0 2.62 -1.08 2.63 -1.06c0 0 1.56 2.7 1.56 2.7c0.01 0.03 -2.22 1.75 -2.22 1.75c0.1 0.45 0.15 0.93 0.15 1.41"/>
-                                        </path>
-                                        <path d="M18.5 11.99c0.01 0.47 -0.04 0.95 -0.15 1.4c0 0 2.25 1.73 2.23 1.75c0 0 -1.56 2.7 -1.56 2.7c-0.02 0.02 -2.63 -1.05 -2.63 -1.05c-0.34 0.31 -0.73 0.59 -1.15 0.83" opacity="0">
-                                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="1"/>
-                                            <animate fill="freeze" attributeName="d" begin="0.8s" dur="0.2s" values="M18.5 11.99c0.01 0.47 -0.04 0.95 -0.15 1.4c-0.06 0.29 -0.15 0.57 -0.24 0.84c-0.26 0.69 -0.63 1.35 -1.12 1.94c-0.18 0.21 -0.38 0.42 -0.59 0.62c-0.34 0.31 -0.73 0.59 -1.15 0.83;M18.5 11.99c0.01 0.47 -0.04 0.95 -0.15 1.4c0 0 2.25 1.73 2.23 1.75c0 0 -1.56 2.7 -1.56 2.7c-0.02 0.02 -2.63 -1.05 -2.63 -1.05c-0.34 0.31 -0.73 0.59 -1.15 0.83"/>
-                                        </path>
-                                        <path d="M15.26 17.62c-0.4 0.24 -0.84 0.44 -1.29 0.57c0 0 -0.37 2.81 -0.4 2.81c0 0 -3.12 0 -3.12 0c-0.03 -0.01 -0.41 -2.8 -0.41 -2.8c-0.44 -0.14 -0.88 -0.34 -1.3 -0.58" opacity="0">
-                                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="1"/>
-                                            <animate fill="freeze" attributeName="d" begin="0.8s" dur="0.2s" values="M15.26 17.62c-0.4 0.24 -0.84 0.44 -1.29 0.57c-0.28 0.09 -0.57 0.16 -0.85 0.21c-0.73 0.12 -1.49 0.13 -2.24 0c-0.27 -0.05 -0.55 -0.12 -0.83 -0.2c-0.44 -0.14 -0.88 -0.34 -1.3 -0.58;M15.26 17.62c-0.4 0.24 -0.84 0.44 -1.29 0.57c0 0 -0.37 2.81 -0.4 2.81c0 0 -3.12 0 -3.12 0c-0.03 -0.01 -0.41 -2.8 -0.41 -2.8c-0.44 -0.14 -0.88 -0.34 -1.3 -0.58"/>
-                                        </path>
-                                        <path d="M8.76 17.63c-0.41 -0.23 -0.8 -0.51 -1.14 -0.83c0 0 -2.62 1.08 -2.63 1.06c0 0 -1.56 -2.7 -1.56 -2.7c-0.01 -0.03 2.22 -1.75 2.22 -1.75c-0.1 -0.45 -0.15 -0.93 -0.15 -1.41" opacity="0">
-                                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="1"/>
-                                            <animate fill="freeze" attributeName="d" begin="0.8s" dur="0.2s" values="M8.76 17.63c-0.41 -0.23 -0.8 -0.51 -1.14 -0.83c-0.22 -0.2 -0.42 -0.41 -0.61 -0.63c-0.47 -0.57 -0.86 -1.22 -1.12 -1.94c-0.09 -0.26 -0.17 -0.54 -0.24 -0.82c-0.1 -0.45 -0.15 -0.93 -0.15 -1.41;M8.76 17.63c-0.41 -0.23 -0.8 -0.51 -1.14 -0.83c0 0 -2.62 1.08 -2.63 1.06c0 0 -1.56 -2.7 -1.56 -2.7c-0.01 -0.03 2.22 -1.75 2.22 -1.75c-0.1 -0.45 -0.15 -0.93 -0.15 -1.41"/>
-                                        </path>
-                                        <path d="M5.5 12.01c-0.01 -0.47 0.04 -0.95 0.15 -1.4c0 0 -2.25 -1.73 -2.23 -1.75c0 0 1.56 -2.7 1.56 -2.7c0.02 -0.02 2.63 1.05 2.63 1.05c0.34 -0.31 0.73 -0.59 1.15 -0.83" opacity="0">
-                                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="1"/>
-                                            <animate fill="freeze" attributeName="d" begin="0.8s" dur="0.2s" values="M5.5 12.01c-0.01 -0.47 0.04 -0.95 0.15 -1.4c0.06 -0.29 0.15 -0.57 0.24 -0.84c0.26 -0.69 0.63 -1.35 1.12 -1.94c0.18 -0.21 0.38 -0.42 0.59 -0.62c0.34 -0.31 0.73 -0.59 1.15 -0.83;M5.5 12.01c-0.01 -0.47 0.04 -0.95 0.15 -1.4c0 0 -2.25 -1.73 -2.23 -1.75c0 0 1.56 -2.7 1.56 -2.7c0.02 -0.02 2.63 1.05 2.63 1.05c0.34 -0.31 0.73 -0.59 1.15 -0.83"/>
-                                        </path>
-                                        <path d="M8.74 6.38c0.4 -0.24 0.84 -0.44 1.29 -0.57c0 0 0.37 -2.81 0.4 -2.81c0 0 3.12 0 3.12 0c0.03 0.01 0.41 2.8 0.41 2.8c0.44 0.14 0.88 0.34 1.3 0.58" opacity="0">
-                                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="1"/>
-                                            <animate fill="freeze" attributeName="d" begin="0.8s" dur="0.2s" values="M8.74 6.38c0.4 -0.24 0.84 -0.44 1.29 -0.57c0.28 -0.09 0.57 -0.16 0.85 -0.21c0.73 -0.12 1.49 -0.13 2.24 0c0.27 0.05 0.55 0.12 0.83 0.2c0.44 0.14 0.88 0.34 1.3 0.58;M8.74 6.38c0.4 -0.24 0.84 -0.44 1.29 -0.57c0 0 0.37 -2.81 0.4 -2.81c0 0 3.12 0 3.12 0c0.03 0.01 0.41 2.8 0.41 2.8c0.44 0.14 0.88 0.34 1.3 0.58"/>
-                                        </path>
-                                    </g>
-                                </svg>
+                    <div id="profileDropdown" class="absolute right-0 mt-4 w-56 rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl z-50 hidden-modal fade-in">
+                        <div class="p-2">
+                            <button onclick="openSettings()" class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-400 hover:bg-neutral-800 rounded-xl transition-all">
                                 <span>Settings</span>
-                            </a>
-
-                            <button @click="showModal = true; profileOpen = false" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:bg-red-500/10 hover:text-red-500 transition-all group border-t border-neutral-800/50">
-                                <svg class="w-5 h-5 opacity-60 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                </svg>
+                            </button>
+                            <button onclick="openLogoutModal()" class="w-full mt-1 flex items-center gap-3 px-3 py-2.5 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-all">
                                 <span>Log Out</span>
                             </button>
                         </div>
                     </div>
-
-                    <template x-teleport="body">
-                        <div x-show="showModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                            <div x-show="showModal" 
-                                x-transition:enter="ease-out duration-300" 
-                                x-transition:enter-start="opacity-0" 
-                                x-transition:enter-end="opacity-100" 
-                                @click="if(!isLoading) showModal = false" 
-                                class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-
-                            <div x-show="showModal" 
-                                x-transition:enter="ease-out duration-300" 
-                                x-transition:enter-start="opacity-0 scale-95" 
-                                x-transition:enter-end="opacity-100 scale-100"
-                                class="relative w-full max-w-sm p-8 bg-[#1a1a1a] border border-neutral-800 rounded-2xl shadow-2xl text-center">
-                                
-                                <div class="flex justify-center mb-6">
-                                    <div class="p-4 bg-red-500/10 rounded-full text-red-500">
-                                        <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <h3 class="text-xl font-bold text-gray-100 mb-2">Are you sure?</h3>
-                                <p class="text-gray-500 text-sm mb-8">You will be returned to the main menu.</p>
-
-                                <div class="flex flex-col gap-3">
-                                    <button @click="confirmLogout" :disabled="isLoading" class="relative w-full py-3 bg-red-600 hover:bg-red-700 disabled:bg-red-800 text-white font-bold rounded-xl transition-all overflow-hidden group">
-                                        <span x-show="!isLoading">Yes, Log Me Out</span>
-                                        
-                                        <div x-show="isLoading" class="flex items-center justify-center gap-2">
-                                            <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                            </svg>
-                                            <span>Processing...</span>
-                                        </div>
-                                    </button>
-
-                                    <button x-show="!isLoading" @click="showModal = false" class="w-full py-3 text-gray-500 font-semibold hover:text-gray-300 transition-colors">
-                                        No, Take Me Back
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
                 </div>
-
-                <form id="logout-form" action="/" method="GET" class="hidden">
-                    </form>
             </header>
 
             <main class="flex-1 overflow-y-auto p-6 lg:p-10 custom-scrollbar">
@@ -167,26 +91,264 @@
         </div>
     </div>
 
+    <div id="settingsModal" class="fixed inset-0 z-[9999] hidden-modal">
+        <div onclick="closeSettings()" class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
+        
+        <div onclick="event.stopPropagation()" class="relative flex min-h-screen items-center justify-center p-4">
+            <div class="relative w-full max-w-md bg-[#1a1a1a] border border-neutral-800 rounded-3xl shadow-2xl overflow-hidden fade-in" onclick="event.stopPropagation()">
+                <div class="p-6 border-b border-neutral-800 bg-neutral-900/50 text-center">
+                    <h3 class="text-xl font-bold text-white">Account Settings</h3>
+                </div>
+                <div class="p-8 space-y-6">
+                    {{-- username --}}
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Username</label>
+                        <input type="text" value="Alex Morgan" readonly class="w-full bg-neutral-800/20 border border-neutral-800/50 text-gray-500 rounded-2xl px-5 py-4 cursor-not-allowed outline-none">
+                    </div>
+                    {{-- password (Current) --}}
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Password</label>
+                        <div class="relative">
+                            <input id="currentPasswordInput" type="password" value="123456" readonly 
+                                class="w-full bg-neutral-800/20 border border-neutral-800/50 text-gray-500 rounded-2xl px-5 py-4 cursor-not-allowed outline-none">
+                            
+                            <button type="button" onclick="togglePassword('currentPasswordInput', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- new password --}}
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">New Password</label>
+                        <div class="relative">
+                            <input id="newPasswordInput" type="password" placeholder="Enter new password" required
+                                class="w-full bg-neutral-800/40 border border-neutral-800 text-white rounded-2xl px-5 py-4 focus:border-yellow-500 outline-none transition-all">
+                            
+                            <button type="button" onclick="togglePassword('newPasswordInput', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-yellow-500 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4">
+                        <button onclick="closeSettings()" 
+                            class="flex-1 py-4 text-xs font-bold text-gray-400 bg-neutral-800/50 rounded-2xl transition-all duration-300 hover:bg-neutral-800 hover:text-white active:scale-95">
+                            CANCEL
+                        </button>
+
+                        <button onclick="handleUpdateSettings()" 
+                            class="flex-1 py-4 text-xs font-bold text-black bg-yellow-500 rounded-2xl transition-all duration-300 hover:bg-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.3)] active:scale-95">
+                            UPDATE SETTINGS
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="logoutModal" class="fixed inset-0 z-[9999] hidden-modal">
+        <div onclick="closeLogoutModal()" class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
+        <div class="relative flex min-h-screen items-center justify-center p-4">
+            <div class="relative w-full max-w-sm p-8 bg-neutral-900 border border-neutral-800 rounded-3xl text-center fade-in" onclick="event.stopPropagation()">
+                <h3 class="text-2xl font-bold text-white mb-2">Are you sure?</h3>
+                <p class="text-gray-400 text-sm mb-8">You will be logged out.</p>
+                <div class="flex flex-col gap-3">
+                    <button onclick="handleLogout()" 
+                        class="w-full py-4 bg-red-600 text-white font-bold rounded-2xl transition-all duration-300 hover:bg-red-500 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)] active:scale-95">
+                        CONFIRM LOG OUT
+                    </button>
+                    
+                    <button onclick="closeLogoutModal()" 
+                        class="w-full py-3 text-gray-500 font-medium transition-colors hover:text-white">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="logout-form" action="/" method="GET" class="hidden">@csrf</form>
+
     <script>
-        const sectionStates = {
-            'main-menu-content': true,
-            'features-content': true,
-            'tools-content': true
+        // Fungsi Helper untuk Lock Scroll Body agar tidak goyang saat modal buka
+        const lockScroll = (lock) => {
+            document.body.style.overflow = lock ? 'hidden' : '';
         };
 
-        function toggleSection(contentId, arrowId) {
-            const content = document.getElementById(contentId);
-            const arrow = document.getElementById(arrowId);
-            sectionStates[contentId] = !sectionStates[contentId];
-
-            if (sectionStates[contentId]) {
-                content.classList.replace('grid-rows-[0fr]', 'grid-rows-[1fr]');
-                content.classList.replace('opacity-0', 'opacity-100');
-                arrow.style.transform = 'rotate(0deg)';
+        function toggleSidebar(open, event) {
+            if (event) event.stopPropagation();
+            const overlay = document.getElementById('sidebarOverlay');
+            const sidebar = document.getElementById('main-sidebar');
+            if (open) {
+                overlay.classList.remove('hidden');
+                if(sidebar) sidebar.classList.remove('-translate-x-full');
             } else {
-                content.classList.replace('grid-rows-[1fr]', 'grid-rows-[0fr]');
-                content.classList.replace('opacity-100', 'opacity-0');
-                arrow.style.transform = 'rotate(-90deg)';
+                overlay.classList.add('hidden');
+                if(sidebar) sidebar.classList.add('-translate-x-full');
+            }
+        }
+
+        function toggleProfileDropdown(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('profileDropdown').classList.toggle('hidden-modal');
+        }
+
+        // Menutup dropdown jika klik di mana saja
+        window.onclick = function(event) {
+            if (!event.target.closest('#profileButton')) {
+                document.getElementById('profileDropdown').classList.add('hidden-modal');
+            }
+        }
+
+        // Modal Handlers dengan Scroll Lock
+        function openSettings() { 
+            document.getElementById('profileDropdown').classList.add('hidden-modal'); // Tutup dropdown dulu
+            document.getElementById('settingsModal').classList.remove('hidden-modal'); 
+            lockScroll(true);
+        }
+        
+        function closeSettings() { 
+            document.getElementById('settingsModal').classList.add('hidden-modal'); 
+            lockScroll(false);
+        }
+
+        function openLogoutModal() { 
+            document.getElementById('profileDropdown').classList.add('hidden-modal');
+            document.getElementById('logoutModal').classList.remove('hidden-modal'); 
+            lockScroll(true);
+        }
+
+        function closeLogoutModal() { 
+            document.getElementById('logoutModal').classList.add('hidden-modal'); 
+            lockScroll(false);
+        }
+
+        function handleLogout() {
+            // Tampilkan SweetAlert Loading
+            Swal.fire({
+                title: 'Logging out...',
+                html: 'Please wait a moment while we secure your session.',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                background: '#1a1a1a',
+                color: '#fff',
+                didOpen: () => {
+                    Swal.showLoading();
+                    // Pastikan loading tampil di depan modal logout
+                    const container = Swal.getContainer();
+                    if (container) container.style.zIndex = '10001';
+                }
+            });
+
+            // Simulasi loading selama 1.5 detik sebelum submit form otomatis
+            setTimeout(() => {
+                document.getElementById('logout-form').submit();
+            }, 1500);
+        }
+        
+        function handleUpdateSettings() {
+            const newPasswordInput = document.getElementById('newPasswordInput');
+            const newPasswordValue = newPasswordInput.value.trim();
+
+            // Validasi input kosong dengan efek getar
+            if (!newPasswordValue) {
+                // Tambahkan class animasi
+                newPasswordInput.classList.add('shake-error');
+                newPasswordInput.focus();
+
+                // Hapus class setelah animasi selesai (300ms) agar bisa diulang lagi nanti
+                setTimeout(() => {
+                    newPasswordInput.classList.remove('shake-error');
+                }, 300);
+                
+                return; // Berhenti di sini, jangan lanjut ke konfirmasi
+            }
+
+            // Jika terisi, baru lanjut ke konfirmasi SweetAlert
+            Swal.fire({
+                title: 'Confirm Update?',
+                text: "Are you sure with the new password?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#eab308',
+                cancelButtonColor: '#333',
+                confirmButtonText: 'Yes, update it!',
+                cancelButtonText: 'No',
+                background: '#1a1a1a',
+                color: '#fff',
+                didOpen: () => {
+                    const container = Swal.getContainer();
+                    if (container) container.style.zIndex = '10001';
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Tampilkan Loading
+                    Swal.fire({
+                        title: 'Processing...',
+                        background: '#1a1a1a',
+                        color: '#fff',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        didOpen: () => { 
+                            Swal.showLoading();
+                            const container = Swal.getContainer();
+                            if (container) container.style.zIndex = '10001';
+                        }
+                    });
+
+                    setTimeout(() => {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Password updated successfully.',
+                            icon: 'success',
+                            iconColor: '#eab308', // Mengubah warna ikon centang & lingkaran jadi Gold
+                            timer: 2000,
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            background: '#1a1a1a',
+                            color: '#fff',
+                            didOpen: () => {
+                                const container = Swal.getContainer();
+                                if (container) {
+                                    container.style.zIndex = '10001';
+                                    
+                                    // Mengubah warna Progress Bar menjadi Gold
+                                    const progressBar = container.querySelector('.swal2-timer-progress-bar');
+                                    if (progressBar) progressBar.style.backgroundColor = '#eab308';
+
+                                    // Mengubah warna garis centang di dalam ikon agar benar-benar Gold
+                                    const successLines = container.querySelectorAll('[class^=swal2-success-line]');
+                                    successLines.forEach(line => line.style.backgroundColor = '#eab308');
+                                    container.querySelector('.swal2-success-ring').style.borderColor = 'rgba(234, 179, 8, 0.3)';
+                                }
+                            }
+                        }).then(() => {
+                            newPasswordInput.value = "";
+                            closeSettings();
+                        });
+                    }, 1500);
+                }
+            });
+        }
+
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('svg');
+            const isPassword = input.type === 'password';
+            
+            input.type = isPassword ? 'text' : 'password';
+            
+            // Ganti icon mata (Eye vs Eye-off)
+            if (isPassword) {
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.822 7.822L21 21m-2.278-2.278L15.07 15.07m-4.414-4.414L12 12m0 0l.93-.93M12 12l.93.93" />`;
+            } else {
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
             }
         }
     </script>
