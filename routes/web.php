@@ -62,11 +62,6 @@ Route::get('/insights', function () {
     return view('admin.dashboard.main.insights');
 })->name('insights');
 
-// artworks
-Route::get('/artworks', function () {
-    return view('admin.dashboard.main.artworks');
-})->name('artworks');
-
 // transactions
 Route::get('/transactions', function () {
     return view('admin.dashboard.main.transactions');
@@ -85,8 +80,14 @@ Route::get('/submit_artworks', function () {
     return view('admin.dashboard.features.submit_artworks');
 })->name('submit_artworks');
 
+
 // tools
 
-Route::get('/featured', function () {
-    return view('admin.dashboard.tools.featured');
-})->name('featured');
+Route::get('/trending', function () {
+    return view('admin.dashboard.tools.trending');
+})->name('trending');
+
+// edit product
+Route::get('/edit_product', function () {
+    return view('admin.dashboard.edit.edit_product');
+})->name('edit_product');

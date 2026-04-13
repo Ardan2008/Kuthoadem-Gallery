@@ -6,6 +6,7 @@
     <title>Kuthoadem Gallery | Admin Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
@@ -39,24 +40,85 @@
             border-color: #ef4444 !important; /* Warna merah (Red-500) */
             box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
         }
+
+        /* button hover (update settings) */
+        .btn-trace {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        /* Layer Animasi Garis */
+        .btn-trace::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            /* Menggunakan putih/putih transparan agar terlihat berkilau di atas emas */
+            background: conic-gradient(
+                transparent, 
+                black, 
+                transparent 30%
+            ); 
+            transition: opacity 0.5s;
+            /* Durasi dipercepat dari 4s ke 1.5s agar lebih agresif */
+            animation: rotate 1.5s linear infinite; 
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .btn-trace:hover::before {
+            opacity: 1;
+        }
+
+        /* Layer Penutup (Membentuk Ketebalan Garis) */
+        .btn-trace::after {
+            content: '';
+            position: absolute;
+            /* Inset dinaikkan ke 3px agar garis terlihat lebih tebal */
+            inset: 3px; 
+            background: #C9A74E;
+            border-radius: 13px; /* Sedikit lebih kecil dari parent agar lengkungan pas */
+            z-index: 2;
+        }
+
+        .btn-trace span {
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-[#1a1a1a] text-gray-300 antialiased font-sans">
 
     <div class="flex h-screen overflow-hidden">
-        <div id="sidebarOverlay" onclick="toggleSidebar(false)" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden hidden"></div>
-
         @include('admin.dashboard.layouts.sidebar')
 
         <div class="flex flex-col flex-1 min-w-0 overflow-hidden bg-[#1a1a1a]">
             <header class="flex items-center justify-between p-5 border-b bg-[#1a1a1a] border-neutral-800/60 sticky top-0 z-30">
                 <div class="flex items-center gap-5">
-                    <button onclick="toggleSidebar(true, event)" class="p-2.5 lg:hidden text-gray-400 hover:text-yellow-500 rounded-xl">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                    <button onclick="handleNavDrawer(true, event)" class="p-2.5 lg:hidden text-gray-400 hover:text-yellow-500 rounded-xl">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
                     </button>
-                    <h1 class="text-xl font-black text-white lg:text-3xl italic uppercase">
-                        <span class="bg-gradient-to-r from-white via-gray-400 to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer">Admin Dashboard</span>
-                    </h1>
+                    <div class="flex flex-col leading-tight">
+                        <h1 class="text-xl font-black text-white lg:text-3xl italic uppercase">
+                            <span class="bg-gradient-to-r from-white via-gray-400 to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer">
+                                Admin Dashboard
+                            </span>
+                        </h1>
+                        <p class="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#C9A74E] mt-1 opacity-90 flex items-center gap-2">
+                            <span class="h-[1px] w-8 bg-[#C9A74E]/50"></span>
+                            Welcome to your operational control center.
+                        </p>
+                    </div>
                 </div>
 
                 <div class="relative">
@@ -67,7 +129,7 @@
                             class="w-10 h-10 lg:w-12 lg:h-12 rounded-full ring-2 ring-neutral-800 group-hover:ring-yellow-500/30 transition-all">
                         
                         <div class="hidden md:block px-4 text-left">
-                            <p class="text-sm font-bold text-gray-200 tracking-wide">Alex Morgan</p>
+                            <p class="text-sm font-bold text-gray-300 tracking-wide">Alex Morgan</p>
                             <p class="text-[11px] text-gray-500 font-medium">Super Admin</p>
                         </div>
                     </button>
@@ -87,6 +149,111 @@
 
             <main class="flex-1 overflow-y-auto p-6 lg:p-10 custom-scrollbar">
                 @yield('content')
+
+                <div class="space-y-10 animate-fade-in p-6">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        @php
+                            $stats = [
+                                [
+                                    'label' => 'Total Income', 
+                                    'value' => '82600', // Simpan angka murni
+                                    'display' => '$82,600', // Untuk fallback jika JS mati
+                                    'prefix' => '$',
+                                    'trend' => 'Growing', 
+                                    'icon' => 'M20 22H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2zM9 6c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2H9zm3 2a2 2 0 0 1 2 2v1h-4v-1a2 2 0 0 1 2-2zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2z'
+                                ],
+                                [
+                                    'label' => 'Total Orders', 
+                                    'value' => '1240', 
+                                    'display' => '1,240',
+                                    'prefix' => '',
+                                    'trend' => 'Active', 
+                                    'icon' => 'M21 8l-9-4-9 4v8l9 4 9-4V8zm-9 11.5V12L4 8.5v7l8 4zm1-7.5v7.5l8-4v-7l-8 3.5z'
+                                ],
+                                [
+                                    'label' => 'Total Visitors', 
+                                    'value' => '42800', 
+                                    'display' => '42.8K',
+                                    'prefix' => '',
+                                    'trend' => 'High Traffic', 
+                                    'icon' => 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm14 10v-2a4 4 0 0 0-3-3.87m-4-12a4 4 0 0 1 0 7.75'
+                                ]
+                            ];
+                        @endphp
+
+                        @foreach($stats as $stat)
+                        <div class="relative group bg-neutral-900/50 border border-neutral-800 rounded-3xl p-7 transition-all duration-500 hover:border-yellow-500/40 hover:translate-y-[-5px]">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-yellow-500/5 rounded-2xl border border-yellow-500/10 group-hover:bg-yellow-500/10 transition-colors">
+                                    <svg class="w-6 h-6 text-[#C9A74E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $stat['icon'] }}"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-[10px] font-bold tracking-widest text-yellow-500/50 uppercase">{{ $stat['trend'] }}</span>
+                            </div>
+                            <p class="text-xs font-medium text-neutral-500 uppercase tracking-widest mb-1">{{ $stat['label'] }}</p>
+                            
+                            <h3 class="text-4xl font-light text-white tracking-tighter">
+                                <span>{{ $stat['prefix'] }}</span><span class="counter-value" data-target="{{ $stat['value'] }}">0</span>
+                            </h3>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    {{-- CHART SECTION --}}
+                    <div class="bg-neutral-900/30 border border-neutral-800/80 rounded-[3rem] p-10 backdrop-blur-sm">
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-6">
+                                    <div class="relative">
+                                        <h2 class="text-3xl font-light text-white tracking-tighter flex items-center gap-3">
+                                            <span class="p-2 bg-white/5 border border-white/10 rounded-xl backdrop-blur-md">
+                                                <svg class="w-5 h-5 text-[#C9A74E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                </svg>
+                                            </span>
+                                            Sales Analytics
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center bg-[#1a1a1a] border border-neutral-800 p-1.5 rounded-2xl">
+                                <button id="btn-monthly" onclick="switchTab('monthly')"
+                                    class="tab-btn px-8 py-2.5 text-[10px] font-black tracking-[0.2em] bg-[#C9A74E] text-black rounded-xl uppercase transition-all duration-300">
+                                    Monthly
+                                </button>
+                                <button id="btn-yearly" onclick="switchTab('yearly')"
+                                    class="tab-btn px-8 py-2.5 text-[10px] font-black tracking-[0.2em] text-neutral-500 hover:text-white rounded-xl uppercase transition-all duration-300">
+                                    Yearly
+                                </button>
+                            </div>
+                        </div>
+
+                        {{-- Legend & Detailed Info --}}
+                        <div class="flex flex-wrap gap-12 mb-12">
+                            <div class="pl-6">
+                                <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-500 mb-1">Income</p>
+                                <span class="text-2xl font-light text-white">$82.600</span>
+                            </div>
+                            <div class="border-l-2 border-[#C9A74E] pl-6">
+                                <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-500 mb-1">Expenses</p>
+                                <span class="text-2xl font-light text-white">$4.130</span>
+                            </div>
+                            <div class="border-l-2 border-[#C9A74E] pl-6">
+                                <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-500 mb-1">Expenses</p>
+                                <span class="text-2xl font-light text-white">$112.000</span>
+                            </div>
+                        </div>
+
+                        {{-- Real Chart Container --}}
+                        <div class="relative w-full h-[400px] cursor-crosshair">
+                            <canvas id="artSalesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
@@ -97,7 +264,7 @@
         <div onclick="event.stopPropagation()" class="relative flex min-h-screen items-center justify-center p-4">
             <div class="relative w-full max-w-md bg-[#1a1a1a] border border-neutral-800 rounded-3xl shadow-2xl overflow-hidden fade-in" onclick="event.stopPropagation()">
                 <div class="p-6 border-b border-neutral-800 bg-neutral-900/50 text-center">
-                    <h3 class="text-xl font-bold text-white">Account Settings</h3>
+                    <h3 class="text-xl font-bold text-gray-300">Account Settings</h3>
                 </div>
                 <div class="p-8 space-y-6">
                     {{-- username --}}
@@ -142,9 +309,8 @@
                             CANCEL
                         </button>
 
-                        <button onclick="handleUpdateSettings()" 
-                            class="flex-1 py-4 text-xs font-bold text-black bg-yellow-500 rounded-2xl transition-all duration-300 hover:bg-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.3)] active:scale-95">
-                            UPDATE SETTINGS
+                        <button onclick="handleUpdateSettings()" class="btn-trace flex-1 py-4 text-xs font-bold text-black bg-[#C9A74E] rounded-2xl relative">
+                            <span class="relative z-10">UPDATE SETTINGS</span>
                         </button>
                     </div>
                 </div>
@@ -176,33 +342,194 @@
     <form id="logout-form" action="/" method="GET" class="hidden">@csrf</form>
 
     <script>
-        // Fungsi Helper untuk Lock Scroll Body agar tidak goyang saat modal buka
-        const lockScroll = (lock) => {
-            document.body.style.overflow = lock ? 'hidden' : '';
+        // 1. STATE GLOBAL
+        let isDrawerVisible = false;
+        const menuStates = {
+            'main-menu-content': true,
+            'features-content': true,
+            'tools-content': true
         };
 
-        function toggleSidebar(open, event) {
+        // 2. FUNGSI NAVIGASI (SIDEBAR) - SATU FUNGSI SAJA
+        // Gunakan ini untuk tombol hamburger: onclick="handleNavDrawer(true, event)"
+        function handleNavDrawer(open, event) {
             if (event) event.stopPropagation();
+            
+            // Pastikan ID ini sama dengan yang ada di HTML Anda
+            const sidebar = document.getElementById('mainSidebar') || document.getElementById('main-sidebar');
             const overlay = document.getElementById('sidebarOverlay');
-            const sidebar = document.getElementById('main-sidebar');
-            if (open) {
-                overlay.classList.remove('hidden');
-                if(sidebar) sidebar.classList.remove('-translate-x-full');
+            
+            // Elemen Path Icon (Hamburger animation)
+            const path1 = document.getElementById('path1');
+            const path2 = document.getElementById('path2');
+            const path3 = document.getElementById('path3');
+
+            isDrawerVisible = open;
+
+            if (isDrawerVisible) {
+                sidebar?.classList.remove('-translate-x-full');
+                overlay?.classList.remove('hidden');
+                setTimeout(() => overlay?.classList.add('opacity-100'), 10);
+                
+                // Animasi Icon ke "X"
+                path1?.setAttribute('d', 'M6 18L18 6');
+                if(path2) path2.style.opacity = '0';
+                path3?.setAttribute('d', 'M6 6l12 12');
+                
+                document.body.style.overflow = 'hidden'; // Lock scroll
             } else {
-                overlay.classList.add('hidden');
-                if(sidebar) sidebar.classList.add('-translate-x-full');
+                sidebar?.classList.add('-translate-x-full');
+                overlay?.classList.remove('opacity-100');
+                setTimeout(() => overlay?.classList.add('hidden'), 300);
+                
+                // Animasi Icon ke Hamburger
+                path1?.setAttribute('d', 'M4 6h16');
+                if(path2) path2.style.opacity = '1';
+                path3?.setAttribute('d', 'M4 18h16');
+                
+                document.body.style.overflow = ''; // Unlock scroll
             }
         }
 
+        // 3. FUNGSI ACCORDION
+        function switchMenuAccordion(contentId, arrowId) {
+            const content = document.getElementById(contentId);
+            const arrow = document.getElementById(arrowId);
+            if(!content) return;
+
+            menuStates[contentId] = !menuStates[contentId];
+
+            if (menuStates[contentId]) {
+                content.classList.replace('grid-rows-[0fr]', 'grid-rows-[1fr]');
+                content.classList.replace('opacity-0', 'opacity-100');
+                if(arrow) arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.replace('grid-rows-[1fr]', 'grid-rows-[0fr]');
+                content.classList.replace('opacity-100', 'opacity-0');
+                if(arrow) arrow.style.transform = 'rotate(-90deg)';
+            }
+        }
+
+        // 4. COUNTER & CHART (DOM CONTENT LOADED)
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- ANIMASI COUNTER ---
+            const counters = document.querySelectorAll('.counter-value');
+            const duration = 3000;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const startTime = performance.now();
+
+                const updateCount = (currentTime) => {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                    const currentNumber = Math.floor(easeOutCubic * target);
+                    
+                    counter.innerText = currentNumber.toLocaleString('en-US');
+                    if (progress < 1) requestAnimationFrame(updateCount);
+                    else counter.innerText = target.toLocaleString('en-US');
+                };
+                requestAnimationFrame(updateCount);
+            });
+
+            // --- CHART ---
+            const canvas = document.getElementById('artSalesChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                const dataSets = {
+                    monthly: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        data: [45, 52, 48, 70, 65, 85, 78, 92, 110, 95, 105, 120]
+                    },
+                    yearly: {
+                        labels: ['2021', '2022', '2023', '2024', '2025', '2026'],
+                        data: [450, 620, 890, 1100, 1400, 1850]
+                    }
+                };
+
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(201, 167, 78, 0.25)');
+                gradient.addColorStop(1, 'rgba(201, 167, 78, 0)');
+
+                const myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dataSets.monthly.labels,
+                        datasets: [{
+                            label: 'Market Value',
+                            data: dataSets.monthly.data,
+                            borderColor: '#C9A74E',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            backgroundColor: gradient,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#C9A74E',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#737373' } },
+                            x: { grid: { display: false }, ticks: { color: '#a3a3a3' } }
+                        }
+                    }
+                });
+
+                // Tab Switcher
+                document.getElementById('btn-monthly')?.addEventListener('click', () => {
+                    myChart.data.labels = dataSets.monthly.labels;
+                    myChart.data.datasets[0].data = dataSets.monthly.data;
+                    myChart.update();
+                });
+                document.getElementById('btn-yearly')?.addEventListener('click', () => {
+                    myChart.data.labels = dataSets.yearly.labels;
+                    myChart.data.datasets[0].data = dataSets.yearly.data;
+                    myChart.update();
+                });
+            }
+        });
+
+        // 5. MODAL & DROPDOWN HANDLERS
         function toggleProfileDropdown(event) {
             if (event) event.stopPropagation();
             document.getElementById('profileDropdown').classList.toggle('hidden-modal');
         }
 
-        // Menutup dropdown jika klik di mana saja
+        // Klik di luar untuk menutup
         window.onclick = function(event) {
+            // Tutup Sidebar jika klik overlay
+            if (event.target.id === 'sidebarOverlay') {
+                handleNavDrawer(false);
+            }
+            // Tutup Profile Dropdown
             if (!event.target.closest('#profileButton')) {
-                document.getElementById('profileDropdown').classList.add('hidden-modal');
+                const drop = document.getElementById('profileDropdown');
+                if(drop) drop.classList.add('hidden-modal');
+            }
+        }
+
+        function switchTab(type) {
+            const btnMonthly = document.getElementById('btn-monthly');
+            const btnYearly = document.getElementById('btn-yearly');
+
+            // Reset Style Kedua Tombol (Kembalikan ke tampilan default/tidak aktif)
+            [btnMonthly, btnYearly].forEach(btn => {
+                btn.classList.remove('bg-[#C9A74E]', 'text-black');
+                btn.classList.add('text-neutral-500', 'hover:text-white');
+            });
+
+            // Berikan Style Aktif ke tombol yang dipilih
+            if (type === 'monthly') {
+                btnMonthly.classList.add('bg-[#C9A74E]', 'text-black');
+                btnMonthly.classList.remove('text-neutral-500', 'hover:text-white');
+            } else {
+                btnYearly.classList.add('bg-[#C9A74E]', 'text-black');
+                btnYearly.classList.remove('text-neutral-500', 'hover:text-white');
             }
         }
 
@@ -229,6 +556,7 @@
             lockScroll(false);
         }
 
+        // button logout
         function handleLogout() {
             // Tampilkan SweetAlert Loading
             Swal.fire({
@@ -252,6 +580,7 @@
             }, 1500);
         }
         
+        // button update settings
         function handleUpdateSettings() {
             const newPasswordInput = document.getElementById('newPasswordInput');
             const newPasswordValue = newPasswordInput.value.trim();
