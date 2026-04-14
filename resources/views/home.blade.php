@@ -6,6 +6,7 @@
     <title>Kuthoadem Gallery</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         html {
@@ -130,12 +131,24 @@
                     Kuthoadem<span class="font-light italic opacity-70 ml-1 text-amber-400">Gallery</span>
                 </div>
             </a>
-            
-            <div class="hidden xl:flex items-center gap-10 text-[11px] uppercase tracking-[0.3em] font-medium">
-                <a href="/" class="group transition duration-300">Home <span class="block h-[1px] w-0 bg-[#C9A74E] transition-all group-hover:w-full"></span></a>
-                <a href="/artists" class="group transition duration-300">Artists <span class="block h-[1px] w-0 bg-[#C9A74E] transition-all group-hover:w-full"></span></a>
-                <a href="/gallery" class="group transition duration-300">Gallery <span class="block h-[1px] w-0 bg-[#C9A74E] transition-all group-hover:w-full"></span></a>
-                <a href="/" class="px-6 py-2 border border-[#C9A74E]/50 text-[#C9A74E] hover:bg-[#C9A74E] hover:text-black transition-all duration-500 rounded-full text-[10px]">Promote Art</a>
+
+            <div class="hidden xl:flex items-center gap-12 text-[15px] uppercase tracking-[0.3em]" style="font-family: 'Cormorant Garamond', serif;">
+                
+                <a href="/" class="group relative py-1">
+                    <span>Home</span>
+                    <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[#C9A74E] scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100"></span>
+                </a>
+
+                <a href="/artists" class="group relative py-1">
+                    <span>Artists</span>
+                    <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[#C9A74E] scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100"></span>
+                </a>
+
+                <a href="/gallery" class="group relative py-1">
+                    <span>Gallery</span>
+                    <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[#C9A74E] scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100"></span>
+                </a>
+                
             </div>
 
             <button id="hamburgerBtn" class="xl:hidden flex flex-col gap-2 items-end focus:outline-none group">
@@ -409,10 +422,9 @@
 
         <div class="flex flex-col gap-8 mt-10">
             <span class="text-amber-600 text-[10px] uppercase tracking-[0.5em] font-bold">Discover</span>
-            <a href="#" class="text-slate-900 text-4xl md:text-5xl font-serif italic border-b border-slate-200 pb-4 hover:pl-4 hover:text-amber-700 hover:border-amber-200 transition-all">Home</a>
-            <a href="#" class="text-slate-900 text-4xl md:text-5xl font-serif italic border-b border-slate-200 pb-4 hover:pl-4 hover:text-amber-700 hover:border-amber-200 transition-all">Artists</a>
-            <a href="#" class="text-slate-900 text-4xl md:text-5xl font-serif italic border-b border-slate-200 pb-4 hover:pl-4 hover:text-amber-700 hover:border-amber-200 transition-all">Gallery</a>
-            <a href="#" class="text-slate-900 text-4xl md:text-5xl font-serif italic border-b border-slate-200 pb-4 hover:pl-4 hover:text-amber-700 hover:border-amber-200 transition-all">Contact</a>
+            <a href="/" class="text-slate-900 text-4xl md:text-5xl font-serif italic border-b border-slate-200 pb-4 hover:pl-4 hover:text-amber-700 hover:border-amber-200 transition-all">Home</a>
+            <a href="/artists" class="text-slate-900 text-4xl md:text-5xl font-serif italic border-b border-slate-200 pb-4 hover:pl-4 hover:text-amber-700 hover:border-amber-200 transition-all">Artists</a>
+            <a href="/gallery" class="text-slate-900 text-4xl md:text-5xl font-serif italic border-b border-slate-200 pb-4 hover:pl-4 hover:text-amber-700 hover:border-amber-200 transition-all">Gallery</a>
         </div>
     </div>
 

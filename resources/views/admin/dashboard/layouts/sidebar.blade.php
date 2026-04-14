@@ -113,21 +113,6 @@
                                 <div class="relative">
                                     <div class="absolute -left-[1px] top-0 h-6 border-l border-neutral-800/80"></div>
                                     <div class="absolute -left-[1px] top-6 w-3 h-4 border-l border-b border-neutral-800/80 rounded-bl-lg"></div>
-                                    <a href="/insights" class="group relative flex items-center gap-3 ml-6 mr-4 px-4 py-3 text-sm font-semibold transition-all duration-300 {{ request()->is('insights*') ? 'text-gray-300' : 'text-gray-500 hover:text-gray-300' }}">
-                                        @if(request()->is('insights*'))
-                                            <div class="absolute inset-0 bg-gradient-to-r from-neutral-800/80 via-neutral-800/40 to-transparent rounded-xl border border-white/5 shadow-xl"></div>
-                                            <div class="absolute left-0 top-1/4 bottom-1/4 w-[2px] bg-[#C9A74E] rounded-full shadow-[0_0_12px_rgba(234,179,8,0.4)]"></div>
-                                        @endif
-                                        <div class="relative flex items-center gap-3">
-                                            <svg class="w-5 h-5 {{ request()->is('insights*') ? 'text-[#C9A74E]' : 'group-hover:text-[#C9A74E]' }} transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
-                                            <span>Insights</span>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="relative">
-                                    <div class="absolute -left-[1px] top-0 h-6 border-l border-neutral-800/80"></div>
-                                    <div class="absolute -left-[1px] top-6 w-3 h-4 border-l border-b border-neutral-800/80 rounded-bl-lg"></div>
                                     <a href="/transactions" class="group relative flex items-center gap-3 ml-6 mr-4 px-4 py-3 text-sm font-semibold transition-all duration-300 {{ request()->is('transactions*') ? 'text-gray-300' : 'text-gray-500 hover:text-gray-300' }}">
                                         @if(request()->is('transactions*'))
                                             <div class="absolute inset-0 bg-gradient-to-r from-neutral-800/80 via-neutral-800/40 to-transparent rounded-xl border border-white/5 shadow-xl"></div>

@@ -57,11 +57,6 @@ Route::get('/sidebar', function () {
 
 // main ------
 
-// insights
-Route::get('/insights', function () {
-    return view('admin.dashboard.main.insights');
-})->name('insights');
-
 // transactions
 Route::get('/transactions', function () {
     return view('admin.dashboard.main.transactions');
@@ -91,3 +86,8 @@ Route::get('/trending', function () {
 Route::get('/edit_product', function () {
     return view('admin.dashboard.edit.edit_product');
 })->name('edit_product');
+
+// add product
+Route::get('/add_product', function () {
+    return view('admin.dashboard.create.add_product');
+})->name('add_product');

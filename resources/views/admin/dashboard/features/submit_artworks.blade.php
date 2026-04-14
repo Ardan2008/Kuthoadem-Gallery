@@ -145,11 +145,17 @@
                                 </h2>
                             </div>
                             
-                            <button class="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#C9A74E] hover:bg-[#DBBC6A] text-black rounded-full transition-all duration-500 active:scale-95 shadow-[0_0_20px_rgba(201,167,78,0.2)]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-500 group-hover:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button id="add-collection-btn" onclick="handleBtnClick(this)" class="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#C9A74E] hover:bg-[#DBBC6A] text-black rounded-full transition-all duration-500 active:scale-95 shadow-[0_0_20px_rgba(201,167,78,0.2)] disabled:opacity-80 disabled:cursor-not-allowed">
+                                <svg id="plus-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-500 group-hover:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                                 </svg>
-                                <span class="text-xs font-black tracking-[0.1em] uppercase">Add New Collection</span>
+
+                                <svg id="loading-icon" class="hidden animate-spin w-5 h-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+
+                                <span id="btn-text" class="text-xs font-black tracking-[0.1em] uppercase">Add New Collection</span>
                             </button>
                         </div>
 
@@ -299,6 +305,26 @@
     <form id="logout-form" action="/" method="GET" class="hidden">@csrf</form>
 
     <script>
+        function handleBtnClick(btn) {
+            const plusIcon = btn.querySelector('#plus-icon');
+            const loadingIcon = btn.querySelector('#loading-icon');
+            const btnText = btn.querySelector('#btn-text');
+            const targetUrl = '/halaman-tujuan'; // Ganti dengan URL tujuan Anda
+
+            // 1. Disable tombol agar tidak diklik berkali-kali
+            btn.disabled = true;
+
+            // 2. Ubah UI ke state Loading
+            plusIcon.classList.add('hidden');
+            loadingIcon.classList.remove('hidden');
+            btnText.innerText = 'Processing...';
+
+            // 3. Simulasi loading sejenak sebelum pindah halaman
+            setTimeout(() => {
+                window.location.href = '/add_product';
+            }, 1500); // Jeda 1.5 detik
+        }
+
         function handleEdit(url) {
             Swal.fire({
                 title: 'Loading Workspace',
@@ -320,14 +346,14 @@
 
         function confirmDelete(id, title) {
             Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: `Koleksi "${title}" akan dihapus permanen!`,
+                title: 'Are you sure?',
+                text: `The collection "${title}" will be permanently deleted!`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#ef4444', // Warna Emas sesuai tema
                 cancelButtonColor: '#303030',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
+                confirmButtonText: 'Yes, Delete!',
+                cancelButtonText: 'Cancel',
                 background: '#171717', // Dark mode background
                 color: '#ffffff',
                 iconColor: '#ef4444'
@@ -335,7 +361,7 @@
                 if (result.isConfirmed) {
                     // Tampilan Loading
                     Swal.fire({
-                        title: 'Sedang Menghapus...',
+                        title: 'Currently Deleting...',
                         allowOutsideClick: false,
                         background: '#171717',
                         color: '#ffffff',
@@ -347,8 +373,8 @@
                     // Simulasi proses penghapusan (ganti dengan fetch/axios ke backend)
                     setTimeout(() => {
                         Swal.fire({
-                            title: 'Berhasil!',
-                            text: 'Koleksi telah dihapus.',
+                            title: 'Successfully!',
+                            text: 'The collection has been deleted.',
                             icon: 'success',
                             timer: 2000,
                             showConfirmButton: false,

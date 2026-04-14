@@ -252,6 +252,58 @@
                             <canvas id="artSalesChart"></canvas>
                         </div>
                     </div>
+
+                    {{-- chart visitors --}}
+                    <div class="lg:col-span-2 bg-[#1a1a1a] border border-neutral-800 rounded-[2.5rem] p-8 shadow-sm">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-gray-300">Visitors</h2>
+                            <div class="relative custom-dropdown z-[100]">
+                                <button type="button" 
+                                    onclick="openWidgetMenu(this, event)" 
+                                    class="text-gray-500 hover:text-[#C9A74E] transition-all focus:outline-none p-2 pointer-events-auto rounded-xl hover:bg-neutral-800/50">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                                    </svg>
+                                </button>
+
+                                <div class="dropdown-menu hidden absolute right-0 mt-2 w-56 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[110] overflow-hidden backdrop-blur-xl">
+                                    <div class="py-2">
+                                        <div class="px-4 py-2 text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mb-1">
+                                            Options
+                                        </div>
+
+                                        <button class="w-full text-left px-4 py-3 text-sm text-gray-400 hover:bg-neutral-800 hover:text-[#C9A74E] transition-colors flex items-center gap-3 group">
+                                            <svg class="w-4 h-4 text-gray-500 group-hover:text-[#C9A74E] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                            </svg>
+                                            Export Data
+                                        </button>
+
+                                        <button class="w-full text-left px-4 py-3 text-sm text-gray-400 hover:bg-neutral-800 hover:text-[#C9A74E] transition-colors flex items-center gap-3 group">
+                                            <svg class="w-4 h-4 text-gray-500 group-hover:text-[#C9A74E] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                            </svg>
+                                            Refresh
+                                        </button>
+
+                                        <hr class="border-neutral-800 my-1 mx-2">
+
+                                        <a href="javascript:void(0)" 
+                                        onclick="openRemoveModal(this, event)" 
+                                        class="block px-4 py-3 text-sm text-red-500/80 hover:bg-red-500/10 transition-colors flex items-center gap-3 group">
+                                            <svg class="w-4 h-4 text-red-500/50 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-4v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            </svg>
+                                            Remove Widget
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-[300px] w-full">
+                            <canvas id="visitorBarChart"></canvas>
+                        </div>
+                    </div>
                 </div>
 
             </main>
@@ -342,6 +394,76 @@
     <form id="logout-form" action="/" method="GET" class="hidden">@csrf</form>
 
     <script>
+        // logic untuk dropdown menu pada widget
+        function openWidgetMenu(buttonElement) {
+            // Mencari elemen menu yang berada tepat setelah button
+            const targetMenu = buttonElement.nextElementSibling;
+            
+            // Amankan: Tutup semua menu lain yang mungkin terbuka agar tidak numpuk
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                if (menu !== targetMenu) {
+                    menu.classList.add('hidden');
+                }
+            });
+
+            // Toggle (Munculkan/Sembunyikan) menu yang diklik
+            targetMenu.classList.toggle('hidden');
+        }
+
+        // Logika klik di luar elemen untuk menutup menu
+        window.addEventListener('click', function(event) {
+            // Jika yang diklik bukan bagian dari dropdown, sembunyikan semua menu
+            if (!event.target.closest('.custom-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.add('hidden');
+                });
+            }
+        });
+
+        // chart Visitor Bar Chart
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctxBar = document.getElementById('visitorBarChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: [920, 480, 510, 940, 500, 800, 960, 220, 530, 50, 260, 70, 120],
+                        backgroundColor: '#C9A74E', // Tetap biru indigo sesuai gambar 1
+                        hoverBackgroundColor: '#A88C3F', // Warna saat hover
+                        borderRadius: 6,
+                        barThickness: 30,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 1000,
+                            ticks: { 
+                                stepSize: 250, 
+                                color: '#6b7280' // Warna teks abu-abu (gray-500)
+                            },
+                            grid: { 
+                                color: 'rgba(255, 255, 255, 0.05)', // Garis grid sangat tipis
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { 
+                                color: '#6b7280' 
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
         // 1. STATE GLOBAL
         let isDrawerVisible = false;
         const menuStates = {
