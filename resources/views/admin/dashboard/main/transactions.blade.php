@@ -247,11 +247,10 @@
                             {{-- Top Artworks --}}
                             <div class="relative">
 
-                                {{-- 1. Widget Top Artworks --}}
+                                {{-- Widget Top Artworks --}}
                                 <div class="lg:col-span-1 bg-[#1a1a1a] border border-neutral-800 rounded-[2.5rem] p-8 shadow-sm flex flex-col h-full">
                                     <div class="flex justify-between items-center mb-8">
-                                        <h2 class="text-xl font-bold text-gray-300">Top Artworks</h2>
-                                        <span class="text-[#C9A74E] text-[10px] font-black border border-[#C9A74E]/30 px-3 py-1 rounded-full uppercase">Week 14</span>
+                                        <h2 class="text-xl font-bold text-gray-300">Top Selling Artworks</h2>
                                     </div>
                                     
                                     <div class="relative flex-1 scroll-shadow-container overflow-hidden rounded-2xl">
@@ -277,8 +276,7 @@
                                     </div>
                                 </div>
 
-                                {{-- 2. MODAL MOCKUP (Detail) --}}
-                                {{-- Di sini tombol close (X) dikembalikan --}}
+                                {{-- MODAL MOCKUP (Detail) --}}
                                 <div id="artModal" 
                                     class="fixed inset-0 z-[998] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md opacity-0 transition-opacity duration-300 cursor-default">
                                     

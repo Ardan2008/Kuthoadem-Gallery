@@ -24,11 +24,6 @@
                 Gallery 
                 <span class="absolute bottom-0 left-0 h-[3px] w-0 bg-[#C9A74E] transition-all duration-300 group-hover:w-full shadow-[0_0_15px_rgba(201,167,78,0.6)]"></span>
             </a>
-
-            <a href="/" 
-               class="ml-4 px-7 py-2.5 border-2 border-[#C9A74E] text-[#C9A74E] hover:bg-[#C9A74E] hover:text-black transition-all duration-500 rounded-full text-[10px] tracking-[0.15em] font-black uppercase shadow-[0_0_10px_rgba(201,167,78,0.2)]">
-                Promote Art
-            </a>
         </div>
 
         <div class="xl:hidden flex items-center">
@@ -64,13 +59,6 @@
                     Gallery
                     <span class="absolute bottom-0 left-0 w-0 h-[3px] bg-[#C9A74E] transition-all duration-300 group-hover:w-full shadow-[0_0_15px_rgba(201,167,78,0.6)]"></span>
                 </a>
-                
-                <div class="w-12 h-[1px] bg-white/10 mx-auto mobile-item opacity-0 transition-all duration-700 delay-500"></div>
-                
-                <a href="/" 
-                class="inline-block px-12 py-5 border-2 border-[#C9A74E] bg-[#C9A74E] text-black font-black rounded-full text-[12px] tracking-[0.3em] hover:bg-transparent hover:text-[#C9A74E] transition-all duration-500 mobile-item opacity-0 translate-y-8">
-                    Promote Art
-                </a>
             </div>
         </div>
     </div>
@@ -92,8 +80,6 @@
                 // --- PROSES BUKA ---
                 mobileMenu.classList.remove('hidden');
                 
-                // Beri sedikit delay agar browser sempat merender class 'hidden' yang hilang 
-                // sebelum menjalankan animasi clip-path
                 setTimeout(() => {
                     mobileMenu.style.clipPath = "circle(150% at 90% 5%)";
                     

@@ -20,7 +20,6 @@
     </script>
     <title>Kuthoadem Gallery | Gallery</title>
     <style>
-        /* Paksa background hitam murni di level browser */
         html, body {
             background-color: #0a0a0a !important;
             color: #d1d5db !important;

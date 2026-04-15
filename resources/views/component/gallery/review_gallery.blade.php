@@ -436,7 +436,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // --- 1. LOGIKA ZOOM (Smooth & Intuitive) ---
+        // --- LOGIKA ZOOM (Smooth & Intuitive) ---
         function zoomIn(event) {
             const img = event.currentTarget;
             const { left, top, width, height } = img.getBoundingClientRect();
@@ -455,7 +455,7 @@
             img.style.transformOrigin = "center center";
         }
 
-        // --- 2. LOGIKA MODAL UTAMA ---
+        // --- LOGIKA MODAL UTAMA ---
         function openModal(img, title, author, count) {
             const modal = document.getElementById('artModal');
             
@@ -492,7 +492,7 @@
             document.body.style.overflow = 'auto'; // Unlock scroll body
         }
 
-        // --- 3. LOGIKA KOMENTAR ---
+        // --- LOGIKA KOMENTAR ---
         function toggleCommentModal() {
             const commentOverlay = document.getElementById('commentOverlay');
             
@@ -505,7 +505,7 @@
             }
         }
 
-        // --- 4. LOGIKA PENUTUPAN MODAL UTAMA JUGA MENUTUP OVERLAY KOMENTAR ---
+        // --- LOGIKA PENUTUPAN MODAL UTAMA JUGA MENUTUP OVERLAY KOMENTAR ---
         function closeModal() {
             const modal = document.getElementById('artModal');
             const commentOverlay = document.getElementById('commentOverlay');

@@ -9,14 +9,26 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Kuthoadem Gallery | Artist Profile</title>
     <style>
-        /* 60% HITAM */
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0a0a0a; color: #94a3b8; } /* Slate-400 */
-        .font-serif { font-family: 'Playfair Display', serif; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #0a0a0a; color: #94a3b8; 
+        } 
+
+        .font-serif { 
+            font-family: 'Playfair Display', serif; 
+        }
         
-        /* 10% EMAS */
-        .text-gold { color: #C9A74E; }
-        .bg-gold { background-color: #C9A74E; }
-        .border-gold { border-color: #C9A74E; }
+        .text-gold { 
+            color: #C9A74E; 
+        }
+
+        .bg-gold { 
+            background-color: #C9A74E; 
+        }
+
+        .border-gold { 
+            border-color: #C9A74E; 
+        }
 
         .smooth-transition {
             transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -275,12 +287,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Inisialisasi AOS dengan settingan yang smooth
         AOS.init({
             duration: 1000, // durasi animasi 1 detik
             once: true,     // animasi hanya jalan sekali saat scroll ke bawah
             offset: 100,    // mulai animasi 100px sebelum elemen terlihat
-            easing: 'ease-out-cubic', // tipe pergerakan yang mewah
+            easing: 'ease-out-cubic', // tipe pergerakan 
         });
 
         // Logika Back to Top Anda yang sudah ada...

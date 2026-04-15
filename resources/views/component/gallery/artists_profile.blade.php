@@ -301,7 +301,7 @@
                 once: false, // Ubah ke false agar animasi jalan tiap pindah tab
                 offset: 50,
                 easing: 'ease-in-out-cubic',
-                mirror: true // Opsional: agar saat scroll balik animasi tetap jalan
+                mirror: true // agar saat scroll balik animasi tetap jalan
             });
         });
 

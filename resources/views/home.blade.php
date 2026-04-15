@@ -24,7 +24,11 @@
         .font-serif { font-family: 'Playfair Display', serif; }
         
         /* Reveal Animation */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal { opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); 
+        }
+
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Custom Mobile Menu */
@@ -32,6 +36,7 @@
             transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
             clip-path: circle(0% at 100% 0%);
         }
+
         #mobileMenu.active {
             clip-path: circle(150% at 100% 0%);
         }
@@ -42,9 +47,8 @@
             50% { transform: translateY(-20px) rotate(1deg); }
             100% { transform: translateY(0px) rotate(3deg); }
         }
+
         .float-art { animation: floating 6s ease-in-out infinite; }
-
-
 
         /* Pastikan body tidak bisa di-scroll selama loading */
         body.loading {
@@ -219,7 +223,6 @@
     <section class="max-w-[1600px] mx-auto px-6 -translate-y-16 relative z-30">
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
             <?php 
-            // Data disederhanakan hanya ID gambar saja
             $galleryImages = ['45', '46', '47', '48', '49'];
             
             foreach ($galleryImages as $imgId): 
@@ -456,8 +459,6 @@
                 disableMutationObserver: false,
             });
 
-            // Jika menggunakan GSAP loader seperti di kode Anda, 
-            // pastikan AOS merefresh posisi setelah loader hilang
             setTimeout(() => {
                 AOS.refresh();
             }, 2000); 
@@ -493,7 +494,7 @@
             window.scrollTo(0, 0);
 
             const tl = gsap.timeline({
-                defaults: { ease: "power2.inOut" }, // Transisi lebih halus (smooth)
+                defaults: { ease: "power2.inOut" }, 
                 onComplete: () => {
                     loader.style.display = 'none';
                     document.body.classList.remove('loading');
@@ -531,7 +532,7 @@
 
             tl.addLabel("exit");
 
-            // 5. Animasi keluar yang mewah (Slow to Fast)
+            // Animasi keluar yang mewah (Slow to Fast)
             tl.to("#swipe-container", { 
                 y: "-100%", 
                 duration: 1.3, 
