@@ -7,6 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
@@ -121,10 +122,13 @@
                     <div id="profileDropdown" class="absolute right-0 mt-4 w-56 rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl z-50 hidden-modal fade-in">
                         <div class="p-2">
                             <button onclick="openSettings()" class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-400 hover:bg-neutral-800 rounded-xl transition-all">
+                                <i data-lucide="settings" class="w-4 h-4 flex-shrink-0"></i>
                                 <span>Settings</span>
                             </button>
-                            <button onclick="openLogoutModal()" class="w-full mt-1 flex items-center gap-3 px-3 py-2.5 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-all">
-                                <span>Log Out</span>
+
+                            <button onclick="handleLogout()" class="w-full mt-1 flex items-center justify-start gap-3 px-3 py-2.5 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-all">
+                                <i data-lucide="log-out" class="w-4 h-4"></i>
+                                <span>Sign Out</span>
                             </button>
                         </div>
                     </div>
@@ -516,62 +520,46 @@
         </div>
     </div>
 
-    <div id="settingsModal" class="fixed inset-0 z-[9999] hidden-modal">
-        <div onclick="closeSettings()" class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
-        
-        <div onclick="event.stopPropagation()" class="relative flex min-h-screen items-center justify-center p-4">
-            <div class="relative w-full max-w-md bg-[#1a1a1a] border border-neutral-800 rounded-3xl shadow-2xl overflow-hidden fade-in" onclick="event.stopPropagation()">
-                <div class="p-6 border-b border-neutral-800 bg-neutral-900/50 text-center">
-                    <h3 class="text-xl font-bold text-gray-300">Account Settings</h3>
+    <div id="settingsModal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-all duration-300">
+        <div class="relative w-full max-w-md bg-[#1a1a1a] border border-neutral-800 rounded-[2.5rem] shadow-2xl overflow-hidden scale-95 transition-transform duration-300" id="settingsModalContent">
+            
+            <div class="p-6 border-b border-neutral-800/50 bg-neutral-900/30 text-center">
+                <h3 class="text-xl font-bold text-gray-200">Account Settings</h3>
+                <p class="text-[10px] text-gray-500 mt-1 uppercase tracking-[0.2em]">Manage your security</p>
+            </div>
+
+            <div class="p-8 space-y-8"> {{-- Username (Readonly) --}}
+                <div class="space-y-3"> <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-2 block mb-1">Username</label>
+                    <div class="relative">
+                        <input type="text" value="{{ optional(Auth::user())->username }}" readonly 
+                            class="w-full bg-neutral-900/50 border border-neutral-800/50 text-gray-500 rounded-2xl px-5 py-4 cursor-not-allowed outline-none text-sm">
+                        <div class="absolute right-5 top-1/2 -translate-y-1/2 text-neutral-700">
+                            <i data-lucide="lock" class="w-4 h-4"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-8 space-y-6">
-                    {{-- username --}}
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Username</label>
-                        <input type="text" value="Alex Morgan" readonly class="w-full bg-neutral-800/20 border border-neutral-800/50 text-gray-500 rounded-2xl px-5 py-4 cursor-not-allowed outline-none">
-                    </div>
-                    {{-- password (Current) --}}
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Password</label>
-                        <div class="relative">
-                            <input id="currentPasswordInput" type="password" value="123456" readonly 
-                                class="w-full bg-neutral-800/20 border border-neutral-800/50 text-gray-500 rounded-2xl px-5 py-4 cursor-not-allowed outline-none">
-                            
-                            <button type="button" onclick="togglePassword('currentPasswordInput', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
 
-                    {{-- new password --}}
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">New Password</label>
-                        <div class="relative">
-                            <input id="newPasswordInput" type="password" placeholder="Enter new password" required
-                                class="w-full bg-neutral-800/40 border border-neutral-800 text-white rounded-2xl px-5 py-4 focus:border-yellow-500 outline-none transition-all">
-                            
-                            <button type="button" onclick="togglePassword('newPasswordInput', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-yellow-500 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 pt-4">
-                        <button onclick="closeSettings()" 
-                            class="flex-1 py-4 text-xs font-bold text-gray-400 bg-neutral-800/50 rounded-2xl transition-all duration-300 hover:bg-neutral-800 hover:text-white active:scale-95">
-                            CANCEL
-                        </button>
-
-                        <button onclick="handleUpdateSettings()" 
-                            class="flex-1 py-4 text-xs font-bold text-black bg-yellow-500 rounded-2xl transition-all duration-300 hover:bg-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.3)] active:scale-95">
-                            UPDATE SETTINGS
+                {{-- New Password --}}
+                <div class="space-y-3"> <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-2 block mb-1">New Password</label>
+                    <div class="relative group">
+                        <input id="newPasswordInput" type="password" placeholder="••••••••"
+                            class="w-full bg-neutral-800/20 border border-neutral-800 text-white rounded-2xl px-5 py-4 focus:border-[#C9A74E]/50 focus:bg-neutral-800/40 outline-none transition-all text-sm placeholder:text-neutral-700">
+                        
+                        <button type="button" onclick="togglePassword('newPasswordInput', this)" 
+                            class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#C9A74E] transition-colors">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
                         </button>
                     </div>
+                </div>
+
+                <div class="flex items-center gap-4 pt-4"> <button onclick="closeSettings()" 
+                        class="flex-1 py-4 text-xs font-bold text-gray-400 bg-neutral-800/30 border border-neutral-800/50 rounded-2xl hover:bg-neutral-800 hover:text-white transition-all active:scale-95 uppercase tracking-widest">
+                        Cancel
+                    </button>
+                    <button onclick="handleUpdateSettings()" id="btnUpdateSettings" 
+                        class="flex-1 py-4 text-xs font-bold text-black bg-[#C9A74E] rounded-2xl hover:bg-[#d4b563] hover:shadow-[0_0_20px_rgba(201,167,78,0.2)] transition-all active:scale-95 uppercase tracking-widest">
+                        Update
+                    </button>
                 </div>
             </div>
         </div>
@@ -1014,15 +1002,24 @@
         }
 
         // Modal Handlers dengan Scroll Lock
-        function openSettings() { 
-            document.getElementById('profileDropdown').classList.add('hidden-modal'); // Tutup dropdown dulu
-            document.getElementById('settingsModal').classList.remove('hidden-modal'); 
-            lockScroll(true);
+        function openSettings() {
+            const modal = document.getElementById('settingsModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Beri sedikit delay agar transisi scale terlihat
+            setTimeout(() => {
+                document.getElementById('settingsModalContent').classList.remove('scale-95');
+                document.getElementById('settingsModalContent').classList.add('scale-100');
+            }, 10);
         }
-        
-        function closeSettings() { 
-            document.getElementById('settingsModal').classList.add('hidden-modal'); 
-            lockScroll(false);
+
+        function closeSettings() {
+            const modal = document.getElementById('settingsModal');
+            document.getElementById('settingsModalContent').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
         }
 
         function openLogoutModal() { 
@@ -1036,114 +1033,127 @@
             lockScroll(false);
         }
 
-        // button logout
-        function handleLogout() {
-            // Tampilkan SweetAlert Loading
-            Swal.fire({
-                title: 'Logging out...',
-                html: 'Please wait a moment while we secure your session.',
-                allowOutsideClick: false,
-                showConfirmButton: false,
-                background: '#1a1a1a',
-                color: '#fff',
-                didOpen: () => {
-                    Swal.showLoading();
-                    // Pastikan loading tampil di depan modal logout
-                    const container = Swal.getContainer();
-                    if (container) container.style.zIndex = '10001';
-                }
+        lucide.createIcons();
+
+        async function handleLogout() {
+            const result = await Swal.fire({
+                title: 'LOGOUT',
+                text: 'Are you sure you want to end this session?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#C9A74E',
+                cancelButtonColor: '#333333',
+                confirmButtonText: 'Yes, Sign Out',
+                background: '#151515',
+                color: '#ffffff'
             });
 
-            // Simulasi loading selama 1.5 detik sebelum submit form otomatis
-            setTimeout(() => {
-                document.getElementById('logout-form').submit();
-            }, 1500);
-        }
-        
-        // button update settings
-        function handleUpdateSettings() {
-            const newPasswordInput = document.getElementById('newPasswordInput');
-            const newPasswordValue = newPasswordInput.value.trim();
+            if (result.isConfirmed) {
+                // Tampilkan Loading
+                Swal.fire({
+                    title: 'Logging out...',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    background: '#151515',
+                    color: '#ffffff',
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
 
-            // Validasi input kosong dengan efek getar
-            if (!newPasswordValue) {
-                // Tambahkan class animasi
-                newPasswordInput.classList.add('shake-error');
-                newPasswordInput.focus();
-
-                // Hapus class setelah animasi selesai (300ms) agar bisa diulang lagi nanti
-                setTimeout(() => {
-                    newPasswordInput.classList.remove('shake-error');
-                }, 300);
-                
-                return; // Berhenti di sini, jangan lanjut ke konfirmasi
-            }
-
-            // Jika terisi, baru lanjut ke konfirmasi SweetAlert
-            Swal.fire({
-                title: 'Confirm Update?',
-                text: "Are you sure with the new password?",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#eab308',
-                cancelButtonColor: '#333',
-                confirmButtonText: 'Yes, update it!',
-                cancelButtonText: 'No',
-                background: '#1a1a1a',
-                color: '#fff',
-                didOpen: () => {
-                    const container = Swal.getContainer();
-                    if (container) container.style.zIndex = '10001';
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Tampilkan Loading
-                    Swal.fire({
-                        title: 'Processing...',
-                        background: '#1a1a1a',
-                        color: '#fff',
-                        allowOutsideClick: false,
-                        showConfirmButton: false,
-                        didOpen: () => { 
-                            Swal.showLoading();
-                            const container = Swal.getContainer();
-                            if (container) container.style.zIndex = '10001';
+                try {
+                    const response = await fetch('/api/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         }
                     });
 
-                    setTimeout(() => {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Password updated successfully.',
-                            icon: 'success',
-                            iconColor: '#eab308', // Mengubah warna ikon centang & lingkaran jadi Gold
-                            timer: 2000,
-                            showConfirmButton: false,
-                            timerProgressBar: true,
-                            background: '#1a1a1a',
-                            color: '#fff',
-                            didOpen: () => {
-                                const container = Swal.getContainer();
-                                if (container) {
-                                    container.style.zIndex = '10001';
-                                    
-                                    // Mengubah warna Progress Bar menjadi Gold
-                                    const progressBar = container.querySelector('.swal2-timer-progress-bar');
-                                    if (progressBar) progressBar.style.backgroundColor = '#eab308';
+                    const data = await response.json(); // Mengganti nama variable ke 'data' agar tidak bentrok dengan 'result' swal
 
-                                    // Mengubah warna garis centang di dalam ikon agar benar-benar Gold
-                                    const successLines = container.querySelectorAll('[class^=swal2-success-line]');
-                                    successLines.forEach(line => line.style.backgroundColor = '#eab308');
-                                    container.querySelector('.swal2-success-ring').style.borderColor = 'rgba(234, 179, 8, 0.3)';
-                                }
-                            }
-                        }).then(() => {
-                            newPasswordInput.value = "";
-                            closeSettings();
-                        });
-                    }, 1500);
+                    if (response.ok) {
+                        // Redirect langsung jika sukses
+                        window.location.href = '/form_login';
+                    } else {
+                        throw new Error(data.message || 'Logout failed');
+                    }
+                } catch (error) {
+                    // Tutup loading dan tampilkan error
+                    Swal.fire({
+                        title: 'ERROR',
+                        text: error.message,
+                        icon: 'error',
+                        background: '#1a1a1a',
+                        color: '#ffffff',
+                        confirmButtonColor: '#C9A73E'
+                    });
                 }
+            }
+        }
+        
+        // button update settings
+        async function handleUpdateSettings() {
+            const newPassword = document.getElementById('newPasswordInput').value;
+
+            // Validasi simpel
+            if (!newPassword) {
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Empty Field',
+                    text: 'Please enter a new password',
+                    background: '#1a1a1a',
+                    color: '#fff'
+                });
+            }
+
+            // Tampilkan Loading
+            Swal.fire({
+                title: 'Updating...',
+                didOpen: () => Swal.showLoading(),
+                background: '#151515',
+                color: '#fff',
+                allowOutsideClick: false
             });
+
+            try {
+                const response = await fetch('/api/update-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json', // Memberitahu server kita minta JSON
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ password: newPassword }),
+                    credentials: 'same-origin' // Memastikan cookie session ikut terkirim
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'SUCCESS',
+                        text: 'Password updated successfully!',
+                        background: '#151515',
+                        color: '#fff',
+                        confirmButtonColor: '#C9A74E'
+                    });
+                    closeSettings();
+                    document.getElementById('newPasswordInput').value = ''; // Reset input
+                } else {
+                    throw new Error(data.message || 'Failed to update');
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ERROR',
+                    text: error.message,
+                    background: '#151515',
+                    color: '#fff'
+                });
+            }
         }
 
         function togglePassword(inputId, btn) {

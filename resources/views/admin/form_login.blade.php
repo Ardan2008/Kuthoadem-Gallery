@@ -130,7 +130,7 @@
                 <p class="text-gray-400 text-sm">Sign in to access your dashboard and manage collections.</p>
             </div>
 
-            <form id="authForm" class="space-y-8">
+            <form id="authForm" method="POST" class="space-y-8">
                 <div class="space-y-2" data-aos="fade-up" data-aos-delay="1200">
                     <label class="text-[10px] uppercase tracking-[0.2em] text-gray-300 font-bold ml-1">Username</label>
                     <div class="relative input-group">
@@ -225,34 +225,71 @@
             });
         }
 
-        document.getElementById('authForm').addEventListener('submit', function(e) {
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            // 1. Ambil data dari input
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 2. Tampilkan Loading SweetAlert
             Swal.fire({
                 title: 'VERIFYING',
-                text: "Accessing secure database...",
+                text: "Connecting to secure server...",
                 icon: 'info',
                 iconColor: '#C9A74E',
                 background: '#151515',
                 color: '#fff',
                 showConfirmButton: false,
                 allowOutsideClick: false,
-                timer: 1500,
                 didOpen: () => { Swal.showLoading(); }
-            }).then(() => {
+            });
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/login', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // JIKA BERHASIL
+                    Swal.fire({
+                        title: 'SUCCESS',
+                        text: 'Welcome back, Administrator.',
+                        icon: 'success',
+                        iconColor: '#C9A74E',
+                        background: '#151515',
+                        color: '#fff',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = '/master'; // Pindah ke halaman admin
+                    });
+                } else {
+                    // JIKA GAGAL (Contoh: Username salah)
+                    throw new Error(data.message || 'Access Denied: Invalid Credentials');
+                }
+
+            } catch (error) {
+                // Tampilkan pesan error dari Database/Laravel
                 Swal.fire({
-                    title: 'SUCCESS',
-                    text: 'Welcome back, Administrator.',
-                    icon: 'success',
-                    iconColor: '#C9A74E',
+                    title: 'AUTH ERROR',
+                    text: error.message,
+                    icon: 'error',
+                    confirmButtonColor: '#C9A74E',
                     background: '#151515',
                     color: '#fff',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    allowOutsideClick: false
-                }).then(() => {
-                    window.location.href = '/master'; 
                 });
-            });
+            }
         });
     </script>
 </body>
