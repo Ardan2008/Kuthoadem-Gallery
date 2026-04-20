@@ -216,7 +216,8 @@
             <div class="max-w-[1600px] mx-auto px-8 pt-10 pb-32 lg:pt-14 bg-[#0a0a0a]">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-y-32 gap-x-12">
                     @foreach($artists as $index => $artist)
-                        <a href="/profile_art" 
+                        <a href="javascript:void(0)" 
+                        onclick="openModal('{{ $artist['image'] }}', '{{ $artist['name'] }}', '{{ $artist['category'] }}', '{{ $artist['count'] ?? 1 }}')"
                         data-aos="fade-up" 
                         data-aos-delay="{{ ($index % 5) * 100 }}"
                         data-aos-duration="1000"
@@ -284,6 +285,113 @@
         </div>
     </button>
 
+    <div id="artModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-8">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <div class="relative bg-zinc-900 border border-white/10 w-full max-w-5xl overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in fade-in zoom-in duration-300">
+            
+            <button onclick="closeModal()" class="absolute top-6 right-6 z-[130] group outline-none">
+                <div class="relative flex items-center justify-center w-12 h-12 transition-all duration-500 transform group-hover:rotate-90">
+                    <div class="absolute inset-0 bg-white/0 group-hover:bg-white/5 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                    <svg class="w-8 h-8 text-white/30 group-hover:text-gold transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 18L18 6M6 6l12 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </button>
+
+            <div id="imageContainer" class="w-full md:w-2/3 bg-black flex items-center justify-center p-6 overflow-hidden relative group/zoom">
+                <div class="relative overflow-hidden shadow-2xl">
+                    <img id="modalImage" src="" alt="Artwork" 
+                        class="max-h-[70vh] md:max-h-[80vh] object-contain transition-transform duration-500 ease-out cursor-zoom-in"
+                        onmousemove="zoomIn(event)" 
+                        onmouseleave="zoomOut(event)">
+                    
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-700">
+                        <span class="text-[9px] text-white/30 uppercase tracking-[0.4em] whitespace-nowrap bg-black/20 backdrop-blur-sm px-4 py-2 border border-white/5">
+                            Move cursor to explore details
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/3 p-8 md:p-12 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/5 bg-zinc-900/50">
+                <h2 id="modalTitle" class="text-4xl font-serif text-gray-300 mb-2"></h2>
+                <p id="modalAuthor" class="text-gold tracking-[0.2em] uppercase text-xs mb-8"></p>
+                
+                <div class="space-y-6">
+                    <div class="border-b border-white/5 pb-4">
+                        <span class="text-zinc-500 text-[10px] uppercase tracking-widest block mb-1">Collection Info</span>
+                        <p id="modalCount" class="text-gray-300 text-sm"></p>
+                    </div>
+                    
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light italic">
+                        "This artwork is part of a curated collection showcasing the intersection of classical technique and modern vision."
+                    </p>
+
+                    <div class="mt-8 flex gap-3">
+                        <button class="flex-1 bg-gold text-black py-3 text-[9px] font-bold uppercase tracking-[0.2em] border border-gold hover:bg-[#C9A74E] hover:border-[#C9A74E] transition-all duration-300">
+                            Download Art
+                        </button>
+                        
+                        <button onclick="toggleCommentModal()" class="relative z-[130] w-12 h-12 flex items-center justify-center border border-[#C9A74E] text-gold hover:bg-[#C9A74E] hover:border-[#C9A74E] hover:text-black transition-all duration-300">
+                            <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                        </button>
+
+                        <button class="w-12 h-12 flex items-center justify-center border border-[#C9A74E] text-gold hover:bg-[#C9A74E] hover:border-[#C9A74E] hover:text-black transition-all duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="commentOverlay" class="fixed inset-0 z-[140] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-6 transition-all duration-500">
+                
+                <div class="w-full max-w-md animate-in fade-in zoom-in duration-500 flex flex-col bg-zinc-900/50 rounded-3xl border border-white/5 h-[80vh] max-h-[600px] overflow-hidden">
+                    
+                    <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-300 font-serif italic text-2xl tracking-tight">Curator's Notes</h3>
+                            <p class="text-[9px] text-gold uppercase tracking-[0.4em] mt-1">Community Discussion</p>
+                        </div>
+                        <button onclick="toggleCommentModal()" class="p-2 text-white/20 hover:text-gold transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="1.5"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+                        <div class="flex gap-3 max-w-[90%]">
+                            <div class="w-8 h-8 rounded-full bg-zinc-800 flex-shrink-0 flex items-center justify-center text-[10px] text-zinc-500 font-bold">AD</div>
+                            <div class="bg-white/[0.03] border border-white/5 p-3 rounded-2xl rounded-tl-none">
+                                <p class="text-[12px] text-zinc-400 font-light leading-relaxed">"Pencahayaan yang sangat dramatis. Terlihat seperti perpaduan antara Caravaggio."</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 flex-row-reverse max-w-[90%] ml-auto">
+                            <div class="w-8 h-8 rounded-full bg-gold/20 border border-[#C9A74E] flex-shrink-0 flex items-center justify-center text-[10px] text-gold font-bold">EV</div>
+                            <div class="bg-gold/5 border border-[#C9A74E] p-3 rounded-2xl rounded-tr-none text-right">
+                                <p class="text-[12px] text-gray-300 italic font-light">"I love how the textures pop out when zoomed in."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0">
+                        <div class="relative flex items-center gap-3 bg-white/[0.02] border border-white/10 p-1.5 pl-5 rounded-full">
+                            <input type="text" placeholder="Your thoughts..." class="flex-1 bg-transparent py-2 text-xs text-white outline-none italic">
+                            <button class="bg-gold text-black p-2.5 rounded-full hover:bg-white transition-all">
+                                <svg class="w-3.5 h-3.5 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.5"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
@@ -293,6 +401,92 @@
             offset: 100,    // mulai animasi 100px sebelum elemen terlihat
             easing: 'ease-out-cubic', // tipe pergerakan 
         });
+
+        // --- LOGIKA ZOOM (Smooth & Intuitive) ---
+        function zoomIn(event) {
+            const img = event.currentTarget;
+            const { left, top, width, height } = img.getBoundingClientRect();
+            
+            // Hitung posisi kursor dalam persen
+            const x = ((event.clientX - left) / width) * 100;
+            const y = ((event.clientY - top) / height) * 100;
+
+            img.style.transformOrigin = `${x}% ${y}%`;
+            img.style.transform = "scale(2.5)";
+        }
+
+        function zoomOut(event) {
+            const img = event.currentTarget;
+            img.style.transform = "scale(1)";
+            img.style.transformOrigin = "center center";
+        }
+
+        // --- LOGIKA MODAL UTAMA ---
+        function openModal(img, title, author, count) {
+            const modal = document.getElementById('artModal');
+            
+            // Set Data ke elemen modal
+            document.getElementById('modalImage').src = img;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalAuthor').innerText = author;
+            document.getElementById('modalCount').innerText = count + " High Resolution Artworks";
+
+            // Tampilkan Modal
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Lock scroll body
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('artModal');
+            const commentOverlay = document.getElementById('commentOverlay');
+            const modalImg = document.getElementById('modalImage');
+
+            // Sembunyikan Modal Utama
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            
+            // Reset Zoom Gambar agar saat buka gambar lain tidak miring
+            if (modalImg) modalImg.style.transform = "scale(1)";
+
+            // Pastikan Overlay Komentar juga ikut tertutup
+            if (commentOverlay) {
+                commentOverlay.classList.add('hidden');
+                commentOverlay.classList.remove('flex');
+            }
+            
+            document.body.style.overflow = 'auto'; // Unlock scroll body
+        }
+
+        // --- LOGIKA KOMENTAR ---
+        function toggleCommentModal() {
+            const commentOverlay = document.getElementById('commentOverlay');
+            
+            if (commentOverlay.classList.contains('hidden')) {
+                commentOverlay.classList.remove('hidden');
+                commentOverlay.classList.add('flex'); // Pakai flex agar konten di tengah
+            } else {
+                commentOverlay.classList.add('hidden');
+                commentOverlay.classList.remove('flex');
+            }
+        }
+
+        // --- LOGIKA PENUTUPAN MODAL UTAMA JUGA MENUTUP OVERLAY KOMENTAR ---
+        function closeModal() {
+            const modal = document.getElementById('artModal');
+            const commentOverlay = document.getElementById('commentOverlay');
+
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            
+            // Pastikan overlay komentar ikut tertutup saat modal utama ditutup
+            if (commentOverlay) {
+                commentOverlay.classList.add('hidden');
+                commentOverlay.classList.remove('flex');
+            }
+            
+            document.body.style.overflow = 'auto';
+        }
 
         // Logika Back to Top Anda yang sudah ada...
         window.addEventListener('scroll', function() {

@@ -40,6 +40,17 @@
             border-color: #ef4444 !important; /* Warna merah (Red-500) */
             box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
         }
+
+        .active-gold {
+            background-color: #C9A74E !important;
+            color: black !important;
+            border-color: #C9A74E !important;
+        }
+
+        /* Animasi untuk menghaluskan filter */
+        .collection-item.hidden-item {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-[#1a1a1a] text-gray-300 antialiased font-sans">
@@ -105,7 +116,8 @@
                         [
                             'id' => '01',
                             'title' => 'SURREALISME',
-                            'artist' => 'Salvador Dalimore',
+                            'category' => 'Digital Art', // Pastikan key category ada agar filter jalan
+                            'artist' => 'By Elara Vensley',
                             'images' => [
                                 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=500',
                                 'https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=300',
@@ -115,7 +127,8 @@
                         [
                             'id' => '02',
                             'title' => 'FIGURATIVE',
-                            'artist' => 'The Academia',
+                            'category' => 'Photography',
+                            'artist' => 'By Eldric Thornwood',
                             'images' => [
                                 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=500',
                                 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300',
@@ -125,7 +138,8 @@
                         [
                             'id' => '03',
                             'title' => 'NATURALISM',
-                            'artist' => 'Botanica Art',
+                            'category' => 'Illustration',
+                            'artist' => 'By Botanica Art',
                             'images' => [
                                 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=500',
                                 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?q=80&w=300',
@@ -133,9 +147,11 @@
                             ]
                         ]
                     ];
+
+                    $categories = ['Digital Art', 'Photography', 'Illustration'];
                 @endphp
 
-                <div class="min-h-screen  py-20 px-6 font-sans antialiased text-gray-200">
+                <div class="min-h-screen py-20 px-6 font-sans antialiased text-gray-200">
                     <div class="max-w-7xl mx-auto space-y-16">
                         
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 border-b border-white/5 pb-10">
@@ -149,74 +165,77 @@
                                 </h2>
                             </div>
                             
-                            <button id="add-collection-btn" onclick="handleBtnClick(this)" class="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#C9A74E] hover:bg-[#DBBC6A] text-black rounded-full transition-all duration-500 active:scale-95 shadow-[0_0_20px_rgba(201,167,78,0.2)] disabled:opacity-80 disabled:cursor-not-allowed">
+                            <button id="add-collection-btn" onclick="handleBtnClick(this)" class="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#C9A74E] hover:bg-[#DBBC6A] text-black rounded-full transition-all duration-500 active:scale-95 shadow-[0_0_20px_rgba(201,167,78,0.2)]">
                                 <svg id="plus-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-500 group-hover:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                                 </svg>
-
-                                <svg id="loading-icon" class="hidden animate-spin w-5 h-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-
                                 <span id="btn-text" class="text-xs font-black tracking-[0.1em] uppercase">Add New Collection</span>
                             </button>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                            @foreach($collections as $item)
-                            <div class="group relative">
-                                <div class="absolute -inset-1 bg-gradient-to-b from-[#C9A74E]/20 to-transparent rounded-[2rem] blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                                
-                                <div class="relative bg-neutral-900/80 backdrop-blur-xl rounded-[2rem] p-5 border border-white/5 transition-all duration-500 group-hover:-translate-y-2 group-hover:border-[#C9A74E]/30">
-                                    <span class="absolute top-6 right-8 text-5xl font-black text-white/5 italic select-none">{{ $item['id'] }}</span>
-                                    
-                                    <div class="grid grid-cols-3 gap-3 h-72 mb-8">
-                                        <div class="col-span-2 overflow-hidden rounded-2xl shadow-2xl">
-                                            <img src="{{ $item['images'][0] }}" 
-                                                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-                                                alt="{{ $item['title'] }}">
-                                        </div>
-                                        <div class="flex flex-col gap-3">
-                                            <div class="h-1/2 overflow-hidden rounded-2xl">
-                                                <img src="{{ $item['images'][1] }}" 
-                                                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                                            </div>
-                                            <div class="h-1/2 overflow-hidden rounded-2xl border border-[#C9A74E]/20">
-                                                <img src="{{ $item['images'][2] }}" 
-                                                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="space-y-10">
+                            <div class="flex flex-col items-end gap-4 mb-12">
+                                <div class="relative inline-block text-left w-64">
+                                    <button id="dropdownBtn" onclick="toggleDropdown()" class="w-full flex items-center justify-between px-6 py-3 bg-neutral-900 border border-white/10 rounded-xl text-gray-300 text-xs font-bold uppercase tracking-widest hover:border-[#C9A74E] transition-all duration-300">
+                                        <span id="selectedCategoryLabel">All Collections</span>
+                                        <svg id="dropdownArrow" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
 
-                                    <div class="flex justify-between items-center px-2">
-                                        <div>
-                                            <h3 class="text-xl font-bold text-gray-300 tracking-tight uppercase">{{ $item['title'] }}</h3>
-                                            <p class="text-[10px] text-[#C9A74E] font-bold tracking-[0.3em] uppercase mt-1 opacity-80">{{ $item['artist'] }}</p>
-                                        </div>
-                                        <div class="flex gap-2">
-                                            <button 
-                                                onclick="handleEdit('/link-tujuan-anda')" 
-                                                title="Edit" 
-                                                class="p-3 rounded-full bg-white/5 text-gray-400 hover:bg-[#C9A74E] hover:text-black transition-all duration-300"
-                                            >
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </button>
-                                            <button 
-                                                onclick="confirmDelete('{{ $item['id'] }}', '{{ $item['title'] }}')"
-                                                title="Delete" 
-                                                class="p-3 rounded-full bg-white/5 text-red-400/40 hover:bg-red-500/20 hover:text-red-500 transition-all duration-300">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </button>
+                                    <div id="dropdownMenu" class="hidden absolute z-50 mt-2 w-full bg-neutral-900 border border-white/10 rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl">
+                                        <div class="py-1">
+                                            <button onclick="selectCategory('all', 'All Collections')" class="w-full text-left px-6 py-3 text-[10px] text-gray-400 hover:bg-[#C9A74E] hover:text-black transition-colors font-bold uppercase">All Collections</button>
+                                            @foreach($categories as $cat)
+                                                <button onclick="selectCategory('{{ $cat }}', '{{ $cat }}')" class="w-full text-left px-6 py-3 text-[10px] text-gray-400 hover:bg-[#C9A74E] hover:text-black transition-colors font-bold uppercase border-t border-white/5">
+                                                    {{ $cat }}
+                                                </button>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="collection-grid">
+                                @foreach($collections as $item)
+                                <div class="collection-item group relative transition-all duration-500" data-category="{{ $item['category'] }}">
+                                    <div class="absolute -inset-1 bg-gradient-to-b from-[#C9A74E]/20 to-transparent rounded-[2rem] blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                                    
+                                    <div class="relative bg-neutral-900/80 backdrop-blur-xl rounded-[2rem] p-5 border border-white/5 transition-all duration-500 group-hover:-translate-y-2 group-hover:border-[#C9A74E]/30">
+                                        <span class="absolute top-6 right-8 text-5xl font-black text-white/5 italic select-none">{{ $item['id'] }}</span>
+                                        
+                                        <div class="grid grid-cols-3 gap-3 h-72 mb-8">
+                                            <div class="col-span-2 overflow-hidden rounded-2xl shadow-2xl">
+                                                <img src="{{ $item['images'][0] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                                            </div>
+                                            <div class="flex flex-col gap-3">
+                                                <div class="h-1/2 overflow-hidden rounded-2xl">
+                                                    <img src="{{ $item['images'][1] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                                </div>
+                                                <div class="h-1/2 overflow-hidden rounded-2xl border border-[#C9A74E]/20">
+                                                    <img src="{{ $item['images'][2] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between items-center px-2">
+                                            <div>
+                                                <h3 class="text-xl font-bold text-gray-300 tracking-tight uppercase">{{ $item['title'] }}</h3>
+                                                <p class="text-[10px] text-[#C9A74E] font-bold tracking-[0.3em] uppercase mt-1 opacity-80">{{ $item['artist'] }}</p>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button onclick="handleEdit('{{ $item['id'] }}')" class="p-3 rounded-full bg-white/5 text-gray-400 hover:bg-[#C9A74E] hover:text-black transition-all duration-300">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                                </button>
+                                                <button onclick="confirmDelete('{{ $item['id'] }}')" class="p-3 rounded-full bg-white/5 text-red-400/40 hover:bg-red-500/20 hover:text-red-500 transition-all duration-300">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -293,6 +312,49 @@
     <form id="logout-form" action="/" method="GET" class="hidden">@csrf</form>
 
     <script>
+        // Dropdown Toggle
+        function toggleDropdown() {
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            menu.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
+        }
+
+        // Category Selection & Filtering
+        function selectCategory(category, label) {
+            document.getElementById('selectedCategoryLabel').innerText = label;
+            toggleDropdown();
+
+            const items = document.querySelectorAll('.collection-item');
+            items.forEach(item => {
+                const itemCat = item.getAttribute('data-category');
+                
+                // Animasi Fade Out
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(10px)';
+
+                setTimeout(() => {
+                    if (category === 'all' || itemCat === category) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }, 300);
+            });
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.closest('#dropdownBtn')) {
+                document.getElementById('dropdownMenu').classList.add('hidden');
+                document.getElementById('dropdownArrow').classList.remove('rotate-180');
+            }
+        }
+
         function handleBtnClick(btn) {
             const plusIcon = btn.querySelector('#plus-icon');
             const loadingIcon = btn.querySelector('#loading-icon');
