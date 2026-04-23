@@ -38,6 +38,29 @@ class AuthController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Username or Password is incorrect'], 401);
     }
 
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'username' => 'required', // Diambil dari input login utama
+            'password' => 'required|min:6',
+        ]);
+
+        $user = User::where('username', $request->username)->first();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Target username not found. Please fill username first.'
+            ], 404);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        return response()->json(['status' => 'success', 'message' => 'Password reset successful!']);
+    }
+
     public function logout(Request $request)
     {
         try {

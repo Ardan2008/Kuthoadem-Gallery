@@ -45,7 +45,7 @@
     @php 
         $gallery = [
             [
-                'title' => 'Mythology', 
+                'title' => 'Surealisme', 
                 'author' => 'Johanna', 
                 'count' => 45, 
                 'main_img' => 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=800', 
@@ -53,7 +53,7 @@
                 'sub_img2' => 'https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&q=80&w=400'
             ],
             [
-                'title' => 'Equestrian', 
+                'title' => 'Romantisme', 
                 'author' => 'Barnowl88', 
                 'count' => 209, 
                 'main_img' => 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=400', 
@@ -61,7 +61,7 @@
                 'sub_img2' => 'https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?auto=format&fit=crop&q=80&w=400'
             ],
             [
-                'title' => 'Artko Public Drawing', 
+                'title' => 'Klasikisme', 
                 'author' => 'Koza', 
                 'count' => 103, 
                 'main_img' => 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800', 
@@ -80,7 +80,7 @@
                     The Gallery
                 </h1>
                 <div class="max-w-2xl">
-                    <p class="text-xl md:text-2xl font-light leading-relaxed text-gray-400 italic">
+                    <p class="text-xl md:text-2xl font-light leading-relaxed text-gray-400">
                         "Every artwork tells a story—shaped by emotion, inspired by imagination, and brought to life through the artist’s soul."
                     </p>
                 </div>

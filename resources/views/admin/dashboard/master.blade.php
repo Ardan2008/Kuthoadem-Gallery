@@ -258,55 +258,158 @@
                         </div>
                     </div>
 
-                    {{-- chart visitors --}}
-                    <div class="lg:col-span-2 bg-[#1a1a1a] border border-neutral-800 rounded-[2.5rem] p-8 shadow-sm">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold text-gray-300">Visitors</h2>
-                            <div class="relative custom-dropdown z-[100]">
-                                <button type="button" 
-                                    onclick="openWidgetMenu(this, event)" 
-                                    class="text-gray-500 hover:text-[#C9A74E] transition-all focus:outline-none p-2 pointer-events-auto rounded-xl hover:bg-neutral-800/50">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                                    </svg>
-                                </button>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                                <div class="dropdown-menu hidden absolute right-0 mt-2 w-56 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[110] overflow-hidden backdrop-blur-xl">
-                                    <div class="py-2">
-                                        <div class="px-4 py-2 text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mb-1">
-                                            Options
+                        <div class="lg:col-span-2 bg-[#1a1a1a] border border-neutral-800 rounded-[2.5rem] p-8 shadow-sm flex flex-col">
+                            
+                            <div class="flex justify-between items-center mb-10">
+                                <div>
+                                    <h2 class="text-2xl font-bold text-white/90">Visitors</h2>
+                                    <p class="text-xs text-neutral-500 mt-1">Daily traffic analytics</p>
+                                </div>
+                                
+                                <div class="flex items-center gap-3">
+                                    <div class="relative group/select">
+                                        <select id="yearFilter" onchange="updateYearlyData(this.value)" 
+                                            class="appearance-none bg-white/[0.03] border border-white/10 text-neutral-300 text-[10px] font-black uppercase tracking-[0.15em] rounded-full px-6 py-2.5 outline-none cursor-pointer hover:bg-white/[0.08] hover:border-white/20 hover:text-white focus:border-[#C9A74E]/60 transition-all duration-300 pr-10 backdrop-blur-md">
+                                            <option value="2026" class="bg-[#1a1a1a] text-white">2026</option>
+                                            <option value="2025" class="bg-[#1a1a1a] text-white">2025</option>
+                                            <option value="2024" class="bg-[#1a1a1a] text-white">2024</option>
+                                        </select>
+
+                                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 group-hover/select:translate-y-[-40%]">
+                                            <svg class="w-2.5 h-2.5 text-neutral-500 group-hover/select:text-[#C9A74E] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
                                         </div>
 
-                                        <button class="w-full text-left px-4 py-3 text-sm text-gray-400 hover:bg-neutral-800 hover:text-[#C9A74E] transition-colors flex items-center gap-3 group">
-                                            <svg class="w-4 h-4 text-gray-500 group-hover:text-[#C9A74E] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A74E] to-transparent transition-all duration-500 group-hover/select:w-1/2 opacity-50"></div>
+                                    </div>
+
+                                    <div class="relative custom-dropdown">
+                                        <button type="button" 
+                                            onclick="openWidgetMenu(this, event)" 
+                                            class="text-gray-500 hover:text-[#C9A74E] transition-all focus:outline-none p-2 rounded-xl hover:bg-neutral-800/50">
+                                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
                                             </svg>
-                                            Export Data
                                         </button>
 
-                                        <button class="w-full text-left px-4 py-3 text-sm text-gray-400 hover:bg-neutral-800 hover:text-[#C9A74E] transition-colors flex items-center gap-3 group">
-                                            <svg class="w-4 h-4 text-gray-500 group-hover:text-[#C9A74E] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                            </svg>
-                                            Refresh
-                                        </button>
+                                        <div class="dropdown-menu hidden absolute right-0 mt-2 w-56 bg-[#161616] border border-neutral-800 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[110] overflow-hidden backdrop-blur-xl">
+                                            <div class="py-2">
+                                                <div class="px-4 py-2 text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mb-1">Options</div>
 
-                                        <hr class="border-neutral-800 my-1 mx-2">
+                                                <button class="w-full text-left px-4 py-3 text-sm text-gray-400 hover:bg-neutral-800 hover:text-[#C9A74E] transition-colors flex items-center gap-3 group">
+                                                    <svg class="w-4 h-4 text-gray-500 group-hover:text-[#C9A74E] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                                    </svg>
+                                                    Export Data
+                                                </button>
 
-                                        <a href="javascript:void(0)" 
-                                        onclick="openRemoveModal(this, event)" 
-                                        class="block px-4 py-3 text-sm text-red-500/80 hover:bg-red-500/10 transition-colors flex items-center gap-3 group">
-                                            <svg class="w-4 h-4 text-red-500/50 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-4v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                            </svg>
-                                            Remove Widget
-                                        </a>
+                                                <button onclick="location.reload()" class="w-full text-left px-4 py-3 text-sm text-gray-400 hover:bg-neutral-800 hover:text-[#C9A74E] transition-colors flex items-center gap-3 group">
+                                                    <svg class="w-4 h-4 text-gray-500 group-hover:text-[#C9A74E] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                                    </svg>
+                                                    Refresh
+                                                </button>
+
+                                                <hr class="border-neutral-800 my-1 mx-2">
+
+                                                <a href="javascript:void(0)" onclick="openRemoveModal(this, event)" class="block px-4 py-3 text-sm text-red-500/80 hover:bg-red-500/10 transition-colors flex items-center gap-3 group">
+                                                    <svg class="w-4 h-4 text-red-500/50 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-4v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                    </svg>
+                                                    Remove Widget
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="relative flex-grow w-full min-h-[320px]">
+                                <canvas id="visitorBarChart"></canvas>
+                            </div>
                         </div>
-                        <div class="h-[300px] w-full">
-                            <canvas id="visitorBarChart"></canvas>
+
+                        {{-- growth customer countrys --}}
+                        @php
+                            $countries = [
+                                ['name' => 'Indonesia', 'code' => 'id', 'count' => 892],
+                                ['name' => 'United States', 'code' => 'us', 'count' => 1],
+                                ['name' => 'Japan', 'code' => 'jp', 'count' => 3],
+                                ['name' => 'Germany', 'code' => 'de', 'count' => 2],
+                                ['name' => 'Hong Kong', 'code' => 'hk', 'count' => 8],
+                                ['name' => 'Australia', 'code' => 'au', 'count' => 1],
+                                ['name' => 'Brazil', 'code' => 'br', 'count' => 452],
+                                ['name' => 'United Kingdom', 'code' => 'gb', 'count' => 312],
+                                ['name' => 'Canada', 'code' => 'ca', 'count' => 128],
+                                ['name' => 'France', 'code' => 'fr', 'count' => 95],
+                            ];
+
+                            // Ambil 6 besar saja untuk tampilan di widget luar
+                            $previewCountries = array_slice($countries, 0, 6);
+                        @endphp
+                        <div class="lg:col-span-1 border border-white/5 rounded-[2.5rem] p-8 shadow-2xl flex flex-col relative overflow-hidden group">
+                            <div class="absolute -top-24 -right-24 w-48 h-48 bg-[#C9A74E]/10 blur-[80px] rounded-full group-hover:bg-[#C9A74E]/20 transition-all duration-700"></div>
+
+                            <div class="flex justify-between items-start mb-10 relative z-10">
+                                <div>
+                                    <h2 class="text-xl font-bold text-white/90 tracking-tight">Customers Growth</h2>
+                                    <p class="text-sm text-gray-500 mt-1">Track customers by country</p>
+                                </div>
+                                
+                                <div class="relative group/select">
+                                    <select id="timeFilter" 
+                                            onchange="filterData(this.value)" 
+                                            class="appearance-none bg-neutral-900/40 backdrop-blur-md border border-white/5 text-neutral-400 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] rounded-full px-6 py-3 outline-none cursor-pointer 
+                                                focus:border-[#C9A74E]/50 focus:text-white focus:ring-4 focus:ring-[#C9A74E]/5
+                                                hover:bg-neutral-800/80 hover:border-white/10 hover:text-neutral-200
+                                                transition-all duration-300 pr-12 shadow-lg">
+                                        <option value="today" class="bg-[#1a1a1a] text-white">Today</option>
+                                        <option value="yesterday" class="bg-[#1a1a1a] text-white">Yesterday</option>
+                                        <option value="7days" class="bg-[#1a1a1a] text-white">7 Days</option>
+                                    </select>
+                                    
+                                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#C9A74E]/10 to-transparent opacity-0 group-hover/select:opacity-100 pointer-events-none transition-opacity duration-500"></div>
+
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none flex items-center gap-2 border-l border-white/10 pl-3">
+                                        <svg class="w-3 h-3 text-neutral-500 group-hover/select:text-[#C9A74E] group-hover/select:translate-y-0.5 transition-all duration-300" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-y-10 gap-x-4 mb-10 relative z-10">
+                                @foreach($previewCountries as $country)
+                                    <div class="flex flex-col items-center group/item cursor-default">
+                                        <div class="relative mb-3">
+                                            <div class="absolute inset-0 bg-[#C9A74E]/20 rounded-full blur-md opacity-0 group-hover/item:opacity-100 transition-opacity duration-500"></div>
+                                            
+                                            <div class="relative w-16 h-16 rounded-full border-[3px] border-neutral-800 p-1 bg-neutral-900 overflow-hidden transition-transform duration-500 group-hover/item:scale-110 group-hover/item:border-[#C9A74E]">
+                                                <img src="https://flagcdn.com/w160/{{ $country['code'] }}.png" alt="{{ $country['name'] }}" class="w-full h-full object-cover rounded-full grayscale-[0.3] group-hover/item:grayscale-0 transition-all">
+                                            </div>
+                                        </div>
+                                        
+                                        <span class="text-[10px] text-neutral-500 uppercase font-black tracking-[0.15em] mb-1 group-hover/item:text-neutral-300 transition-colors">{{ $country['name'] }}</span>
+                                        <span class="text-xl font-bold text-white tabular-nums">{{ number_format($country['count']) }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <button onclick="toggleCountriesModal()" class="group/btn relative w-full py-4 bg-gradient-to-b from-neutral-800 to-neutral-900 hover:from-neutral-700 hover:to-neutral-800 border border-white/5 rounded-2xl transition-all duration-300 active:scale-[0.98] overflow-hidden">
+                                <div class="absolute inset-0 bg-[#C9A74E]/5 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                                <span class="relative flex items-center justify-center gap-3 text-white text-xs font-bold uppercase tracking-[0.2em]">
+                                    View All Regions
+                                    <svg class="w-8 h-8 text-[#C9A74E] group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -381,9 +484,92 @@
         </div>
     </div>
 
+    <div id="countriesModal" class="fixed inset-0 z-[1000] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-xl opacity-0 transition-opacity duration-500 ease-out" id="modalBackdrop" onclick="toggleCountriesModal()"></div>
+        
+        <div class="relative w-full max-w-2xl bg-[#161616]/90 border border-white/10 rounded-[3rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] transform scale-95 opacity-0 transition-all duration-500 ease-out p-10" id="modalContainer">
+            <div class="flex justify-between items-center mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Global Presence</h2>
+                    <p class="text-neutral-500 text-sm">Detailed distribution by territory</p>
+                </div>
+                <button onclick="toggleCountriesModal()" class="w-12 h-12 flex items-center justify-center bg-neutral-900 hover:bg-red-500/10 border border-white/5 rounded-full text-neutral-400 hover:text-red-500 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <div class="relative mb-8">
+                <div class="absolute left-5 top-1/2 -translate-y-1/2 text-neutral-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                </div>
+                <input type="text" onkeyup="searchCountry(this.value)" placeholder="Search region..." class="w-full bg-neutral-900/50 border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-white outline-none focus:border-[#C9A74E]/30 focus:ring-4 focus:ring-[#C9A74E]/5 transition-all">
+            </div>
+
+            <div id="modalCountryGrid" class="max-h-[55vh] overflow-y-auto pr-4 custom-scrollbar grid grid-cols-1 sm:grid-cols-2 gap-4">
+                @foreach($countries as $country)
+                    <div class="country-item group flex items-center justify-between bg-neutral-900/30 hover:bg-[#C9A74E]/5 border border-white/5 hover:border-[#C9A74E]/20 p-5 rounded-[1.5rem] transition-all">
+                        <div class="flex items-center gap-4">
+                            <img src="https://flagcdn.com/w80/{{ $country['code'] }}.png" class="w-12 h-12 rounded-2xl object-cover">
+                            <div>
+                                <p class="text-xs text-neutral-500 font-bold uppercase tracking-widest">{{ $country['name'] }}</p>
+                                <p class="text-xl font-bold text-white group-hover:text-[#C9A74E] transition-colors">{{ number_format($country['count']) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     <form id="logout-form" action="/" method="GET" class="hidden">@csrf</form>
 
     <script>
+        function toggleCountriesModal() {
+            const modal = document.getElementById('countriesModal');
+            const backdrop = document.getElementById('modalBackdrop');
+            const container = document.getElementById('modalContainer');
+
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    backdrop.classList.add('opacity-100');
+                    container.classList.remove('scale-95', 'opacity-0');
+                    container.classList.add('scale-100', 'opacity-100');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                backdrop.classList.remove('opacity-100');
+                container.classList.remove('scale-100', 'opacity-100');
+                container.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            }
+        }
+
+        function searchCountry(query) {
+            const items = document.querySelectorAll('.country-item');
+            query = query.toLowerCase();
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        }
+
+        function filterData(val) {
+            // Efek transisi saat filter diubah
+            const grid = document.querySelector('.grid-cols-3');
+            grid.style.transform = 'translateY(10px)';
+            grid.style.opacity = '0';
+            
+            setTimeout(() => {
+                grid.style.transform = 'translateY(0)';
+                grid.style.opacity = '1';
+                console.log('Data filtered by:', val);
+            }, 400);
+        }
+
         // logic untuk dropdown menu pada widget
         function openWidgetMenu(buttonElement) {
             // Mencari elemen menu yang berada tepat setelah button
@@ -411,19 +597,23 @@
         });
 
         // chart Visitor Bar Chart
+        let visitorChart; // Variabel global untuk menyimpan instance chart
+
         document.addEventListener('DOMContentLoaded', () => {
             const ctxBar = document.getElementById('visitorBarChart').getContext('2d');
-            new Chart(ctxBar, {
+            
+            // Inisialisasi Chart
+            visitorChart = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     datasets: [{
                         label: 'Visitors',
-                        data: [920, 480, 510, 940, 500, 800, 960, 220, 530, 50, 260, 70, 120],
-                        backgroundColor: '#C9A74E', // Tetap biru indigo sesuai gambar 1
-                        hoverBackgroundColor: '#A88C3F', // Warna saat hover
+                        data: [920, 480, 510, 940, 500, 800, 960, 220, 530, 260, 470, 620], // Data awal (2026)
+                        backgroundColor: '#C9A74E', 
+                        hoverBackgroundColor: '#A88C3F', 
                         borderRadius: 6,
-                        barThickness: 30,
+                        barThickness: 25,
                     }]
                 },
                 options: {
@@ -434,25 +624,37 @@
                         y: {
                             beginAtZero: true,
                             max: 1000,
-                            ticks: { 
-                                stepSize: 250, 
-                                color: '#6b7280' // Warna teks abu-abu (gray-500)
-                            },
-                            grid: { 
-                                color: 'rgba(255, 255, 255, 0.05)', // Garis grid sangat tipis
-                                drawBorder: false
-                            }
+                            ticks: { stepSize: 250, color: '#6b7280' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }
                         },
                         x: {
                             grid: { display: false },
-                            ticks: { 
-                                color: '#6b7280' 
-                            }
+                            ticks: { color: '#6b7280' }
                         }
                     }
                 }
             });
         });
+
+        // Fungsi untuk update data chart berdasarkan tahun
+        function updateYearlyData(year) {
+            // Simulasi data per tahun
+            const yearlyData = {
+                '2026': [920, 480, 510, 940, 500, 800, 960, 220, 530, 260, 470, 620],
+                '2025': [400, 300, 600, 800, 450, 700, 850, 320, 600, 400, 550, 900],
+                '2024': [200, 450, 300, 500, 250, 400, 600, 150, 300, 200, 350, 500]
+            };
+
+            if (visitorChart) {
+                // Update data pada dataset pertama
+                visitorChart.data.datasets[0].data = yearlyData[year];
+                
+                // Animasi transisi smooth
+                visitorChart.update();
+                
+                console.log(`Chart updated for year: ${year}`);
+            }
+        }
 
         // 1. STATE GLOBAL
         let isDrawerVisible = false;
@@ -680,22 +882,45 @@
         lucide.createIcons();
 
         async function handleLogout() {
+            // Locate the CSRF meta tag
+            const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
+            const token = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null;
+
+            // Initial Validation: If token is missing, stop process and alert the user
+            if (!token) {
+                console.error("CSRF token meta tag is missing!");
+                return Swal.fire({
+                    title: 'SYSTEM ERROR',
+                    text: 'Security token (CSRF) was not found. Please refresh the page (F5).',
+                    icon: 'error',
+                    background: '#151515',
+                    color: '#ffffff',
+                    confirmButtonColor: '#C9A74E'
+                });
+            }
+
+            // Logout Confirmation Dialog
             const result = await Swal.fire({
                 title: 'LOGOUT',
-                text: 'Are you sure you want to end this session?',
+                text: 'Are you sure you want to end your current session?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#C9A74E',
                 cancelButtonColor: '#333333',
                 confirmButtonText: 'Yes, Sign Out',
+                cancelButtonText: 'Cancel',
                 background: '#151515',
-                color: '#ffffff'
+                color: '#ffffff',
+                customClass: {
+                    popup: 'border border-zinc-800'
+                }
             });
 
+            // If the user confirms logout
             if (result.isConfirmed) {
-                // Tampilkan Loading
+                // Show loading state to prevent double clicks
                 Swal.fire({
-                    title: 'Logging out...',
+                    title: 'Signing out...',
                     allowOutsideClick: false,
                     showConfirmButton: false,
                     background: '#151515',
@@ -711,23 +936,34 @@
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': token
                         }
                     });
 
-                    const data = await response.json(); // Mengganti nama variable ke 'data' agar tidak bentrok dengan 'result' swal
-
+                    // Check if response is successful (200-299)
                     if (response.ok) {
-                        // Redirect langsung jika sukses
-                        window.location.href = '/';
+                        // Redirect to homepage or login page
+                        window.location.href = '/'; 
                     } else {
-                        throw new Error(data.message || 'Logout failed');
+                        // Attempt to parse error message from server
+                        const contentType = response.headers.get("content-type");
+                        let errorMessage = 'Logout failed. Please try again.';
+                        
+                        if (contentType && contentType.includes("application/json")) {
+                            const data = await response.json();
+                            errorMessage = data.message || errorMessage;
+                        }
+
+                        throw new Error(errorMessage);
                     }
+
                 } catch (error) {
-                    // Tutup loading dan tampilkan error
+                    console.error("Logout Error:", error);
+                    
+                    // Show error alert if request fails
                     Swal.fire({
                         title: 'ERROR',
-                        text: error.message,
+                        text: error.message || 'An unexpected server error occurred.',
                         icon: 'error',
                         background: '#1a1a1a',
                         color: '#ffffff',

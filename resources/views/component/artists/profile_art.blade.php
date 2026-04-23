@@ -143,14 +143,14 @@
                     [
                         'name' => 'Monaco, Monte-Carlo. Chemins de Fer P.L.M.', 
                         'year' => '1897', 
-                        'category' => 'Posters', 
+                        'category' => 'Naturalisme', 
                         'image' => 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=800',
                         'offset' => false
                     ],
                     [
-                        'name' => 'La Passion d\'Edmond Haraucourt', 
+                        'name' => 'La Passion Edmond Haraucourt', 
                         'year' => '1901', 
-                        'category' => 'Mythology', 
+                        'category' => 'Surealisme', 
                         'image' => 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?auto=format&fit=crop&q=80&w=800',
                         'offset' => true
                     ],
@@ -164,49 +164,49 @@
                     [
                         'name' => 'The Kiss', 
                         'year' => '1907', 
-                        'category' => 'Figurative', 
+                        'category' => 'Kubisme', 
                         'image' => 'https://images.unsplash.com/photo-1615412704911-55d589229864?auto=format&fit=crop&q=80&w=800',
                         'offset' => true
                     ],
                     [
                         'name' => 'Water Lilies', 
                         'year' => '1919', 
-                        'category' => 'Abstract', 
+                        'category' => 'Klasikisme', 
                         'image' => 'https://plus.unsplash.com/premium_photo-1733317297744-23736fcc1995?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2F0ZXIlMjBsaWxpZXN8ZW58MHx8MHx8fDA%3D',
                         'offset' => false
                     ],
                     [
                         'name' => 'The Great Wave off Kanagawa', 
                         'year' => '1831', 
-                        'category' => 'Mythology', 
+                        'category' => 'Ekspresionisme', 
                         'image' => 'https://images.unsplash.com/photo-1578301978018-3005759f48f7?auto=format&fit=crop&q=80&w=800',
                         'offset' => true
                     ],
                     [
                         'name' => 'Self-Portrait with Thorn Necklace', 
                         'year' => '1940', 
-                        'category' => 'Figurative', 
+                        'category' => 'Abstrak', 
                         'image' => 'https://images.unsplash.com/photo-1580136579312-94651dfd596d?auto=format&fit=crop&q=80&w=800',
                         'offset' => false
                     ],
                     [
                         'name' => 'Guernica', 
                         'year' => '1937', 
-                        'category' => 'Abstract', 
+                        'category' => 'Impresionisme', 
                         'image' => 'https://plus.unsplash.com/premium_photo-1676827547885-4179513a7a68?q=80&w=450&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                         'offset' => true
                     ],
                     [
                         'name' => 'The Scream', 
                         'year' => '1893', 
-                        'category' => 'Figurative', 
+                        'category' => 'Romantisme', 
                         'image' => 'https://images.unsplash.com/photo-1553465528-5a213ccc0c7b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2NyZWFtfGVufDB8fDB8fHww',
                         'offset' => false
                     ],
                     [
                         'name' => 'Landscape at Hakone', 
                         'year' => '1922', 
-                        'category' => 'Posters', 
+                        'category' => 'Realisme', 
                         'image' => 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800',
                         'offset' => true
                     ],
@@ -286,110 +286,244 @@
     </button>
 
     <div id="artModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-8">
-        <div class="absolute inset-0 bg-black/95 backdrop-blur-sm" onclick="closeModal()"></div>
+    <div class="absolute inset-0 bg-black/95 backdrop-blur-sm" onclick="closeModal()"></div>
+    
+    <div class="relative bg-zinc-900 border border-white/10 w-full max-w-6xl overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in fade-in zoom-in duration-300">
         
-        <div class="relative bg-zinc-900 border border-white/10 w-full max-w-5xl overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in fade-in zoom-in duration-300">
-            
-            <button onclick="closeModal()" class="absolute top-6 right-6 z-[130] group outline-none">
-                <div class="relative flex items-center justify-center w-12 h-12 transition-all duration-500 transform group-hover:rotate-90">
-                    <div class="absolute inset-0 bg-white/0 group-hover:bg-white/5 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-                    <svg class="w-8 h-8 text-white/30 group-hover:text-gold transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M6 18L18 6M6 6l12 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </button>
+        <button onclick="closeModal()" class="absolute top-6 right-6 z-[130] group outline-none">
+            <div class="relative flex items-center justify-center w-12 h-12 transition-all duration-500 transform group-hover:rotate-90">
+                <div class="absolute inset-0 bg-white/0 group-hover:bg-white/5 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                <svg class="w-8 h-8 text-white/30 group-hover:text-gold transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 18L18 6M6 6l12 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </button>
 
-            <div id="imageContainer" class="w-full md:w-2/3 bg-black flex items-center justify-center p-6 overflow-hidden relative group/zoom">
-                <div class="relative overflow-hidden shadow-2xl">
-                    <img id="modalImage" src="" alt="Artwork" 
-                        class="max-h-[70vh] md:max-h-[80vh] object-contain transition-transform duration-500 ease-out cursor-zoom-in"
-                        onmousemove="zoomIn(event)" 
-                        onmouseleave="zoomOut(event)">
-                    
-                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-700">
-                        <span class="text-[9px] text-white/30 uppercase tracking-[0.4em] whitespace-nowrap bg-black/20 backdrop-blur-sm px-4 py-2 border border-white/5">
+        <div id="imageContainer" class="w-full md:w-2/3 bg-[#050505] flex items-center justify-center p-6 md:p-12 overflow-hidden relative group/zoom min-h-[50vh]">
+            
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(201,167,78,0.05),transparent_70%)] opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-1000"></div>
+
+            <div class="relative overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)] border border-white/5 bg-zinc-900">
+                
+                <div class="absolute inset-0 z-10 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.5)]"></div>
+
+                <img id="modalImage" src="" alt="Artwork" 
+                    class="max-h-[70vh] md:max-h-[82vh] w-auto object-contain transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-zoom-in scale-100"
+                    onmousemove="zoomIn(event)" 
+                    onmouseleave="zoomOut(event)">
+                
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                    <div class="flex flex-col items-center gap-3 opacity-0 group-hover/zoom:opacity-100 translate-y-4 group-hover/zoom:translate-y-0 transition-all duration-700 ease-out">
+                        <span class="text-[8px] text-gold/60 uppercase tracking-[0.5em] whitespace-nowrap bg-black/40 backdrop-blur-md px-5 py-2.5 border border-gold/10 rounded-full shadow-2xl">
                             Move cursor to explore details
                         </span>
+                        <div class="w-12 h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent"></div>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 pointer-events-none z-15 opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.02] to-transparent -translate-x-full group-hover/zoom:translate-x-full transition-transform duration-[2000ms] ease-in-out"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/3 p-8 md:p-12 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/5 bg-zinc-900/40 backdrop-blur-md overflow-y-auto max-h-screen relative custom-scrollbar">
+            
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-[80px] pointer-events-none"></div>
+
+            <div class="relative z-10">
+                <header class="mb-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="h-[1px] w-8 bg-gold/50"></span>
+                        <span class="text-gold text-[9px] uppercase tracking-[0.4em] font-medium">Original Work</span>
+                    </div>
+                    <h2 id="modalTitle" class="text-4xl md:text-5xl font-serif text-white mb-3 leading-[1.1] tracking-tight"></h2>
+                    <p id="modalAuthor" class="text-zinc-400 tracking-[0.25em] uppercase text-[10px] font-light"></p>
+                </header>
+                
+                <div class="space-y-8">
+                    <div class="group bg-white/[0.02] border border-white/5 p-5 rounded-2xl transition-all duration-500 hover:bg-white/[0.04]">
+                        <span class="text-zinc-500 text-[9px] uppercase tracking-[0.2em] block mb-2 font-medium">Collection Volume</span>
+                        <div class="flex items-end gap-2">
+                            <p id="modalCount" class="text-gray-200 text-xl font-light font-serif italic"></p>
+                            <span class="text-[10px] text-zinc-600 mb-1.5 uppercase">Certified</span>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-6 border-l border-gold/20">
+                        <p class="text-zinc-400 text-[13px] leading-relaxed font-light italic">
+                            "This artwork is part of a curated collection showcasing the intersection of classical technique and modern vision."
+                        </p>
+                    </div>
+
+                    <div class="pt-4">
+                        <span class="text-zinc-500 text-[9px] uppercase tracking-[0.2em] block mb-4 font-medium">Authentication Asset</span>
+                        <div onclick="toggleCertModal()" 
+                            class="group relative cursor-pointer bg-gradient-to-br from-gold/10 to-transparent border border-gold/20 p-5 rounded-2xl overflow-hidden transition-all duration-700 hover:border-gold/50 hover:shadow-[0_0_30px_rgba(201,167,78,0.1)]">
+                            
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(201,167,78,0.15),transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                            <div class="absolute -right-2 -bottom-2 opacity-[0.03] group-hover:opacity-[0.08] transition-all duration-1000 group-hover:rotate-45 group-hover:scale-125">
+                                <svg class="w-32 h-32 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L9 4H5V8L2 11V13L5 16V20H9L12 23L15 20H19V16L22 13V11L19 8V4H15L12 1Z"/></svg>
+                            </div>
+                            
+                            <div class="relative flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center border border-gold/20 rounded-full bg-black/40 group-hover:border-gold/50 transition-all duration-500">
+                                        <svg class="w-5 h-5 text-gold animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-[11px] font-medium uppercase tracking-[0.1em] mb-0.5">Certificate COA</h4>
+                                        <p class="text-zinc-500 text-[10px] font-light">Tamper-proof Digital Document</p>
+                                    </div>
+                                </div>
+                                <div class="text-gold/40 group-hover:text-gold transition-colors">
+                                    <svg class="w-5 h-5 translate-x-0 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="1.5"/></svg>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="w-full md:w-1/3 p-8 md:p-12 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/5 bg-zinc-900/50">
-                <h2 id="modalTitle" class="text-4xl font-serif text-gray-300 mb-2"></h2>
-                <p id="modalAuthor" class="text-gold tracking-[0.2em] uppercase text-xs mb-8"></p>
-                
-                <div class="space-y-6">
-                    <div class="border-b border-white/5 pb-4">
-                        <span class="text-zinc-500 text-[10px] uppercase tracking-widest block mb-1">Collection Info</span>
-                        <p id="modalCount" class="text-gray-300 text-sm"></p>
+            <div class="mt-12 flex items-center gap-4 relative z-10">
+                <button class="flex-1 group relative overflow-hidden bg-[#C9A74E] p-[1px] transition-all duration-500">
+                    <div class="relative bg-[#C9A74E] py-4 transition-all duration-300 group-hover:bg-[#1a1a1a] border border-transparent group-hover:border-[#C9A74E]">
+                        <span class="text-black group-hover:text-[#C9A74E] text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2">
+                            Download
+                        </span>
                     </div>
-                    
-                    <p class="text-zinc-400 text-sm leading-relaxed font-light italic">
-                        "This artwork is part of a curated collection showcasing the intersection of classical technique and modern vision."
-                    </p>
-
-                    <div class="mt-8 flex gap-3">
-                        <button class="flex-1 bg-gold text-black py-3 text-[9px] font-bold uppercase tracking-[0.2em] border border-gold hover:bg-[#C9A74E] hover:border-[#C9A74E] transition-all duration-300">
-                            Download Art
-                        </button>
+                </button>
+                
+                <div class="flex gap-4">
+                    <button onclick="toggleCommentModal()" class="group relative w-14 h-14 flex items-center justify-center rounded-full border border-white/10 text-white/40 transition-all duration-500 overflow-hidden">
+                        <div class="absolute inset-0 bg-[#C9A74E] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
                         
-                        <button onclick="toggleCommentModal()" class="relative z-[130] w-12 h-12 flex items-center justify-center border border-[#C9A74E] text-gold hover:bg-[#C9A74E] hover:border-[#C9A74E] hover:text-black transition-all duration-300">
-                            <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                            </svg>
-                        </button>
+                        <svg class="relative z-10 w-5 h-5 transition-all duration-500 group-hover:text-black group-hover:scale-125 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                        
+                        <div class="absolute inset-0 rounded-full border border-transparent group-hover:border-[#C9A74E] transition-colors duration-500"></div>
+                    </button>
 
-                        <button class="w-12 h-12 flex items-center justify-center border border-[#C9A74E] text-gold hover:bg-[#C9A74E] hover:border-[#C9A74E] hover:text-black transition-all duration-300">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    <button class="group relative w-14 h-14 flex items-center justify-center rounded-full border border-white/10 text-white/40 transition-all duration-500 overflow-hidden">
+                        <div class="absolute inset-0 bg-rose-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                        
+                        <svg class="relative z-10 w-5 h-5 transition-all duration-500 group-hover:text-white group-hover:scale-125 group-hover:-rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+
+                        <div class="absolute inset-0 rounded-full border border-transparent group-hover:border-rose-500 transition-colors duration-500"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="commentOverlay" 
+            class="fixed inset-0 z-[140] bg-black/90 backdrop-blur-2xl flex items-center justify-center p-6 invisible opacity-0 transition-all duration-500 ease-in-out" 
+            onclick="if(event.target === this) toggleCommentModal()">
+
+            <div id="commentContent" 
+                class="w-full max-w-md flex flex-col bg-zinc-900/80 rounded-3xl border border-white/5 h-[80vh] max-h-[600px] overflow-hidden shadow-2xl transform scale-95 transition-all duration-500 ease-out">
+
+                <div class="p-6 border-b border-white/10 flex justify-between items-center bg-zinc-900/50">
+                    <div>
+                        <h3 class="text-gray-300 font-serif italic text-2xl tracking-tight">Curator's Notes</h3>
+                        <p class="text-[9px] text-gold uppercase tracking-[0.4em] mt-1">Community Discussion</p>
+                    </div>
+                    <button onclick="toggleCommentModal()" class="group relative p-2 outline-none flex items-center justify-center transition-all duration-300">
+                        <div class="absolute inset-0 rounded-full border border-[#C9A74E]/0 group-hover:border-[#C9A74E]/20 group-hover:scale-110 transition-all duration-500"></div>
+                        <div class="absolute inset-0 rounded-full bg-[#C9A74E]/0 group-hover:bg-[#C9A74E]/5 transition-all duration-500"></div>
+
+                        <svg class="relative z-10 w-6 h-6 text-white/20 group-hover:text-[#C9A74E] transition-all duration-500 group-hover:rotate-90" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24">
+                            <path d="M6 18L18 6M6 6l12 12" 
+                                stroke-width="1.2" 
+                                stroke-linecap="round" 
+                                stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-black/20">
+                    <div class="flex gap-3 max-w-[90%] group">
+                        <div class="w-8 h-8 rounded-full bg-zinc-800 border border-white/5 flex-shrink-0 flex items-center justify-center text-[10px] text-zinc-500 font-bold group-hover:border-gold/30 transition-colors">AD</div>
+                        <div class="bg-white/[0.03] border border-white/5 p-4 rounded-2xl rounded-tl-none">
+                            <p class="text-[12px] text-zinc-400 font-light leading-relaxed italic">
+                                "Pencahayaan yang sangat dramatis. Terlihat seperti perpaduan gaya klasik Caravaggio."
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 flex-row-reverse max-w-[90%] ml-auto group">
+                        <div class="w-8 h-8 rounded-full bg-gold/10 border border-gold/30 flex-shrink-0 flex items-center justify-center text-[10px] text-gold font-bold group-hover:bg-gold/20 transition-all">EV</div>
+                        <div class="bg-gold/5 border border-gold/20 p-4 rounded-2xl rounded-tr-none text-right">
+                            <p class="text-[12px] text-gray-300 italic font-light leading-relaxed">
+                                "I love how the textures pop out when zoomed in."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-zinc-900/80 border-t border-white/5">
+                    <div class="relative flex items-center gap-3 bg-white/[0.03] border border-white/10 p-1.5 pl-5 rounded-full focus-within:border-gold/50 transition-all duration-500">
+                        <input type="text" placeholder="Share your perspective..." class="flex-1 bg-transparent py-2 text-xs text-white outline-none italic placeholder:text-zinc-600">
+                        <button class="group relative bg-[#C9A74E] text-black p-2.5 rounded-full overflow-hidden transition-all duration-500 hover:bg-[#B3923E] active:scale-90 shadow-lg shadow-[#C9A74E]/20">
+    
+                            <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+
+                            <svg class="w-3.5 h-3.5 rotate-45 transition-all duration-500 group-hover:-translate-y-10 group-hover:translate-x-10 opacity-100 group-hover:opacity-0" 
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                            <svg class="absolute inset-0 m-auto w-3.5 h-3.5 rotate-45 -translate-x-10 translate-y-10 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" 
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div id="commentOverlay" class="fixed inset-0 z-[140] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-6 transition-all duration-500">
+        <div id="certOverlay" 
+            class="fixed inset-0 z-[150] bg-black/98 backdrop-blur-3xl hidden items-center justify-center p-4 md:p-12 transition-all duration-700 cursor-pointer"
+            onclick="closeCertOnClickOutside(event)">
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="relative w-full max-w-4xl animate-in fade-in zoom-in-95 duration-700 cursor-default">
                 
-                <div class="w-full max-w-md animate-in fade-in zoom-in duration-500 flex flex-col bg-zinc-900/50 rounded-3xl border border-white/5 h-[80vh] max-h-[600px] overflow-hidden">
+                <div class="relative bg-zinc-900/40 border border-white/5 p-2 md:p-4 shadow-[0_0_100px_rgba(0,0,0,0.8)] backdrop-blur-md">
                     
-                    <div class="p-6 border-b border-white/10 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-gray-300 font-serif italic text-2xl tracking-tight">Curator's Notes</h3>
-                            <p class="text-[9px] text-gold uppercase tracking-[0.4em] mt-1">Community Discussion</p>
-                        </div>
-                        <button onclick="toggleCommentModal()" class="p-2 text-white/20 hover:text-gold transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="1.5"/></svg>
-                        </button>
-                    </div>
+                    <div class="relative border border-gold/20 p-1">
+                        <div class="relative border border-gold/10 bg-black overflow-hidden group">
+                            <img id="certImageActual" 
+                                src="/img/sertif.png" 
+                                alt="Certificate of Authenticity"
+                                class="w-full h-auto object-contain shadow-2xl transition-transform duration-1000 group-hover:scale-[1.01]">
 
-                    <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
-                        <div class="flex gap-3 max-w-[90%]">
-                            <div class="w-8 h-8 rounded-full bg-zinc-800 flex-shrink-0 flex items-center justify-center text-[10px] text-zinc-500 font-bold">AD</div>
-                            <div class="bg-white/[0.03] border border-white/5 p-3 rounded-2xl rounded-tl-none">
-                                <p class="text-[12px] text-zinc-400 font-light leading-relaxed">"Pencahayaan yang sangat dramatis. Terlihat seperti perpaduan antara Caravaggio."</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-3 flex-row-reverse max-w-[90%] ml-auto">
-                            <div class="w-8 h-8 rounded-full bg-gold/20 border border-[#C9A74E] flex-shrink-0 flex items-center justify-center text-[10px] text-gold font-bold">EV</div>
-                            <div class="bg-gold/5 border border-[#C9A74E] p-3 rounded-2xl rounded-tr-none text-right">
-                                <p class="text-[12px] text-gray-300 italic font-light">"I love how the textures pop out when zoomed in."</p>
-                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/5 pointer-events-none"></div>
                         </div>
                     </div>
 
-                    <div class="p-6 pt-0">
-                        <div class="relative flex items-center gap-3 bg-white/[0.02] border border-white/10 p-1.5 pl-5 rounded-full">
-                            <input type="text" placeholder="Your thoughts..." class="flex-1 bg-transparent py-2 text-xs text-white outline-none italic">
-                            <button class="bg-gold text-black p-2.5 rounded-full hover:bg-white transition-all">
-                                <svg class="w-3.5 h-3.5 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.5"/></svg>
-                            </button>
-                        </div>
-                    </div>
+                    <div class="absolute top-0 left-0 w-8 h-8 border-t border-l border-gold/40 -translate-x-1 -translate-y-1"></div>
+                    <div class="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-gold/40 translate-x-1 translate-y-1"></div>
+                </div>
 
+                <div class="absolute -bottom-16 left-0 right-0 text-center">
+                    
+                    <span class="text-[9px] text-gray-300 uppercase tracking-[0.6em] select-none font-light">
+                        Click anywhere outside or press <span class="text-gold/40">ESC</span> to return
+                    </span>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -460,14 +594,28 @@
 
         // --- LOGIKA KOMENTAR ---
         function toggleCommentModal() {
-            const commentOverlay = document.getElementById('commentOverlay');
-            
-            if (commentOverlay.classList.contains('hidden')) {
-                commentOverlay.classList.remove('hidden');
-                commentOverlay.classList.add('flex'); // Pakai flex agar konten di tengah
+            const overlay = document.getElementById('commentOverlay');
+            const content = document.getElementById('commentContent');
+
+            if (overlay.classList.contains('invisible')) {
+                // Tampilkan Modal
+                overlay.classList.remove('invisible');
+                overlay.classList.add('opacity-100');
+                
+                // Efek Scale Up konten
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
             } else {
-                commentOverlay.classList.add('hidden');
-                commentOverlay.classList.remove('flex');
+                // Sembunyikan Modal
+                content.classList.remove('scale-100');
+                content.classList.add('scale-95');
+                
+                overlay.classList.remove('opacity-100');
+                
+                // Tunggu transisi selesai sebelum memberikan invisible
+                setTimeout(() => {
+                    overlay.classList.add('invisible');
+                }, 500); // 500ms sesuai duration-500 di HTML
             }
         }
 
@@ -488,7 +636,47 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Logika Back to Top Anda yang sudah ada...
+        /**
+         * Fungsi untuk menutup Certificate Modal hanya jika area luar diklik
+         */
+        function closeCertOnClickOutside(event) {
+            const overlay = document.getElementById('certOverlay');
+            // Jika yang diklik adalah overlay-nya sendiri (area hitam), bukan konten di dalamnya
+            if (event.target === overlay) {
+                toggleCertModal();
+            }
+        }
+
+        /**
+         * Fungsi Utama Toggle (Tetap sama, hanya pastikan ID sinkron)
+         */
+        function toggleCertModal() {
+            const overlay = document.getElementById('certOverlay');
+            
+            if (overlay.classList.contains('hidden')) {
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // Kunci scroll halaman belakang
+            } else {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+                document.body.style.overflow = ''; // Aktifkan scroll kembali
+            }
+        }
+
+        /**
+         * ESC Key Handler (Sudah benar dalam kode kamu, pastikan ada)
+         */
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const certOverlay = document.getElementById('certOverlay');
+                if (!certOverlay.classList.contains('hidden')) {
+                    toggleCertModal();
+                }
+            }
+        });
+
+        // Logika Back to Top 
         window.addEventListener('scroll', function() {
             const btn = document.getElementById('backToTop');
             if (window.scrollY > 400) {

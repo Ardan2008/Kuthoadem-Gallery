@@ -121,14 +121,7 @@
         </div>
     </div>
 
-    <section class="relative min-h-screen w-full overflow-hidden bg-black flex flex-col">
-        <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-black via-slate-950/80 to-black z-10"></div>
-            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=2000" 
-                class="absolute inset-0 object-cover w-full h-full scale-110 animate-[pulse_10s_infinite] opacity-30" 
-                alt="Masterpiece Art">
-        </div>
-
+    <section class="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex flex-col">
         <nav class="relative z-50 flex items-center justify-between px-6 md:px-16 py-8 text-gray-300">
             <a href="/">
                 <div class="text-2xl md:text-3xl font-bold tracking-[0.1em] uppercase font-serif text-gray-300">
@@ -161,58 +154,63 @@
             </button>
         </nav>
 
-        <div class="relative z-20 flex flex-col lg:flex-row items-center justify-between flex-grow px-6 md:px-20 py-10 lg:gap-0 gap-16">
+        {{-- hero section --}}
+        <div id="hero-section" class="relative min-h-screen w-full overflow-hidden flex items-center justify-center px-6 md:px-20 py-20 font-sans">
             
-            <div class="w-full lg:w-3/5">
-                <span class="text-[#C9A74E] uppercase tracking-[0.5em] text-[10px] md:text-xs mb-6 block" data-aos="fade-up">
-                    The New Renaissance
-                </span>
-                <h1 class="text-gray-300 text-6xl md:text-8xl lg:text-[10rem] font-serif leading-[0.9] mb-12" 
-                    data-aos="fade-up" data-aos-delay="200">
-                    Eternal <br> 
-                    <span class="italic font-light md:ml-24 text-gray-300">Canvas</span>
-                </h1>
+            <div class="absolute inset-0">
+                <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#ffffff 0.5px, transparent 0.5px); background-size: 30px 30px;"></div>
                 
-                <div class="flex flex-col md:flex-row md:items-center gap-8" data-aos="fade-up" data-aos-delay="400">
-                    <p class="text-gray-300 text-base md:text-lg max-w-sm font-light leading-relaxed border-l border-amber-400/50 pl-6">
-                        A sanctuary where history converges with the digital era. Discover masterpieces that transcend time.
-                    </p>
-                </div>
+                <div class="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+                <div class="absolute bottom-1/4 -right-20 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none"></div>
             </div>
 
-            <div class="w-full lg:w-2/5 flex justify-center lg:justify-end" data-aos="zoom-in" data-aos-delay="600">
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute top-0 left-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-amber-400/20 to-transparent animate-pulse"></div>
                 
-                <div class="relative group [transform-style:preserve-3d] transition-transform duration-1000 hover:[transform:rotateY(-15deg)_rotateX(5deg)]">
+                <div class="absolute top-20 right-[10%] w-32 h-32 border border-white/5 rounded-full rotate-12"></div>
+                <div class="absolute bottom-40 left-[5%] w-24 h-24 border border-amber-400/10 rotate-45"></div>
+                
+                <div class="absolute top-1/2 left-10 w-32 h-[1px] bg-gradient-to-r from-transparent to-amber-400/30 rotate-45"></div>
+                <div class="absolute bottom-1/3 right-20 w-48 h-[1px] bg-gradient-to-l from-transparent to-gray-500/30 -rotate-12"></div>
+            </div>
+
+            <div class="relative z-20 flex flex-col items-center text-center max-w-5xl">
+                
+                <div class="flex items-center gap-4 mb-8" data-aos="fade-up">
+                    <div class="w-12 h-[1px] bg-gradient-to-r from-transparent to-amber-500"></div>
+                    <span class="text-[#C9A74E] uppercase tracking-[0.6em] text-[10px] md:text-xs font-semibold">
+                        The Painted Revivale
+                    </span>
+                    <div class="w-12 h-[1px] bg-gradient-to-l from-transparent to-amber-500"></div>
+                </div>
+
+                <h1 class="text-gray-300 text-6xl md:text-8xl lg:text-[10rem] font-serif leading-[0.85] mb-12 select-none tracking-tighter" 
+                    data-aos="fade-up" data-aos-delay="200">
+                    Canvas <br> 
+                    <span class="flex items-center justify-center md:justify-start gap-4 mt-4">
+                        <span class="italic font-light text-gray-500/40 text-4xl md:text-6xl lg:text-7xl tracking-tight">
+                            of
+                        </span>
+                        <span class="italic font-light text-gray-500/60 tracking-tight">
+                            Eternity
+                        </span>
+                    </span>
+                </h1>
+                
+                <div class="flex flex-col items-center gap-8" data-aos="fade-up" data-aos-delay="400">
                     
-                    <div class="absolute -top-12 -right-8 w-24 h-24 border-r border-t border-amber-400/20 -z-10 hidden md:block [transform:translateZ(-20px)]"></div>
-                    
-                    <div class="float-art relative overflow-hidden w-64 md:w-80 h-[400px] md:h-[500px] 
-                                border-[1px] border-amber-400/20 p-4 bg-[#0a0a0a] backdrop-blur-sm 
-                                shadow-[0_20px_50px_rgba(0,0,0,0.8)] 
-                                transition-all duration-700 
-                                group-hover:border-amber-400/50 group-hover:shadow-amber-400/5
-                                [transform-style:preserve-3d]">
-                        
-                        <div class="relative w-full h-[82%] overflow-hidden [transform:translateZ(40px)] transition-transform duration-700 group-hover:[transform:translateZ(70px)] shadow-2xl">
-                            <img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?auto=format&fit=crop&q=80&w=800" 
-                                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100" 
-                                alt="Featured Piece">
-                            
-                            <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                        </div>
-                        
-                        <div class="mt-6 flex flex-col gap-1 [transform:translateZ(60px)] transition-transform duration-700 group-hover:[transform:translateZ(90px)]">
-                            <span class="text-[#C9A74E] text-[9px] uppercase tracking-widest font-bold drop-shadow-md">Current Spotlight</span>
-                            <div class="flex justify-between items-baseline">
-                                <h4 class="text-white font-serif italic text-xl drop-shadow-xl">The Veiled Flora</h4>
-                                <span class="text-slate-400 text-[10px]">#021/2026</span>
+                    <p class="text-gray-400/80 text-base md:text-xl max-w-xl font-light leading-relaxed tracking-wide">
+                        A sanctuary where art comes alive across time. Explore paintings that capture emotion and timeless beauty. From classic to modern works, each piece tells a story beyond words, inviting you into a world of color and expression.
+                    </p>
+
+                    <div class="relative z-20 flex flex-col items-center text-center max-w-5xl">
+                        <div class="flex flex-col items-center gap-3">
+                            <div id="scroll-icon" class="w-[26px] h-[42px] border-2 border-amber-400/30 rounded-full relative flex justify-center cursor-pointer transition-opacity duration-300">
+                                <div class="w-1 h-2 bg-amber-400 rounded-full mt-2 animate-bounce shadow-[0_0_8px_rgba(251,191,36,0.6)]"></div>
                             </div>
                         </div>
-
-                        <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.5)]"></div>
                     </div>
 
-                    <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-40 h-4 bg-black/80 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                 </div>
             </div>
         </div>
@@ -330,12 +328,12 @@
     {{-- Gallery --}}
     <?php
     $featured_arts = [
-        ["title" => "Whispers of the Orient", "medium" => "By Debora Lee", "year" => "2024", "price" => "$4,200", "image" => "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&q=80&w=800"],
-        ["title" => "The Silent Observer", "medium" => "By Marcus Chen", "year" => "2025", "price" => "$12,500", "image" => "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=800"],
-        ["title" => "Ethereal Bloom", "medium" => "By Alex Rivera", "year" => "2026", "price" => "$1,850", "image" => "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800"],
-        ["title" => "Oceanic Abstract", "medium" => "By Jordan Smith", "year" => "2023", "price" => "$3,100", "image" => "https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=800&auto=format&fit=crop"],
-        ["title" => "Midnight Sculpt", "medium" => "By Sarah Johnson", "year" => "2025", "price" => "$950", "image" => "https://images.unsplash.com/photo-1576769267415-9642010aa962?auto=format&fit=crop&q=80&w=800"],
-        ["title" => "The Architect's Dream", "medium" => "By Michael Brown", "year" => "2024", "price" => "$2,400", "image" => "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=800"]
+        ["title" => "Realisme", "medium" => "By Debora Lee", "year" => "2024", "price" => "$4,200", "image" => "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&q=80&w=800"],
+        ["title" => "Naturalisme", "medium" => "By Marcus Chen", "year" => "2025", "price" => "$12,500", "image" => "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=800"],
+        ["title" => "Impresionisme", "medium" => "By Alex Rivera", "year" => "2026", "price" => "$1,850", "image" => "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800"],
+        ["title" => "Ekspresionisme", "medium" => "By Jordan Smith", "year" => "2023", "price" => "$3,100", "image" => "https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=800&auto=format&fit=crop"],
+        ["title" => "Abstrak", "medium" => "By Sarah Johnson", "year" => "2025", "price" => "$950", "image" => "https://images.unsplash.com/photo-1576769267415-9642010aa962?auto=format&fit=crop&q=80&w=800"],
+        ["title" => "Kubisme", "medium" => "By Michael Brown", "year" => "2024", "price" => "$2,400", "image" => "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=800"]
     ];
     ?>
 
@@ -462,6 +460,49 @@
             setTimeout(() => {
                 AOS.refresh();
             }, 2000); 
+        });
+
+        // Scroll Effect untuk Hero Section
+        window.addEventListener('scroll', function() {
+            const heroSection = document.getElementById('hero-section');
+            const scrollIcon = document.getElementById('scroll-icon');
+            
+            // Mendapatkan posisi scroll saat ini
+            let scrollValue = window.scrollY;
+            
+            // Hitung Opacity (Mulai memudar dari 0px sampai 500px scroll)
+            // Semakin besar scrollValue, semakin kecil opacity-nya
+            let opacityValue = 1 - (scrollValue / 500);
+            
+            // Berikan batas minimal 0 agar tidak minus
+            if (opacityValue < 0) opacityValue = 0;
+
+            // Terapkan ke elemen utama (Konten)
+            // Kita juga tambahkan sedikit efek translateY agar konten seperti terdorong ke atas
+            const content = heroSection.querySelector('.relative.z-20');
+            if (content) {
+                content.style.opacity = opacityValue;
+                content.style.transform = `translateY(-${scrollValue * 0.2}px)`;
+            }
+
+            // Khusus ikon scroll, buat menghilang lebih cepat
+            if (scrollIcon) {
+                scrollIcon.style.opacity = 1 - (scrollValue / 150);
+            }
+            
+            // Opsional: Membuat background bergerak lebih lambat (Parallax)
+            const background = heroSection.querySelector('.absolute.inset-0');
+            if (background) {
+                background.style.transform = `translateY(${scrollValue * 0.4}px)`;
+            }
+        });
+
+        // Fungsi tambahan: klik ikon untuk scroll ke bawah otomatis
+        document.getElementById('scroll-icon').addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
         });
 
         const hasSeenOpening = sessionStorage.getItem('hasSeenOpening');

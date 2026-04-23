@@ -158,39 +158,15 @@
     <main class="min-h-screen">
         <header class="max-w-7xl mx-auto pl-4 md:pl-6 pt-32 pb-20" data-aos="fade-right">
             <div class="relative">
-                <h1 class="text-[10rem] md:text-[14rem] font-serif text-white/5 leading-[0.7] tracking-tighter absolute -top-16 -left-10 select-none pointer-events-none">
-                    MYTHOLOGY
-                </h1>
-                
                 <h1 class="relative z-10 text-8xl md:text-9xl font-serif text-gray-300 tracking-tighter leading-none">
-                    Mythology<span class="text-gold">.</span>
+                    Surealisme<span class="text-gold">.</span>
                 </h1>
 
-                <div class="mt-12 flex items-center gap-5">
-                    <a href="/artists_profile" class="group flex items-center gap-4 transition-all duration-500">
-                        <div class="relative w-10 h-10 rounded-full border border-[#D4AF37]/30 p-0.5 transition-all duration-500 group-hover:border-[#D4AF37] flex items-center justify-center overflow-hidden">
-                            
-                            <svg class="absolute inset-0 m-auto w-5 h-5 text-zinc-600 group-hover:text-[#D4AF37] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Michal" 
-                                alt="Curator Profile" 
-                                class="relative z-10 w-full h-full rounded-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500">
-                            
-                            <div class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-                        
-                        <p class="text-sm font-medium tracking-wide text-zinc-400 group-hover:text-[#D4AF37] transition-colors duration-500">
-                            By GingerandCoPrintShop
-                        </p>
-                    </a>
-                    
-                    <div class="w-1.5 h-1.5 rounded-full bg-zinc-700"></div>
-
-                    <div class="flex items-center gap-2">
-                        <span class="text-sm font-semibold text-zinc-300">03</span>
-                        <span class="text-[13px] text-zinc-600 font-light uppercase tracking-[0.3em]">Collections</span>
+                <div class="mt-12 flex items-center gap-6 group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-2xl font-light text-amber-500/80 font-serif italic">03</span>
+                        <div class="h-[1px] w-8 bg-zinc-700 group-hover:w-12 transition-all duration-500"></div>
+                        <span class="text-[12px] text-zinc-400 font-medium uppercase tracking-[0.4em]">Collections</span>
                     </div>
                 </div>
             </div>
@@ -219,7 +195,7 @@
         @php 
             $gallery = [
                 [
-                    'title' => 'Mythology', 
+                    'title' => 'Naturalisme', 
                     'author' => 'Johanna', 
                     'count' => 45, 
                     'main_img' => 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=800', 
@@ -227,7 +203,7 @@
                     'sub_img2' => 'https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&q=80&w=400'
                 ],
                 [
-                    'title' => 'Equestrian', 
+                    'title' => 'Abstrak', 
                     'author' => 'Barnowl88', 
                     'count' => 209, 
                     'main_img' => 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=800', 
@@ -235,7 +211,7 @@
                     'sub_img2' => 'https://images.unsplash.com/photo-1600715151005-e6d44b9ef840?w=500&auto=format&fit=crop&q=60'
                 ],
                 [
-                    'title' => 'Artko Public Drawing', 
+                    'title' => 'Klasikisme', 
                     'author' => 'Koza', 
                     'count' => 103, 
                     'main_img' => 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800', 
@@ -371,64 +347,108 @@
                     </p>
 
                     <div class="mt-8 flex gap-3">
-                        <button class="flex-1 bg-gold text-black py-3 text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-white transition-all duration-300">
-                            Download Art
+                        <button class="group relative flex-1 overflow-hidden border border-[#C9A74E]/30 py-4 transition-all duration-500">
+                            <div class="absolute inset-0 bg-[#C9A74E] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                            
+                            <span class="relative z-10 text-[#C9A74E] group-hover:text-black text-[9px] font-bold uppercase tracking-[0.3em] flex items-center justify-center transition-colors duration-500">
+                                Download Art
+                            </span>
+
+                            <div class="absolute inset-0 border border-transparent group-hover:border-[#C9A74E] transition-colors duration-500"></div>
                         </button>
                         
-                        <button onclick="toggleCommentModal()" class="relative z-[130] w-12 h-12 flex items-center justify-center border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all duration-300">
-                            <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                            </svg>
-                        </button>
+                        <div class="flex gap-2">
+                            <button onclick="toggleCommentModal()" class="group relative w-12 h-12 flex items-center justify-center border border-[#C9A74E]/30 overflow-hidden transition-all duration-500">
+                                <div class="absolute inset-0 bg-[#C9A74E] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                                
+                                <svg class="relative z-10 w-5 h-5 text-[#C9A74E] transition-all duration-500 group-hover:text-black group-hover:scale-110 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                </svg>
 
-                        <button class="w-12 h-12 flex items-center justify-center border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all duration-300">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                            </svg>
-                        </button>
+                                <div class="absolute inset-0 border border-transparent group-hover:border-[#C9A74E] transition-colors duration-500"></div>
+                            </button>
+
+                            <button class="group relative w-12 h-12 flex items-center justify-center border border-rose-500/30 overflow-hidden transition-all duration-500">
+                                <div class="absolute inset-0 bg-rose-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                                
+                                <svg class="relative z-10 w-5 h-5 text-rose-500 transition-all duration-500 group-hover:text-white group-hover:scale-110 group-hover:-rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                </svg>
+
+                                <div class="absolute inset-0 border border-transparent group-hover:border-rose-500 transition-colors duration-500"></div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div id="commentOverlay" class="fixed inset-0 z-[140] bg-black/90 backdrop-blur-2xl hidden items-center justify-center p-6 transition-all duration-500">
-                
-                <div class="w-full max-w-md animate-in fade-in zoom-in duration-500 flex flex-col bg-zinc-900/50 rounded-3xl border border-white/5 h-[80vh] max-h-[600px] overflow-hidden">
-                    
-                    <div class="p-6 border-b border-white/10 flex justify-between items-center">
+            <div id="commentOverlay" 
+                class="fixed inset-0 z-[140] bg-black/90 backdrop-blur-2xl flex items-center justify-center p-6 invisible opacity-0 transition-all duration-500 ease-in-out" 
+                onclick="if(event.target === this) toggleCommentModal()">
+
+                <div id="commentContent" 
+                    class="w-full max-w-md flex flex-col bg-zinc-900/80 rounded-3xl border border-white/5 h-[80vh] max-h-[600px] overflow-hidden shadow-2xl transform scale-95 transition-all duration-500 ease-out">
+
+                    <div class="p-6 border-b border-white/10 flex justify-between items-center bg-zinc-900/50">
                         <div>
                             <h3 class="text-gray-300 font-serif italic text-2xl tracking-tight">Curator's Notes</h3>
                             <p class="text-[9px] text-gold uppercase tracking-[0.4em] mt-1">Community Discussion</p>
                         </div>
-                        <button onclick="toggleCommentModal()" class="p-2 text-white/20 hover:text-gold transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="1.5"/></svg>
+                        <button onclick="toggleCommentModal()" class="group relative p-2 outline-none flex items-center justify-center transition-all duration-300">
+                            <div class="absolute inset-0 rounded-full border border-[#C9A74E]/0 group-hover:border-[#C9A74E]/20 group-hover:scale-110 transition-all duration-500"></div>
+                            <div class="absolute inset-0 rounded-full bg-[#C9A74E]/0 group-hover:bg-[#C9A74E]/5 transition-all duration-500"></div>
+
+                            <svg class="relative z-10 w-6 h-6 text-white/20 group-hover:text-[#C9A74E] transition-all duration-500 group-hover:rotate-90" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24">
+                                <path d="M6 18L18 6M6 6l12 12" 
+                                    stroke-width="1.2" 
+                                    stroke-linecap="round" 
+                                    stroke-linejoin="round"/>
+                            </svg>
                         </button>
                     </div>
 
-                    <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
-                        <div class="flex gap-3 max-w-[90%]">
-                            <div class="w-8 h-8 rounded-full bg-zinc-800 flex-shrink-0 flex items-center justify-center text-[10px] text-zinc-500 font-bold">AD</div>
-                            <div class="bg-white/[0.03] border border-white/5 p-3 rounded-2xl rounded-tl-none">
-                                <p class="text-[12px] text-zinc-400 font-light leading-relaxed">"Pencahayaan yang sangat dramatis. Terlihat seperti perpaduan antara Caravaggio."</p>
+                    <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-black/20">
+                        <div class="flex gap-3 max-w-[90%] group">
+                            <div class="w-8 h-8 rounded-full bg-zinc-800 border border-white/5 flex-shrink-0 flex items-center justify-center text-[10px] text-zinc-500 font-bold group-hover:border-gold/30 transition-colors">AD</div>
+                            <div class="bg-white/[0.03] border border-white/5 p-4 rounded-2xl rounded-tl-none">
+                                <p class="text-[12px] text-zinc-400 font-light leading-relaxed italic">
+                                    "Pencahayaan yang sangat dramatis. Terlihat seperti perpaduan gaya klasik Caravaggio."
+                                </p>
                             </div>
                         </div>
 
-                        <div class="flex gap-3 flex-row-reverse max-w-[90%] ml-auto">
-                            <div class="w-8 h-8 rounded-full bg-gold/20 border border-gold/40 flex-shrink-0 flex items-center justify-center text-[10px] text-gold font-bold">EV</div>
-                            <div class="bg-gold/5 border border-gold/20 p-3 rounded-2xl rounded-tr-none text-right">
-                                <p class="text-[12px] text-zinc-300 italic font-light">"I love how the textures pop out when zoomed in."</p>
+                        <div class="flex gap-3 flex-row-reverse max-w-[90%] ml-auto group">
+                            <div class="w-8 h-8 rounded-full bg-gold/10 border border-gold/30 flex-shrink-0 flex items-center justify-center text-[10px] text-gold font-bold group-hover:bg-gold/20 transition-all">EV</div>
+                            <div class="bg-gold/5 border border-gold/20 p-4 rounded-2xl rounded-tr-none text-right">
+                                <p class="text-[12px] text-gray-300 italic font-light leading-relaxed">
+                                    "I love how the textures pop out when zoomed in."
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="p-6 pt-0">
-                        <div class="relative flex items-center gap-3 bg-white/[0.02] border border-white/10 p-1.5 pl-5 rounded-full">
-                            <input type="text" placeholder="Your thoughts..." class="flex-1 bg-transparent py-2 text-xs text-white outline-none italic">
-                            <button class="bg-gold text-black p-2.5 rounded-full hover:bg-white transition-all">
-                                <svg class="w-3.5 h-3.5 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.5"/></svg>
+                    <div class="p-6 bg-zinc-900/80 border-t border-white/5">
+                        <div class="relative flex items-center gap-3 bg-white/[0.03] border border-white/10 p-1.5 pl-5 rounded-full focus-within:border-gold/50 transition-all duration-500">
+                            <input type="text" placeholder="Share your perspective..." class="flex-1 bg-transparent py-2 text-xs text-white outline-none italic placeholder:text-zinc-600">
+                            <button class="group relative bg-[#C9A74E] text-black p-2.5 rounded-full overflow-hidden transition-all duration-500 hover:bg-[#B3923E] active:scale-90 shadow-lg shadow-[#C9A74E]/20">
+        
+                                <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+
+                                <svg class="w-3.5 h-3.5 rotate-45 transition-all duration-500 group-hover:-translate-y-10 group-hover:translate-x-10 opacity-100 group-hover:opacity-0" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+
+                                <svg class="absolute inset-0 m-auto w-3.5 h-3.5 rotate-45 -translate-x-10 translate-y-10 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div> 
@@ -494,14 +514,28 @@
 
         // --- LOGIKA KOMENTAR ---
         function toggleCommentModal() {
-            const commentOverlay = document.getElementById('commentOverlay');
-            
-            if (commentOverlay.classList.contains('hidden')) {
-                commentOverlay.classList.remove('hidden');
-                commentOverlay.classList.add('flex'); // Pakai flex agar konten di tengah
+            const overlay = document.getElementById('commentOverlay');
+            const content = document.getElementById('commentContent');
+
+            if (overlay.classList.contains('invisible')) {
+                // Tampilkan Modal
+                overlay.classList.remove('invisible');
+                overlay.classList.add('opacity-100');
+                
+                // Efek Scale Up konten
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
             } else {
-                commentOverlay.classList.add('hidden');
-                commentOverlay.classList.remove('flex');
+                // Sembunyikan Modal
+                content.classList.remove('scale-100');
+                content.classList.add('scale-95');
+                
+                overlay.classList.remove('opacity-100');
+                
+                // Tunggu transisi selesai sebelum memberikan invisible
+                setTimeout(() => {
+                    overlay.classList.add('invisible');
+                }, 500); // 500ms sesuai duration-500 di HTML
             }
         }
 

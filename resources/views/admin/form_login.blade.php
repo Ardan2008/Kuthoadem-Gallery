@@ -101,6 +101,23 @@
             -webkit-box-shadow: 0 0 0 1000px #1a1a1a inset !important;
             -webkit-text-fill-color: white !important;
         }
+
+        /* forgot password */
+        .modal-active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .modal-active #modalContent {
+            transform: scale(1) !important;
+        }
+
+        /* Custom styling tambahan untuk input di dalam modal jika diperlukan */
+        .input-field {
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col lg:flex-row overflow-x-hidden">
@@ -155,6 +172,17 @@
                     </div>
                 </div>
 
+                <div class="flex justify-end mt-4" data-aos="fade-up" data-aos-delay="1350">
+                    <button type="button" 
+                            onclick="toggleModal(true)" 
+                            class="group relative text-[11px] font-medium uppercase tracking-[0.2em] text-gray-400 hover:text-[#C9A74E] transition-all duration-500 ease-in-out">
+                        
+                        <span>Forgot Password?</span>
+                        
+                        <span class="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-[#C9A74E] transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </button>
+                </div>
+
                 <div class="flex flex-row gap-4 pt-4" data-aos="fade-up" data-aos-delay="1400">
                     <button type="button" onclick="handleCancel()"
                         class="btn-outline flex-1 font-bold py-5 rounded-lg uppercase text-xs tracking-[0.3em]">
@@ -178,8 +206,96 @@
         </div>
     </div>
 
+    <div id="resetModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-500 ease-in-out">
+        <div class="w-full max-w-md bg-[#121212] border border-white/5 p-8 rounded-2xl shadow-2xl transform scale-95 transition-all duration-500 ease-in-out" id="modalContent">
+            <div class="mb-8">
+                <h2 class="text-gray-300 text-2xl font-bold mb-2 tracking-tight">Reset Password</h2>
+                <p class="text-gray-400 text-xs">Please enter your new credentials below.</p>
+            </div>
+
+            <form class="space-y-6">
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase tracking-[0.2em] text-gray-300 font-bold ml-1">New Password</label>
+                        <div class="relative">
+                            <input type="password" id="new-password" required 
+                                class="reset-input w-full rounded-lg px-5 py-4 text-sm bg-[#1a1a1a] border border-white/10 text-white focus:border-[#C9A74E] outline-none transition-all" 
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase tracking-[0.2em] text-gray-300 font-bold ml-1">Confirm Password</label>
+                        <div class="relative">
+                            <input type="password" id="confirm-password" required 
+                                class="reset-input w-full rounded-lg px-5 py-4 text-sm bg-[#1a1a1a] border border-white/10 text-white focus:border-[#C9A74E] outline-none transition-all" 
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-4 pt-4">
+                    <button type="button" onclick="toggleModal(false)" class="flex-1 text-gray-400 font-bold py-4 rounded-lg uppercase text-[10px] tracking-[0.2em] border border-white/10 hover:bg-white/5 transition-all">
+                        Cancel
+                    </button>
+                    <button type="button" onclick="handleResetPassword()"
+                        class="btn-gold flex-1 font-bold py-4 rounded-lg uppercase text-[10px] tracking-[0.2em] bg-[#C9A74E] text-black hover:bg-[#b08f3d] transition-all shadow-lg shadow-[#C9A74E]/20">
+                        Reset Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // logic untuk toggle modal
+        function toggleModal(show) {
+            const modal = document.getElementById('resetModal');
+            
+            if (show) {
+                modal.classList.add('modal-active');
+                // Mencegah scroll pada body saat modal terbuka
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.remove('modal-active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Konfigurasi Auto-Reveal Peek-a-boo
+        const setupPeekPassword = (inputId) => {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+
+            let hideTimeout;
+
+            // Saat user mengetik
+            input.addEventListener('input', function() {
+                this.type = 'text'; // Tampilkan teks
+                
+                // Bersihkan timeout sebelumnya jika user masih mengetik
+                clearTimeout(hideTimeout);
+                
+                // Setel waktu 1 detik untuk menyembunyikan kembali
+                hideTimeout = setTimeout(() => {
+                    input.type = 'password';
+                }, 1000);
+            });
+
+            // Saat user klik di luar input (blur), langsung sembunyikan
+            input.addEventListener('blur', function() {
+                clearTimeout(hideTimeout); // Batalkan timer jika ada
+                this.type = 'password';
+            });
+        };
+
+        // Inisialisasi untuk semua ID input yang ada
+        document.addEventListener('DOMContentLoaded', () => {
+            const targetIds = ['password', 'new-password', 'confirm-password'];
+            targetIds.forEach(id => setupPeekPassword(id));
+        });
+        
         // Initialize Lucide Icons
         lucide.createIcons();
 
@@ -205,6 +321,160 @@
         passwordInput.addEventListener('blur', function() {
             this.type = 'password';
         });
+
+        async function handleResetPassword() {
+            // Get username from the main login input (outside the modal)
+            const usernameField = document.getElementById('username');
+            const targetUser = usernameField ? usernameField.value : '';
+            
+            // Get new passwords from the modal inputs
+            const newPassField = document.getElementById('new-password');
+            const confirmPassField = document.getElementById('confirm-password');
+            
+            const newPass = newPassField.value;
+            const confirmPass = confirmPassField.value;
+
+            // --- INITIAL VALIDATION ---
+
+            // Check if the username in the main login form is filled
+            if (!targetUser) {
+                toggleModal(false); // Close reset modal temporarily
+                Swal.fire({
+                    icon: 'info',
+                    title: 'IDENTITY REQUIRED',
+                    text: 'Please enter your username in the login form first.',
+                    background: '#121212',
+                    color: '#fff',
+                    confirmButtonColor: '#C9A74E',
+                    confirmButtonText: 'UNDERSTOOD'
+                }).then(() => {
+                    // Autofocus back to the username field
+                    if (usernameField) usernameField.focus();
+                });
+                return;
+            }
+
+            // Check if password fields are empty
+            if (!newPass || !confirmPass) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'INCOMPLETE DATA',
+                    text: 'Both password fields are required.',
+                    background: '#121212',
+                    color: '#fff',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return;
+            }
+
+            // Check if passwords match
+            if (newPass !== confirmPass) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'MISMATCH',
+                    text: 'Confirm password does not match the new password.',
+                    background: '#121212',
+                    color: '#fff',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return;
+            }
+
+            // --- CONFIRMATION & API PROCESS ---
+
+            // Final confirmation from the user
+            const result = await Swal.fire({
+                title: 'RESET PASSWORD?',
+                text: `You are about to update the password for administrator: ${targetUser}`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#C9A74E',
+                cancelButtonColor: '#303030',
+                confirmButtonText: 'YES, UPDATE NOW',
+                cancelButtonText: 'CANCEL',
+                background: '#121212',
+                color: '#fff'
+            });
+
+            if (result.isConfirmed) {
+                // Show loading state
+                Swal.fire({
+                    title: 'CONNECTING TO DATABASE...',
+                    text: 'Please wait a moment.',
+                    background: '#121212',
+                    color: '#fff',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                try {
+                    // Replace this URL with your actual Laravel API endpoint
+                    const response = await fetch('http://127.0.0.1:8000/api/forgot-password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: targetUser,
+                            password: newPass
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Success notification
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'SUCCESS!',
+                            text: 'Password has been updated. Please login with your new credentials.',
+                            background: '#121212',
+                            color: '#fff',
+                            iconColor: '#C9A74E',
+                            showConfirmButton: false,
+                            timer: 2500,
+                            timerProgressBar: true,
+                            willClose: () => {
+                                // Close modal and clear password inputs
+                                toggleModal(false);
+                                newPassField.value = '';
+                                confirmPassField.value = '';
+                            }
+                        });
+                    } else {
+                        // Handle backend errors (e.g., username not found)
+                        throw new Error(data.message || 'Failed to update password.');
+                    }
+                } catch (error) {
+                    // Display error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'PROCESS FAILED',
+                        text: error.message,
+                        background: '#121212',
+                        color: '#fff',
+                        confirmButtonColor: '#C9A74E'
+                    });
+                }
+            }
+        }
+
+        // Helper function untuk error cepat
+        function showErrorAlert(msg) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Opps!',
+                text: msg,
+                background: '#121212',
+                color: '#fff',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
 
         function handleCancel() {
             Swal.fire({

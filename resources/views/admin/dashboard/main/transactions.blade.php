@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Kuthoadem Gallery | Admin Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1036,22 +1037,45 @@
         lucide.createIcons();
 
         async function handleLogout() {
+            // Locate the CSRF meta tag
+            const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
+            const token = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null;
+
+            // Initial Validation: If token is missing, stop process and alert the user
+            if (!token) {
+                console.error("CSRF token meta tag is missing!");
+                return Swal.fire({
+                    title: 'SYSTEM ERROR',
+                    text: 'Security token (CSRF) was not found. Please refresh the page (F5).',
+                    icon: 'error',
+                    background: '#151515',
+                    color: '#ffffff',
+                    confirmButtonColor: '#C9A74E'
+                });
+            }
+
+            // Logout Confirmation Dialog
             const result = await Swal.fire({
                 title: 'LOGOUT',
-                text: 'Are you sure you want to end this session?',
+                text: 'Are you sure you want to end your current session?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#C9A74E',
                 cancelButtonColor: '#333333',
                 confirmButtonText: 'Yes, Sign Out',
+                cancelButtonText: 'Cancel',
                 background: '#151515',
-                color: '#ffffff'
+                color: '#ffffff',
+                customClass: {
+                    popup: 'border border-zinc-800'
+                }
             });
 
+            // If the user confirms logout
             if (result.isConfirmed) {
-                // Tampilkan Loading
+                // Show loading state to prevent double clicks
                 Swal.fire({
-                    title: 'Logging out...',
+                    title: 'Signing out...',
                     allowOutsideClick: false,
                     showConfirmButton: false,
                     background: '#151515',
@@ -1067,23 +1091,34 @@
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': token
                         }
                     });
 
-                    const data = await response.json(); // Mengganti nama variable ke 'data' agar tidak bentrok dengan 'result' swal
-
+                    // Check if response is successful (200-299)
                     if (response.ok) {
-                        // Redirect langsung jika sukses
-                        window.location.href = '/form_login';
+                        // Redirect to homepage or login page
+                        window.location.href = '/'; 
                     } else {
-                        throw new Error(data.message || 'Logout failed');
+                        // Attempt to parse error message from server
+                        const contentType = response.headers.get("content-type");
+                        let errorMessage = 'Logout failed. Please try again.';
+                        
+                        if (contentType && contentType.includes("application/json")) {
+                            const data = await response.json();
+                            errorMessage = data.message || errorMessage;
+                        }
+
+                        throw new Error(errorMessage);
                     }
+
                 } catch (error) {
-                    // Tutup loading dan tampilkan error
+                    console.error("Logout Error:", error);
+                    
+                    // Show error alert if request fails
                     Swal.fire({
                         title: 'ERROR',
-                        text: error.message,
+                        text: error.message || 'An unexpected server error occurred.',
                         icon: 'error',
                         background: '#1a1a1a',
                         color: '#ffffff',

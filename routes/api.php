@@ -11,6 +11,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Gunakan format array secara konsisten
 Route::post('login', [AuthController::class, 'login']);
+Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::middleware([StartSession::class])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });

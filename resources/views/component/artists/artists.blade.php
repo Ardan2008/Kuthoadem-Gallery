@@ -28,7 +28,7 @@
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             -webkit-font-smoothing: antialiased; 
-            background-color: #050505; 
+            background-color: #0a0a0a; 
             color: #ffffff;
         }
         
@@ -64,7 +64,7 @@
                     The Artists
                 </h1>
                 <div class="max-w-2xl">
-                    <p class="text-xl md:text-2xl font-light leading-relaxed text-gray-300 italic">
+                    <p class="text-xl md:text-2xl font-light leading-relaxed text-gray-300">
                         "Every artist dips his brush in his own soul."
                     </p>
                 </div>
