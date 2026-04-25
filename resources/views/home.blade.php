@@ -165,8 +165,6 @@
             </div>
 
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                <div class="absolute top-0 left-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-amber-400/20 to-transparent animate-pulse"></div>
-                
                 <div class="absolute top-20 right-[10%] w-32 h-32 border border-white/5 rounded-full rotate-12"></div>
                 <div class="absolute bottom-40 left-[5%] w-24 h-24 border border-amber-400/10 rotate-45"></div>
                 

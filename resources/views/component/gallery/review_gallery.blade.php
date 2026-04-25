@@ -164,7 +164,7 @@
 
                 <div class="mt-12 flex items-center gap-6 group">
                     <div class="flex items-center gap-4">
-                        <span class="text-2xl font-light text-amber-500/80 font-serif italic">03</span>
+                        <span class="text-2xl font-light text-[#C9A74E] font-serif italic">03</span>
                         <div class="h-[1px] w-8 bg-zinc-700 group-hover:w-12 transition-all duration-500"></div>
                         <span class="text-[12px] text-zinc-400 font-medium uppercase tracking-[0.4em]">Collections</span>
                     </div>
@@ -195,7 +195,7 @@
         @php 
             $gallery = [
                 [
-                    'title' => 'Naturalisme', 
+                    'title' => 'The Stary Night', 
                     'author' => 'Johanna', 
                     'count' => 45, 
                     'main_img' => 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=800', 
@@ -203,7 +203,7 @@
                     'sub_img2' => 'https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&q=80&w=400'
                 ],
                 [
-                    'title' => 'Abstrak', 
+                    'title' => 'Monalisa', 
                     'author' => 'Barnowl88', 
                     'count' => 209, 
                     'main_img' => 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=800', 
@@ -211,7 +211,7 @@
                     'sub_img2' => 'https://images.unsplash.com/photo-1600715151005-e6d44b9ef840?w=500&auto=format&fit=crop&q=60'
                 ],
                 [
-                    'title' => 'Klasikisme', 
+                    'title' => 'Primitiv', 
                     'author' => 'Koza', 
                     'count' => 103, 
                     'main_img' => 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800', 

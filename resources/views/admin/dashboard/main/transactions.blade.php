@@ -79,6 +79,31 @@
             bottom: 0;
             background: linear-gradient(to top, #1a1a1a 0%, rgba(26, 26, 26, 0) 100%);
         }
+
+        /* table modal logic */
+        /* Mengatur tampilan scrollbar agar tipis dan elegan */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #333; /* Warna scrollbar saat diam */
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #C9A74E; /* Warna scrollbar saat di-hover (menyesuaikan tema emasmu) */
+        }
+
+        /* Memastikan header tetap solid saat di-scroll */
+        thead.sticky th {
+            background-color: #111;
+            box-shadow: inset 0 -1px 0 #262626; /* Pengganti border agar tidak hilang saat sticky */
+        }
     </style>
 </head>
 <body class="bg-[#1a1a1a] text-gray-300 antialiased font-sans">
@@ -186,186 +211,207 @@
 
                             @php
                                 $topArtworks = [
+                                    ['rank' => 1, 'title' => 'Realisme', 'image' => 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 2, 'title' => 'Naturalisme', 'image' => 'https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 3, 'title' => 'Impresionisme', 'image' => 'https://images.unsplash.com/photo-1615529151169-7b1ff50dc7f2?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 4, 'title' => 'Ekspresionisme', 'image' => 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 5, 'title' => 'Kubisme', 'image' => 'https://images.unsplash.com/photo-1612812166620-a072f77ec45b?w=500&auto=format&fit=crop&q=60'],
+                                    ['rank' => 6, 'title' => 'Surealisme', 'image' => 'https://images.unsplash.com/photo-1578301978018-3005759f48f7?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 7, 'title' => 'Abstrak', 'image' => 'https://images.unsplash.com/photo-1582201942988-13e60e4556ee?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 8, 'title' => 'Minimalisme', 'image' => 'https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 9, 'title' => 'Konseptual', 'image' => 'https://images.unsplash.com/photo-1579783483458-83d02161294e?q=80&w=400&auto=format&fit=crop'],
+                                    ['rank' => 10, 'title' => 'Pointilisme', 'image' => 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=400&auto=format&fit=crop'],
+                                ];
+                            @endphp
+
+                            @php
+                                $transactionData = [
                                     [
-                                        'rank' => 1,
-                                        'title' => 'The Starry Night',
-                                        'artist' => 'Vincent van Gogh, 1889',
-                                        'image' => 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'Mona Lisa',
+                                        'artist' => 'Leonardo Da Vinci',
+                                        'collector' => 'Clark Kent',
+                                        'price' => '$2,500',
+                                        'date' => '23 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 2,
-                                        'title' => 'Persistence of Memory',
-                                        'artist' => 'Salvador Dalí, 1931',
-                                        'image' => 'https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'Starry Night',
+                                        'artist' => 'Vincent van Gogh',
+                                        'collector' => 'Bruce Wayne',
+                                        'price' => '$3,200',
+                                        'date' => '24 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 3,
-                                        'title' => 'Mona Lisa',
-                                        'artist' => 'Leonardo da Vinci, 1503',
-                                        'image' => 'https://images.unsplash.com/photo-1615529151169-7b1ff50dc7f2?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'The Scream',
+                                        'artist' => 'Edvard Munch',
+                                        'collector' => 'Diana Prince',
+                                        'price' => '$1,800',
+                                        'date' => '25 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 4,
-                                        'title' => 'The Birth of Venus',
-                                        'artist' => 'Sandro Botticelli, 1486',
-                                        'image' => 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'The Birth of Venus',
+                                        'artist' => 'Sandro Botticelli',
+                                        'collector' => 'Barry Allen',
+                                        'price' => '$2,200',
+                                        'date' => '26 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 5,
-                                        'title' => 'The Scream',
-                                        'artist' => 'Edvard Munch, 1893',
-                                        'image' => 'https://images.unsplash.com/photo-1612812166620-a072f77ec45b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dGhlJTIwc2NyZWFtfGVufDB8fDB8fHww'
+                                        'artwork' => 'Persistence of Memory',
+                                        'artist' => 'Salvador Dalí',
+                                        'collector' => 'Hal Jordan',
+                                        'price' => '$1,500',
+                                        'date' => '27 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 6,
-                                        'title' => 'Girl with a Pearl Earring',
-                                        'artist' => 'Johannes Vermeer, 1665',
-                                        'image' => 'https://images.unsplash.com/photo-1578301978018-3005759f48f7?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'Girl with a Pearl Earring',
+                                        'artist' => 'Johannes Vermeer',
+                                        'collector' => 'Arthur Curry',
+                                        'price' => '$2,100',
+                                        'date' => '28 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 7,
-                                        'title' => 'The Night Watch',
-                                        'artist' => 'Rembrandt, 1642',
-                                        'image' => 'https://images.unsplash.com/photo-1582201942988-13e60e4556ee?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'The Night Watch',
+                                        'artist' => 'Rembrandt van Rijn',
+                                        'collector' => 'Victor Stone',
+                                        'price' => '$4,000',
+                                        'date' => '29 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 8,
-                                        'title' => 'Las Meninas',
-                                        'artist' => 'Diego Velázquez, 1656',
-                                        'image' => 'https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'The Kiss',
+                                        'artist' => 'Gustav Klimt',
+                                        'collector' => 'Selina Kyle',
+                                        'price' => '$2,800',
+                                        'date' => '30 Apr 2026',
                                     ],
                                     [
-                                        'rank' => 9,
-                                        'title' => 'American Gothic',
-                                        'artist' => 'Grant Wood, 1930',
-                                        'image' => 'https://images.unsplash.com/photo-1579783483458-83d02161294e?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'Las Meninas',
+                                        'artist' => 'Diego Velázquez',
+                                        'collector' => 'Oliver Queen',
+                                        'price' => '$3,500',
+                                        'date' => '01 May 2026',
                                     ],
                                     [
-                                        'rank' => 10,
-                                        'title' => 'The Garden of Delights',
-                                        'artist' => 'Hieronymus Bosch, 1500',
-                                        'image' => 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=400&auto=format&fit=crop'
+                                        'artwork' => 'American Gothic',
+                                        'artist' => 'Grant Wood',
+                                        'collector' => 'Billy Batson',
+                                        'price' => '$1,200',
+                                        'date' => '02 May 2026',
                                     ],
                                 ];
                             @endphp
 
-                            {{-- Top Artworks --}}
                             <div class="relative">
-
-                                {{-- Widget Top Artworks --}}
-                                <div class="lg:col-span-1 bg-[#1a1a1a] border border-neutral-800 rounded-[2.5rem] p-8 shadow-sm flex flex-col h-full">
-                                    <div class="flex justify-between items-center mb-8">
-                                        <h2 class="text-xl font-bold text-gray-300">Top Selling Artworks</h2>
-                                    </div>
-                                    
-                                    <div class="relative flex-1 scroll-shadow-container overflow-hidden rounded-2xl">
-                                        <div class="space-y-4 overflow-y-auto pr-2 no-scrollbar h-full" style="max-height: 400px;">
-                                            @foreach($topArtworks as $art)
-                                                {{-- Fungsi onclick mengirimkan data art sebagai JSON string --}}
-                                                <div onclick='openArtModal(@json($art))' 
-                                                    class="relative group cursor-pointer overflow-hidden rounded-2xl bg-black border border-neutral-800 hover:border-[#C9A74E]/40 transition-all p-4 flex items-center gap-4">
-                                                    
-                                                    <div class="relative z-10 flex-shrink-0 w-10 h-10 bg-[#C9A74E] rounded-lg flex items-center justify-center text-black font-black shadow-lg">
-                                                        {{ $art['rank'] }}
-                                                    </div>
-                                                    <div class="relative z-10 flex-1">
-                                                        <h3 class="text-gray-200 font-bold text-sm leading-tight group-hover:text-white transition-colors">{{ $art['title'] }}</h3>
-                                                        <p class="text-gray-500 text-[10px] mt-1 italic">{{ $art['artist'] }}</p>
-                                                    </div>
-                                                    <div class="absolute inset-0 z-0 opacity-10 group-hover:opacity-30 transition-all duration-700 pointer-events-none">
-                                                        <img src="{{ $art['image'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0" alt="bg">
-                                                    </div>
+                                {{-- List Artworks --}}
+                                <div class="lg:col-span-1 bg-[#1a1a1a] border border-neutral-800 rounded-[2.5rem] p-8 flex flex-col h-full">
+                                    <h2 class="text-xl font-bold text-gray-300 mb-8">Top Selling Artworks</h2>
+                                    <div class="space-y-4 overflow-y-auto pr-2 no-scrollbar" style="max-height: 400px;">
+                                        @foreach($topArtworks as $art)
+                                            <div onclick='openArtModal(@json($art))' 
+                                                class="relative group cursor-pointer overflow-hidden rounded-2xl bg-black border border-neutral-800 hover:border-[#C9A74E]/40 transition-all p-4 flex items-center gap-4">
+                                                <div class="relative z-10 flex-shrink-0 w-10 h-10 bg-[#C9A74E] rounded-lg flex items-center justify-center text-black font-black">
+                                                    {{ $art['rank'] }}
                                                 </div>
-                                            @endforeach
-                                        </div>
+                                                <div class="relative z-10 flex-1">
+                                                    <h3 class="text-gray-200 font-bold text-sm leading-tight">{{ $art['title'] }}</h3>
+                                                </div>
+                                                <div class="absolute inset-0 z-0 opacity-10 group-hover:opacity-30 transition-all duration-700">
+                                                    <img src="{{ $art['image'] }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
-                                {{-- MODAL MOCKUP (Detail) --}}
-                                <div id="artModal" 
-                                    class="fixed inset-0 z-[998] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md opacity-0 transition-opacity duration-300 cursor-default">
-                                    
-                                    {{-- Box Content --}}
-                                    <div class="relative bg-[#1a1a1a] border border-neutral-800 rounded-[3rem] overflow-hidden max-w-2xl w-full shadow-[0_0_50px_rgba(201,167,78,0.2)] scale-95 transition-transform duration-300" id="modalContent">
+                                {{-- MODAL DETAIL --}}
+                                <div id="artModal" class="fixed inset-0 z-[998] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+                                    <div id="modalContent" class="relative bg-[#0a0a0a] border border-neutral-900 rounded-3xl overflow-hidden max-w-6xl w-full scale-95 transition-transform duration-300 shadow-2xl">
                                         
-                                        {{-- TOMBOL CLOSE (X) DIKEMBALIKAN --}}
-                                        <button onclick="closeArtModal()" class="absolute top-6 right-6 z-50 p-3 bg-black/50 text-white rounded-full hover:bg-red-500 transition-colors">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                            </svg>
+                                        {{-- Header Section --}}
+                                        <div class="p-10 pb-6 flex justify-between items-end"> {{-- Ubah ke items-end agar sejajar ke bawah --}}
+                                            {{-- Sisi Kiri: Judul --}}
+                                            <div class="relative">
+                                                <h2 class="text-3xl font-bold text-gray-300 tracking-tight leading-none">Top Selling Artworks</h2>
+                                                <div class="flex items-center gap-2 mt-3">
+                                                    <span class="h-1 w-8 bg-[#C9A74E] rounded-full"></span>
+                                                    <p class="text-gray-500 text-sm font-medium tracking-wide">By Realisme Art</p>
+                                                </div>
+                                            </div>
+                                            
+                                            {{-- Sisi Kanan: Tombol Filter (Lebih Rendah & Jauh) --}}
+                                            <div class="relative mr-24 mb-1 group" id="filterDropdownContainer">
+                                                {{-- Tombol Filter --}}
+                                                <button onclick="toggleFilterDropdown()" class="bg-[#1a1a1a] hover:bg-[#252525] text-gray-300 text-xs font-bold py-3 px-6 rounded-xl border border-neutral-800 transition-all flex items-center gap-3 shadow-lg hover:border-[#C9A74E]/50 active:scale-95">
+                                                    <svg class="w-4 h-4 text-[#C9A74E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>
+                                                    </svg>
+                                                    <span id="currentFilterText">FILTER BY</span>
+                                                    <svg class="w-3 h-3 ml-1 text-gray-500 transition-transform duration-300" id="dropdownArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M19 9l-7 7-7-7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+
+                                                {{-- Menu List (Hidden by default) --}}
+                                                <div id="filterMenu" class="absolute right-0 mt-2 w-48 bg-[#151515] border border-neutral-800 rounded-xl shadow-2xl overflow-hidden hidden z-[100] opacity-0 translate-y-2 transition-all duration-200">
+                                                    <div class="py-1">
+                                                        <div class="py-1">
+                                                            {{-- Murah ke Mahal -> Price: Low to High --}}
+                                                            <button onclick="applySort('asc')" class="w-full text-left px-4 py-3 text-xs text-gray-400 hover:bg-[#C9A74E] hover:text-black transition-all duration-300 font-bold uppercase tracking-widest flex justify-between items-center group">
+                                                                <span>Price: Low to High</span>
+                                                                <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"/>
+                                                                </svg>
+                                                            </button>
+
+                                                            {{-- Mahal ke Murah -> Price: High to Low --}}
+                                                            <button onclick="applySort('desc')" class="w-full text-left px-4 py-3 text-xs text-gray-400 hover:bg-[#C9A74E] hover:text-black transition-all duration-300 font-bold uppercase tracking-widest border-t border-neutral-800/50 flex justify-between items-center group">
+                                                                <span>Price: High to Low</span>
+                                                                <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"/>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- Tombol Close (X) Tetap di Pojok Atas --}}
+                                        <button onclick="closeArtModal()" class="absolute top-8 right-8 z-50 group">
+                                            <div class="relative flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-full bg-white/5 border border-white/10 group-hover:bg-red-500/20 group-hover:border-red-500/50 group-hover:rotate-90 shadow-xl backdrop-blur-md">
+                                                <svg class="w-6 h-6 text-gray-400 group-hover:text-red-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <div class="absolute inset-0 rounded-full blur-lg bg-red-500/0 group-hover:bg-red-500/20 transition-all duration-300"></div>
+                                            </div>
                                         </button>
 
-                                        <div class="flex flex-col md:flex-row h-full">
-                                            {{-- Bagian Gambar (Klik untuk Full Preview) --}}
-                                            <div class="w-full md:w-1/2 h-[300px] md:h-[450px] overflow-hidden cursor-zoom-in group relative" onclick="openFullPreview()">
-                                                <img id="modalImage" src="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <span class="bg-white/10 text-gray-300 px-4 py-2 rounded-full text-xs font-bold backdrop-blur-md border border-white/20">Click to Preview</span>
-                                                </div>
-                                            </div>
-
-                                            {{-- Bagian Teks (Modern Art Gallery Style) --}}
-                                            <div class="w-full md:w-1/2 p-12 flex flex-col justify-center bg-[#1a1a1a] relative overflow-hidden">
-                                                
-                                                {{-- Aksen Background Dekoratif (Watermark halus) --}}
-                                                <div class="absolute -right-4 -bottom-4 text-[120px] font-black text-white/[0.02] select-none pointer-events-none uppercase italic">
-                                                    Art
-                                                </div>
-
-                                                {{-- Label Kategori / Rank --}}
-                                                <div class="flex items-center gap-4 mb-6">
-                                                    <span class="h-[1px] w-8 bg-[#C9A74E]"></span>
-                                                    <span class="text-[#C9A74E] font-black text-[10px] tracking-[0.5em] uppercase">
-                                                        Art Profile #<span id="modalRank"></span>
-                                                    </span>
-                                                </div>
-
-                                                {{-- Judul Karya --}}
-                                                <h2 id="modalTitle" class="text-4xl md:text-5xl font-extrabold text-gray-300 mb-6 leading-[1.1] tracking-tight">
-                                                    {{-- Diisi via JS --}}
-                                                </h2>
-
-                                                {{-- Info Artist & Deskripsi --}}
-                                                <div class="space-y-6">
-                                                    <div class="flex flex-col border-l-2 border-[#C9A74E]/30 pl-6 py-2">
-                                                        <span class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Created By</span>
-                                                        <p id="modalArtist" class="text-gray-300 text-lg font-medium tracking-wide italic"></p>
-                                                    </div>
-
-                                                    {{-- Tambahan Deskripsi Estetik (Opsional) --}}
-                                                    <p class="text-gray-500 text-sm leading-relaxed max-w-sm font-light">
-                                                        A masterpiece that captures the essence of emotion and technical brilliance, 
-                                                        preserved in the digital realm for the modern connoisseur.
-                                                    </p>
+                                        {{-- Table Container --}}
+                                        <div class="px-8 pb-8">
+                                            <div class="overflow-hidden rounded-xl border border-neutral-800 bg-[#111]">
+                                                <div class="max-h-[450px] overflow-y-auto custom-scrollbar">
+                                                    <table class="w-full text-left border-collapse">
+                                                        <thead class="sticky top-0 z-10"> <tr class="border-b border-neutral-800 bg-[#111] text-[11px] uppercase tracking-widest">
+                                                                <th class="px-6 py-4 text-gray-400 font-bold">Artworks Name</th>
+                                                                <th class="px-6 py-4 text-gray-400 font-bold border-l border-neutral-800/50 text-center">Artist</th>
+                                                                <th class="px-6 py-4 text-gray-400 font-bold border-l border-neutral-800/50 text-center">Collector</th>
+                                                                <th class="px-6 py-4 text-gray-400 font-bold border-l border-neutral-800/50 text-center">Price</th>
+                                                                <th class="px-6 py-4 text-gray-400 font-bold border-l border-neutral-800/50 text-center">Date Time</th>
+                                                                <th class="px-6 py-4 text-gray-400 font-bold border-l border-neutral-800/50 text-center">Details</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="divide-y divide-neutral-800" id="modalTableBody">
+                                                            {{-- Data akan di-render oleh JavaScript --}}
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {{-- 3. FULL IMAGE PREVIEW (Layer Paling Depan) --}}
-                                <div id="fullPreview" 
-                                    onclick="closeFullPreview()" 
-                                    class="fixed inset-0 z-[999] hidden flex-col items-center justify-center bg-black/95 backdrop-blur-2xl opacity-0 transition-opacity duration-300 cursor-zoom-out p-4 md:p-8">
-                                    
-                                    {{-- Wrapper Gambar --}}
-                                    <div class="relative flex flex-col items-center max-w-full max-h-full">
-                                        <img id="previewImg" 
-                                            src="" 
-                                            width="700px"
-                                            class="max-w-full max-h-[85vh] object-contain rounded-sm shadow-2xl scale-95 transition-transform duration-500 cursor-default">
-                                        
-                                        {{-- Teks Instruksi Statis --}}
-                                        <div class="mt-6 text-center">
-                                            <p class="text-white/40 text-[10px] md:text-xs uppercase tracking-[0.4em] font-light">
-                                                - Click anywhere outside the image to close -
-                                            </p>
-                                            {{-- Garis dekoratif minimalis --}}
-                                            <div class="mt-2 h-[1px] w-12 bg-[#C9A74E]/20 mx-auto"></div>
-                                        </div>
-                                    </div>
+                                {{-- FULL PREVIEW --}}
+                                <div id="fullPreview" onclick="closeFullPreview()" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/95 backdrop-blur-2xl opacity-0 transition-opacity duration-300 cursor-zoom-out p-8">
+                                    <img id="previewImg" src="" class="max-w-full max-h-[85vh] object-contain rounded-sm scale-95 transition-transform duration-500">
                                 </div>
-
                             </div>
 
                             {{-- Recent Activities --}}
@@ -529,8 +575,10 @@
                 <p class="text-[10px] text-gray-500 mt-1 uppercase tracking-[0.2em]">Manage your security</p>
             </div>
 
-            <div class="p-8 space-y-8"> {{-- Username (Readonly) --}}
-                <div class="space-y-3"> <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-2 block mb-1">Username</label>
+            <div class="p-8 space-y-8"> 
+                {{-- Username (Readonly) --}}
+                <div class="space-y-3"> 
+                    <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-2 block mb-1">Username</label>
                     <div class="relative">
                         <input type="text" value="{{ optional(Auth::user())->username }}" readonly 
                             class="w-full bg-neutral-900/50 border border-neutral-800/50 text-gray-500 rounded-2xl px-5 py-4 cursor-not-allowed outline-none text-sm">
@@ -640,7 +688,7 @@
         const actModal = document.getElementById('activityModal');
         const actModalContent = document.getElementById('activityModalContent');
 
-        // 1. Fungsi Membuka Modal dan Mengisi Data
+        // Fungsi Membuka Modal dan Mengisi Data
         function openActivityModal(data) {
             // Isi elemen modal dengan data yang dikirim dari kartu
             document.getElementById('actModalAvatar').src = data.avatar;
@@ -662,7 +710,7 @@
             }, 10); // Delay sangat kecil agar browser sempat render class 'flex'
         }
 
-        // 2. Fungsi Menutup Modal
+        // Fungsi Menutup Modal
         function closeActivityModal() {
             // Trigger animasi keluar (fade out & scale down)
             actModal.classList.remove('opacity-100');
@@ -676,14 +724,14 @@
             }, 300);
         }
 
-        // 3. Menutup Modal jika mengklik area luar box (layar belakang)
+        // Menutup Modal jika mengklik area luar box (layar belakang)
         window.onclick = function(event) {
             if (event.target == actModal) {
                 closeActivityModal();
             }
         }
 
-        // 4. Menutup Modal jika menekan tombol Escape (ESC)
+        // Menutup Modal jika menekan tombol Escape (ESC)
         document.onkeydown = function(evt) {
             evt = evt || window.event;
             if (evt.keyCode == 27 && !actModal.classList.contains('hidden')) {
@@ -691,63 +739,159 @@
             }
         };
 
-        // top artworks modal logic
-        const modal = document.getElementById('artModal');
-        const modalContent = document.getElementById('modalContent');
-        const fullPreview = document.getElementById('fullPreview');
-        const previewImg = document.getElementById('previewImg');
-
-        // Membuka Detail Modal
-        function openArtModal(art) {
-            document.getElementById('modalImage').src = art.image;
-            document.getElementById('modalTitle').innerText = art.title;
-            document.getElementById('modalArtist').innerText = art.artist;
-            document.getElementById('modalRank').innerText = art.rank;
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-                modalContent.classList.replace('scale-95', 'scale-100');
-            }, 10);
+        // logic untuk dropdown filter pada modal
+        function toggleFilterDropdown() {
+            const menu = document.getElementById('filterMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                // Trigger transition
+                requestAnimationFrame(() => {
+                    menu.classList.add('opacity-100', 'translate-y-0');
+                    menu.classList.remove('opacity-0', 'translate-y-2');
+                    arrow.classList.add('rotate-180');
+                });
+            } else {
+                closeFilterDropdown();
+            }
         }
 
-        // Menutup Detail Modal (Dipanggil oleh tombol X)
+        function closeFilterDropdown() {
+            const menu = document.getElementById('filterMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            
+            menu.classList.remove('opacity-100', 'translate-y-0');
+            menu.classList.add('opacity-0', 'translate-y-2');
+            arrow.classList.remove('rotate-180');
+            
+            // Wait for transition to finish before hiding
+            setTimeout(() => menu.classList.add('hidden'), 200);
+        }
+
+        // data sorting logic
+        function applySort(order) {
+            const textSpan = document.getElementById('currentFilterText');
+            
+            // Sort existing transactions array
+            transactions.sort((a, b) => {
+                // Remove currency symbols and commas to compare as numbers
+                const priceA = parseFloat(a.price.replace(/[^0-9.-]+/g, ""));
+                const priceB = parseFloat(b.price.replace(/[^0-9.-]+/g, ""));
+                
+                return order === 'asc' ? priceA - priceB : priceB - priceA;
+            });
+
+            // Update button display text
+            textSpan.innerText = order === 'asc' ? 'PRICE: LOW TO HIGH' : 'PRICE: HIGH TO LOW';
+            
+            // Re-render table with sorted data
+            renderTableRows();
+            closeFilterDropdown();
+        }
+
+        // optimized table rendering function
+        function renderTableRows() {
+            const tableBody = document.getElementById('modalTableBody');
+            
+            // Using map and join is more performant than += innerHTML in a loop
+            tableBody.innerHTML = transactions.map(data => `
+                <tr class="hover:bg-white/[0.02] transition-colors group">
+                    <td class="px-6 py-5 text-gray-300 font-bold text-sm uppercase tracking-tight">${data.artwork}</td>
+                    <td class="px-6 py-5 text-gray-400 text-sm border-l border-neutral-800/50 text-center">${data.artist}</td>
+                    <td class="px-6 py-5 text-gray-400 text-sm border-l border-neutral-800/50 text-center">${data.collector}</td>
+                    <td class="px-6 py-5 text-[#C9A74E] font-black text-sm border-l border-neutral-800/50 text-center">${data.price}</td>
+                    <td class="px-6 py-5 text-gray-500 text-sm border-l border-neutral-800/50 text-center">${data.date}</td>
+                    <td class="px-6 py-5 border-l border-neutral-800/50 text-right">
+                        <button onclick="openModal('${data.artwork}', '${data.artist}', '${data.collector}', '${data.price}', '${data.date}')" 
+                                class="bg-[#141414] hover:bg-[#C9A74E] text-gray-400 hover:text-black text-[10px] font-bold py-2 px-5 rounded-lg border border-neutral-800 hover:border-[#C9A74E] transition-all uppercase tracking-widest shadow-md">
+                            Details
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Global click listener to close dropdown when clicking outside
+        window.addEventListener('click', (event) => {
+            if (!event.target.closest('#filterDropdownContainer')) {
+                closeFilterDropdown();
+            }
+        });
+
+        // -- Logic untuk artwork --
+        // Convert PHP array to JavaScript
+        const transactions = @json($transactionData);
+
+        // open the modal and render the table
+        function openArtModal(category = null) {
+            const modal = document.getElementById('artModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Render the table rows using our optimized function
+            renderTableRows();
+
+            // Display Modal with Animation
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Use requestAnimationFrame for smoother entry animation
+            requestAnimationFrame(() => {
+                modal.classList.add('opacity-100');
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            });
+        }
+
+        // Closes the modal with a smooth fade-out animation
         function closeArtModal() {
+            const modal = document.getElementById('artModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Start exit animation
             modal.classList.remove('opacity-100');
             modalContent.classList.replace('scale-100', 'scale-95');
+            modalContent.classList.add('opacity-0');
+            
+            // Hide from DOM after transition completes (300ms)
             setTimeout(() => {
                 modal.classList.replace('flex', 'hidden');
             }, 300);
         }
 
-        // Membuka Preview Gambar Saja
-        function openFullPreview() {
-            previewImg.src = document.getElementById('modalImage').src;
-            fullPreview.classList.remove('hidden');
-            fullPreview.classList.add('flex');
-            setTimeout(() => {
-                fullPreview.classList.add('opacity-100');
-                previewImg.classList.replace('scale-90', 'scale-100');
-            }, 10);
-        }
+        // optimized table rendering function
+        function renderTableRows() {
+            const tableBody = document.getElementById('modalTableBody');
+            
+            if (!tableBody) return;
 
-        // Menutup Preview Gambar Saja (Dipanggil oleh klik layar belakang)
-        function closeFullPreview() {
-            fullPreview.classList.remove('opacity-100');
-            previewImg.classList.replace('scale-100', 'scale-90');
-            setTimeout(() => {
-                fullPreview.classList.replace('flex', 'hidden');
-            }, 300);
+            tableBody.innerHTML = transactions.map(data => `
+                <tr class="hover:bg-white/[0.03] transition-all duration-300 group border-b border-neutral-800/30">
+                    <td class="px-6 py-5 text-gray-200 font-bold text-sm uppercase tracking-tight">
+                        ${data.artwork}
+                    </td>
+                    <td class="px-6 py-5 text-gray-400 text-sm border-l border-neutral-800/50 text-center">
+                        ${data.artist}
+                    </td>
+                    <td class="px-6 py-5 text-gray-400 text-sm border-l border-neutral-800/50 text-center">
+                        ${data.collector}
+                    </td>
+                    <td class="px-6 py-5 text-[#C9A74E] font-black text-sm border-l border-neutral-800/50 text-center">
+                        ${data.price}
+                    </td>
+                    <td class="px-6 py-5 text-gray-500 text-xs border-l border-neutral-800/50 text-center font-mono">
+                        ${data.date}
+                    </td>
+                    <td class="px-6 py-5 border-l border-neutral-800/50 text-center">
+                        <button class="bg-[#1a1a1a] hover:bg-[#C9A74E] text-gray-400 hover:text-black text-[10px] font-bold py-2 px-5 rounded-lg border border-neutral-800 hover:border-[#C9A74E] transition-all uppercase tracking-widest shadow-lg active:scale-90">
+                            Details
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
         }
-
-        // Support Tombol ESC untuk kedua modal
-        document.onkeydown = function(evt) {
-            if (evt.key === "Escape") {
-                if (!fullPreview.classList.contains('hidden')) closeFullPreview();
-                else if (!modal.classList.contains('hidden')) closeArtModal();
-            }
-        };
 
         // logic untuk dropdown menu pada widget
         function openWidgetMenu(buttonElement) {
@@ -786,43 +930,57 @@
             }
         });
 
-        // chart 1: Visitor Bar Chart
+        // Chart untuk Visitor Bar Chart
         document.addEventListener('DOMContentLoaded', () => {
             const ctxBar = document.getElementById('visitorBarChart').getContext('2d');
             new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     datasets: [{
                         label: 'Visitors',
-                        data: [920, 480, 510, 940, 500, 800, 960, 220, 530, 50, 260, 70, 120],
-                        backgroundColor: '#C9A74E', // Tetap biru indigo sesuai gambar 1
-                        hoverBackgroundColor: '#A88C3F', // Warna saat hover
-                        borderRadius: 6,
-                        barThickness: 30,
+                        data: [920, 480, 510, 940, 500, 800, 960, 220, 530, 450, 260, 320],
+                        backgroundColor: '#C9A74E',
+                        hoverBackgroundColor: '#A88C3F',
+                        borderRadius: 8, // Sedikit lebih bulat agar modern
+                        barThickness: 28, // Ukuran bar lebih tebal (sebelumnya 20)
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    layout: {
+                        padding: {
+                            top: 10 // Memberi ruang di atas bar tertinggi
+                        }
+                    },
+                    plugins: { 
+                        legend: { display: false } 
+                    },
                     scales: {
                         y: {
                             beginAtZero: true,
                             max: 1000,
                             ticks: { 
                                 stepSize: 250, 
-                                color: '#6b7280' // Warna teks abu-abu (gray-500)
+                                color: '#6b7280',
+                                font: {
+                                    size: 13 // Ukuran font angka samping diperbesar
+                                }
                             },
                             grid: { 
-                                color: 'rgba(255, 255, 255, 0.05)', // Garis grid sangat tipis
+                                color: 'rgba(255, 255, 255, 0.05)', 
                                 drawBorder: false
                             }
                         },
                         x: {
                             grid: { display: false },
                             ticks: { 
-                                color: '#6b7280' 
+                                color: '#9ca3af', // Warna abu lebih terang agar terbaca
+                                font: {
+                                    size: 13, // Ukuran font bulan diperbesar
+                                    weight: '500'
+                                }
                             }
                         }
                     }

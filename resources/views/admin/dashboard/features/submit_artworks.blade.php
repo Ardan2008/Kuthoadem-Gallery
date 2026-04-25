@@ -116,8 +116,8 @@
                     $collections = [
                         [
                             'id' => '01',
-                            'title' => 'SURREALISME',
-                            'category' => 'Digital Art', // Pastikan key category ada agar filter jalan
+                            'title' => 'SUREALISME',
+                            'category' => 'Surealisme',
                             'artist' => 'By Elara Vensley',
                             'images' => [
                                 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=500',
@@ -127,8 +127,8 @@
                         ],
                         [
                             'id' => '02',
-                            'title' => 'FIGURATIVE',
-                            'category' => 'Photography',
+                            'title' => 'NATURALISME',
+                            'category' => 'Naturalisme',
                             'artist' => 'By Eldric Thornwood',
                             'images' => [
                                 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=500',
@@ -138,18 +138,130 @@
                         ],
                         [
                             'id' => '03',
-                            'title' => 'NATURALISM',
-                            'category' => 'Illustration',
+                            'title' => 'IMPRESIONISME',
+                            'category' => 'Impresionisme',
                             'artist' => 'By Botanica Art',
                             'images' => [
                                 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=500',
                                 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?q=80&w=300',
                                 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=300'
                             ]
-                        ]
+                        ],
+                        [
+                            'id' => '04',
+                            'title' => 'REALISME',
+                            'category' => 'Realisme',
+                            'artist' => 'By Julian Marcks',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?q=80&w=500',
+                                'https://images.unsplash.com/photo-1579783928621-7a13d66a6211?q=80&w=300',
+                                'https://images.unsplash.com/photo-1580136608260-4eb11f4b24fe?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '05',
+                            'title' => 'EKSPRESIONISME',
+                            'category' => 'Ekspresionisme',
+                            'artist' => 'By Valerius Thorne',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=500',
+                                'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=300',
+                                'https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '06',
+                            'title' => 'KUBISME',
+                            'category' => 'Kubisme',
+                            'artist' => 'By Arlo Finch',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?q=80&w=500',
+                                'https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=300',
+                                'https://images.unsplash.com/photo-1576769267415-9642010aa962?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '07',
+                            'title' => 'ABSTRAK',
+                            'category' => 'Abstrak',
+                            'artist' => 'By Nova Sterling',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=500',
+                                'https://images.unsplash.com/photo-1500462859194-885860d110f6?q=80&w=300',
+                                'https://images.unsplash.com/photo-1492037766660-2a56f9eb3fcb?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '08',
+                            'title' => 'MINIMALISME',
+                            'category' => 'Minimalisme',
+                            'artist' => 'By Lena Ray',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=500',
+                                'https://images.unsplash.com/photo-1507646227500-4d389b0012be?q=80&w=300',
+                                'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '09',
+                            'title' => 'KONSEPTUAL',
+                            'category' => 'Konseptual',
+                            'artist' => 'By Orion Voss',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=500',
+                                'https://images.unsplash.com/photo-1561214115-f2f134cc4912?q=80&w=300',
+                                'https://images.unsplash.com/photo-1554188248-986adbb73be4?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '10',
+                            'title' => 'STREET ART / GRAFFITI',
+                            'category' => 'Street Art / Graffiti',
+                            'artist' => 'By Jax Wild',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=500',
+                                'https://images.unsplash.com/photo-1533158307587-828f0a76ef46?q=80&w=300',
+                                'https://images.unsplash.com/photo-1515405299443-f71bb71811da?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '11',
+                            'title' => 'POINTILISME',
+                            'category' => 'Pointilisme',
+                            'artist' => 'By Dot Master',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=500',
+                                'https://images.unsplash.com/photo-1578301978018-3005759f48f7?q=80&w=300',
+                                'https://images.unsplash.com/photo-1579783928570-07289ca58988?q=80&w=300'
+                            ]
+                        ],
+                        [
+                            'id' => '12',
+                            'title' => 'NAIF / PRIMITIF',
+                            'category' => 'Naif / Primitif',
+                            'artist' => 'By Tribal Soul',
+                            'images' => [
+                                'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=500',
+                                'https://images.unsplash.com/photo-1518998053574-53ee81f24b7a?q=80&w=300',
+                                'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=300'
+                            ]
+                        ],
                     ];
 
-                    $categories = ['Digital Art', 'Photography', 'Illustration'];
+                    $categories = [
+                        'Realisme', 
+                        'Naturalisme', 
+                        'Impresionisme', 
+                        'Ekspresionisme', 
+                        'Kubisme', 
+                        'Surealisme', 
+                        'Abstrak', 
+                        'Minimalisme', 
+                        'Konseptual', 
+                        'Street Art / Graffiti', 
+                        'Pointilisme', 
+                        'Naif / Primitif'
+                    ];
                 @endphp
 
                 <div class="min-h-screen py-20 px-6 font-sans antialiased text-gray-200">

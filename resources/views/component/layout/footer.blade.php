@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-    /* ANIMASI: Bingkai menggunakan Emas yang konsisten */
+    /* ANIMASI: Bingkai menggunakan Emas */
     @keyframes frameDrawBorder {
         0% { border-color: rgba(201, 167, 78, 0.05); }
         50% { border-color: rgba(201, 167, 78, 0.4); }
@@ -37,115 +37,113 @@
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C9A74E]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
     <div class="max-w-[1440px] mx-auto px-10 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-24">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-24 items-stretch">
             
-            <div class="md:col-span-4 space-y-8">
+            <div class="md:col-span-12 lg:col-span-4 flex flex-col justify-between space-y-12 border-r border-white/5 pr-8">
                 <div class="group cursor-default">
-                    <h2 class="text-3xl font-serif font-bold tracking-[0.25em] uppercase leading-none text-gray-300 transition-all duration-500">
+                    <h2 class="text-4xl font-serif font-bold tracking-[0.2em] uppercase leading-none text-gray-300 transition-all duration-500">
                         Kuthoadem
-                        <span class="text-gold font-light italic block text-xl tracking-[0.1em] mt-2 group-hover:translate-x-2 transition-transform duration-500">Fine Art Gallery</span>
+                        <span class="text-[#C9A74E] font-light italic block text-2xl tracking-[0.1em] mt-4 group-hover:translate-x-3 transition-transform duration-500">Fine Art Gallery</span>
                     </h2>
                 </div>
-                <div class="max-w-sm relative">
-                    <div class="absolute -inset-6 bg-[#C9A74E]/5 blur-[30px] rounded-full pointer-events-none"></div>
-                    <div class="relative z-10 p-1 bg-black/40 backdrop-blur-sm">
-                        <div class="border border-[#C9A74E]/20 p-6 relative animate-frame-draw overflow-hidden">
-                            <div class="absolute top-0 left-0 w-6 h-[1px] bg-gold"></div>
-                            <div class="absolute top-0 left-0 w-[1px] h-6 bg-gold"></div>
-                            <div class="absolute bottom-0 right-0 w-6 h-[1px] bg-gold"></div>
-                            <div class="absolute bottom-0 right-0 w-[1px] h-6 bg-gold"></div>
-                            
-                            <p class="text-slate-400 text-sm leading-loose font-light italic animate-text-reveal">
-                                "Where timeless masterpieces meet contemporary vision. A premier digital sanctuary for curated fine arts and global artistic excellence."
-                            </p>
-                            <div class="mt-6 flex items-center gap-3">
-                                <div class="h-[1px] w-16 bg-[#C9A74E]/40"></div>
-                                <div class="h-1 w-1 rounded-full bg-gold animate-pulse"></div>
-                            </div>
-                            <div class="absolute bottom-1 right-2 text-[8px] uppercase tracking-[0.3em] text-slate-700">CFA_ART_2026</div>
-                            <div class="gold-particle" style="width: 2px; height: 2px; bottom: 10%; left: 20%; animation-duration: 4s; animation-delay: 1s;"></div>
-                            <div class="gold-particle" style="width: 3px; height: 3px; bottom: 15%; left: 50%; animation-duration: 6s; animation-delay: 0s;"></div>
+                
+                <div class="relative">
+                    <div class="absolute -inset-10 bg-[#C9A74E]/5 blur-[50px] rounded-full pointer-events-none"></div>
+                    <div class="relative z-10 border-l-2 border-[#C9A74E]/30 pl-8 py-2">
+                        <p class="text-gray-300 text-lg leading-relaxed font-light italic max-w-md">
+                            " Where timeless masterpieces meet contemporary vision. A premier digital sanctuary for curated fine arts."
+                        </p>
+                        <div class="mt-8 flex items-center gap-6">
+                            <div class="h-[1px] w-24 bg-[#C9A74E]/40"></div>
                         </div>
                     </div>
                 </div>
-                <div class="flex gap-4">
-                    <a href="#" class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-500 transition-all duration-500 ease-out hover:text-[#C9A74E] hover:border-[#C9A74E]/40 hover:bg-[#C9A74E]/5 group">
-                        <i class="fa-brands fa-instagram text-base transition-transform duration-500 group-hover:scale-110"></i>
-                    </a>
 
-                    <a href="#" class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-500 transition-all duration-500 ease-out hover:text-[#C9A74E] hover:border-[#C9A74E]/40 hover:bg-[#C9A74E]/5 group">
-                        <i class="fa-brands fa-facebook-f text-base transition-transform duration-500 group-hover:scale-110"></i>
+                <div class="flex gap-6">
+                    <a href="#" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-500 hover:text-[#C9A74E] hover:border-[#C9A74E] hover:bg-[#C9A74E]/5 group">
+                        <i class="fa-brands fa-instagram text-xl transition-transform duration-500 group-hover:rotate-12"></i>
                     </a>
-
-                    <a href="#" class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-500 transition-all duration-500 ease-out hover:text-[#C9A74E] hover:border-[#C9A74E]/40 hover:bg-[#C9A74E]/5 group">
-                        <i class="fa-brands fa-tiktok text-base transition-transform duration-500 group-hover:scale-110"></i>
+                    <a href="#" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-500 hover:text-[#C9A74E] hover:border-[#C9A74E] hover:bg-[#C9A74E]/5 group">
+                        <i class="fa-brands fa-tiktok text-xl"></i>
                     </a>
-
-                    <a href="#" class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-500 transition-all duration-500 ease-out hover:text-[#C9A74E] hover:border-[#C9A74E]/40 hover:bg-[#C9A74E]/5 group">
-                        <i class="fa-brands fa-x-twitter text-base transition-transform duration-500 group-hover:scale-110"></i>
+                    <a href="#" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-500 hover:text-[#C9A74E] hover:border-[#C9A74E] hover:bg-[#C9A74E]/5 group">
+                        <i class="fa-brands fa-facebook-f text-xl"></i>
                     </a>
                 </div>
             </div>
 
-            <div class="md:col-span-2">
-                <h4 class="text-gold uppercase tracking-[0.4em] text-[10px] font-bold mb-10 flex items-center gap-2">
-                    <span class="w-6 h-[1px] bg-gold/30"></span> Explore
-                </h4>
-                <ul class="space-y-4 text-[14px] font-light text-slate-400">
-                    <li><a href="/artists" class="hover:text-gold transition-all flex items-center gap-3 group"><span class="w-0 h-[1px] bg-gold transition-all group-hover:w-4"></span> Artists</a></li>
-                    <li><a href="/gallery" class="hover:text-gold transition-all flex items-center gap-3 group"><span class="w-0 h-[1px] bg-gold transition-all group-hover:w-4"></span> Gallery</a></li>
-                </ul>
-            </div>
+            <div class="md:col-span-6 lg:col-span-4 grid grid-cols-2 gap-8 border-r border-white/5 px-4">
+                <div class="space-y-10">
+                    <h4 class="text-[#C9A74E] uppercase tracking-[0.4em] text-[12px] font-bold flex items-center gap-2">
+                        Explore
+                    </h4>
+                    <ul class="space-y-8 text-lg font-light text-gray-400">
+                        <li>
+                            <a href="/artists" class="group flex items-baseline gap-2 transition-colors duration-300 hover:text-gray-300">
+                            <span class="font-mono text-sm text-[#C9A74E]">01.</span>
+                            <span class="relative">
+                                Artists
+                                <span class="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#C9A74E] transition-all duration-300 ease-out group-hover:w-full"></span>
+                            </span>
+                            </a>
+                        </li>
 
-            <div class="md:col-span-2">
-                <h4 class="text-gold uppercase tracking-[0.4em] text-[10px] font-bold mb-10 flex items-center gap-2">
-                    <span class="w-6 h-[1px] bg-gold/30"></span> Opening
-                </h4>
-                <ul class="space-y-4 text-[11px] font-light text-slate-400 uppercase tracking-widest leading-relaxed">
-                    <li><span class="text-slate-500 block mb-1 font-bold">Mon — Fri</span> 10:00 AM — 08:00 PM</li>
-                    <li><span class="text-slate-500 block mb-1 font-bold">Sat — Sun</span> 11:00 AM — 06:00 PM</li>
-                    <li class="pt-2 italic text-gold/60 font-serif lowercase tracking-normal text-sm">* By appointment only</li>
-                </ul>
-            </div>
+                        <li>
+                            <a href="/gallery" class="group flex items-baseline gap-2 transition-colors duration-300 hover:text-gray-300">
+                            <span class="font-mono text-sm text-[#C9A74E]">02.</span>
+                            <span class="relative">
+                                Gallery
+                                <span class="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#C9A74E] transition-all duration-300 ease-out group-hover:w-full"></span>
+                            </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-            <div class="md:col-span-2">
-                <h4 class="text-gold uppercase tracking-[0.4em] text-[10px] font-bold mb-10 flex items-center gap-2">
-                    <span class="w-6 h-[1px] bg-gold/30"></span> Contact
-                </h4>
-                <ul class="space-y-10 antialiased">
-                    <li class="group">
-                        <div class="flex items-center gap-3 mb-1">
-                            <div class="w-1 h-1 rounded-full bg-gold"></div>
-                            <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase">Email</span>
+                <div class="space-y-10">
+                    <h4 class="text-[#C9A74E] uppercase tracking-[0.4em] text-[12px] font-bold">Opening</h4>
+                    <div class="space-y-6">
+                        <div class="group">
+                            <p class="text-gray-500 text-[12px] uppercase tracking-widest mb-1">Weekdays</p>
+                            <p class="text-gray-300 text-sm font-light">10:00 — 20:00</p>
                         </div>
-                        <a href="mailto:hello@kuthoadem.art" class="text-base font-light tracking-tight text-slate-400 hover:text-gold transition-colors duration-300">
-                            hello@kuthoadem.art
-                        </a>
-                    </li>
-                    <li class="group">
-                        <div class="flex items-center gap-3 mb-1">
-                            <div class="w-1 h-1 rounded-full bg-gold"></div>
-                            <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase">Number</span>
+                        <div class="group">
+                            <p class="text-gray-500 text-[12px] uppercase tracking-widest mb-1">Weekends</p>
+                            <p class="text-gray-300 text-sm font-light">11:00 — 18:00</p>
                         </div>
-                        <a href="tel:+6281389256833" class="text-base font-light tracking-[0.05em] text-slate-400 hover:text-gold transition-colors duration-300">
-                            +62 813-8925-6833
-                        </a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="md:col-span-2">
-                <h4 class="text-gold uppercase tracking-[0.4em] text-[10px] font-bold mb-10 flex items-center gap-2">
-                    <span class="w-6 h-[1px] bg-gold/30"></span> Journal
-                </h4>
-                <p class="text-slate-500 text-[13px] mb-6 font-light leading-relaxed">Join for private previews.</p>
-                <form action="#" class="relative group border-b border-white/10 focus-within:border-gold/50 transition-all duration-500">
-                    <input type="email" placeholder="EMAIL" required class="w-full bg-transparent py-2 pr-8 text-[10px] tracking-[0.2em] focus:outline-none placeholder:text-slate-700 text-white">
-                    <button type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-gold hover:text-white transition-all">
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                </form>
+            <div class="md:col-span-6 lg:col-span-4 flex flex-col justify-between pl-8">
+                <div class="space-y-10">
+                    <h4 class="text-[#C9A74E] uppercase tracking-[0.4em] text-[12px] font-bold flex items-center gap-2">
+                        Connect
+                    </h4>
+                    <div class="space-y-12">
+                        <div class="group">
+                            <span class="text-[10px] font-bold tracking-[0.3em] text-slate-600 uppercase block mb-3">Email</span>
+                            <a href="mailto:hello@kuthoadem.art" class="text-xl font-light text-gray-300 hover:text-[#C9A74E] transition-all duration-300">
+                                gallery@kuthoadem.art
+                            </a>
+                        </div>
+                        <div class="group border-t border-white/5 pt-8">
+                            <span class="text-[10px] font-bold tracking-[0.3em] text-slate-600 uppercase block mb-3">Number</span>
+                            <a href="tel:+6281389256833" class="text-xl font-light text-gray-300 hover:text-[#C9A74E] transition-all duration-300">
+                                +62 813 8925 6833
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-12 border-t border-white/5">
+                    <p class="text-[10px] text-slate-500 uppercase tracking-[0.5em] leading-loose">
+                        Based in Indonesia<br/>
+                        Serving Global Connoisseurs
+                    </p>
+                </div>
             </div>
+
         </div>
 
         <div class="border-t border-white/10 pt-16 relative">
@@ -159,7 +157,7 @@
                         </p>
                         <span class="h-4 w-[1px] bg-white/20 hidden md:block"></span> 
                         <p class="text-[11px] md:text-[12px] uppercase tracking-[0.3em] text-slate-600 italic">
-                            Chroma Gallery
+                            The Living Canvas
                         </p>
                     </div>
                 </div>
